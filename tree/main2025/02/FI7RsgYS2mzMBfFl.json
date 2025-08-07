@@ -1,0 +1,92 @@
+{
+  "active": true,
+  "connections": {
+    "HubSpot Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-14T20:08:58.743Z",
+  "id": "FI7RsgYS2mzMBfFl",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "hs new company trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "eventsUi": {
+          "eventValues": [
+            {
+              "name": "company.creation"
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "778fd1a3-3030-4aca-a155-0a1b6250765d",
+      "name": "HubSpot Trigger",
+      "webhookId": "159b0ef4-1fe1-4a63-8c2f-b4896c74acce",
+      "credentials": {
+        "hubspotDeveloperApi": {
+          "id": "OBcrAoWkf72RWijt",
+          "name": "HubSpot Cesium-dev App"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "7035125096",
+        "text": "={{ $json.subscriptionType }} with ID {{ $json.companyId }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "81b3f109-b860-46f2-8e0a-02f435905e24",
+      "name": "Telegram",
+      "webhookId": "5e5a292e-6044-46aa-b9bc-8c43242b9fe5",
+      "credentials": {
+        "telegramApi": {
+          "id": "I8lcVRjq6zQF1oxu",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "tree/main",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T20:29:57.197Z",
+      "updatedAt": "2025-03-19T20:29:57.197Z",
+      "id": "0vGvjL3g8YDdI9cG",
+      "name": "test"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2025-03-19T20:30:33.000Z",
+  "versionId": "384b029f-e6e5-4e87-b924-82f7973fe9b6"
+}
