@@ -1,0 +1,1005 @@
+{
+  "active": false,
+  "connections": {
+    "Identify Missing Fields": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Update Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4-turbo": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Create Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Row": {
+      "main": [
+        [
+          {
+            "node": "Relax",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Relax": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New Item Added": {
+      "main": [
+        [
+          {
+            "node": "Identify Missing Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brainstorm Prompt": {
+      "main": [
+        [
+          {
+            "node": "Brainstorm Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4-turbo1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Brainstorm Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Brainstorm Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brainstorm Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Response": {
+      "main": [
+        [
+          {
+            "node": "Loop Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Chill",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chill": {
+      "main": [
+        [
+          {
+            "node": "Loop Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Batches": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "read_existing": {
+      "main": [
+        [
+          {
+            "node": "Brainstorm Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "read_existing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-05T23:34:33.519Z",
+  "id": "CZTHekU4TsxWRidc",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Brainstorm: Use Cases",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const missingFields = [];\n  ['title','category','tagline','blurb','body','icon','image','imagealt','callout-title','callout-blurb','callout-link','callout-cta'].forEach(field => {\n    if (!item.json[field]) missingFields.push(field);\n  });\n  item.json.missingFields = missingFields;\n  return item;\n});"
+      },
+      "name": "Identify Missing Fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        0
+      ],
+      "id": "8953e899-edc7-4e7d-8aec-9c26e521e02a"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}\n\nwe are working on row id number: {{ $('Loop Over Items').item.json.id }}\n\nhere is the use case prompt: {{ $('Loop Over Items').item.json['use-case-prompt'] }}\n\nand here is the optional title, if provided by the user: {{ $('Loop Over Items').item.json.title }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1200,
+        0
+      ],
+      "id": "6465ff18-6ca2-4959-9a03-52ea0c8a19c8",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"use-case-prompt\": \"<use-case-prompt unchanged input>\",\n\t\"title\": \"<use case title, unless provided>\",\n\t\"category\": \"<personal | professional | enterprise>\",\n\t\"tagline\": \"<catchy tagline>\",\n\t\"blurb\": \"<concise and engaging blurb>\",\n\t\"body\": \"<narrative-driven use case description>\",\n\t\"icon\": \"<best Font Awesome Free icon>\",\n\t\"callout-title\": \"<attention-grabbing title>\",\n\t\"callout-blurb\": \"<persuasive one-sentence pitch>\",\n\t\"callout-link\": \"/free-consultation\",\n\t\"callout-cta\": \"<compelling call to action>\",\n\t\"image\": \"<ignore field>\",\n\t\"imagealt\": \"<ignore field>\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1440,
+        200
+      ],
+      "id": "34090dba-c2f5-4f9d-8678-2cfb8065cf80",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1140,
+        200
+      ],
+      "id": "03874c29-4d64-4cba-b3da-44d76b99f48a",
+      "name": "gpt-4-turbo",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    prompt: `You are an expert in business process optimization, automation, and creative copywriting. Your goal is to categorize and generate engaging and practical content for use-case-prompt(s) entered into a spreadsheet. \n\n### **Step 1: Orientation**\n    The use-case-prompt may be accompanied by a **title**, if so, preserve it. \n    If not, please create a two word **title**.\n    \n\n### **Step 2: Categorization**\nClassify the **use case** into one of the following three **categories**:\n- **Personal** (focused on individual productivity or life optimization)\n- **Professional** (specific to a professional’s workflow, tools, or responsibilities)\n- **Enterprise** (focused on business operations, automation at scale, or team processes)\n\nDetermine the **best category** based only on the use case description.\n\n### **Step 3: Creative Copywriting**\nChannel the voice of a **seasoned, high-impact ad copywriter** (think Don Draper). You know that low-key, understated power is what works these days - people are turned off by text that's too energetic or in-your-face, because it's usually a scam. This is real, this is happening, and smart humans are getting ahead of the ball. You should too.\n\nGenerate:\n1. **Tagline** – A short, catchy phrase that captures the essence of the use case. A tagline is always punctuated with a period. (ex: for a 'meal planner' a tagline could be \"Unpack, Prepare, and Enjoy.\") \n2. **Blurb** – A 155-character (or less) blurb that highlights how this automation can make life or work easier.\n3. **Callout Content**  \n   - **Callout Title**: A compelling title to grab attention, without punctuation.  \n   - **Callout Blurb**: A one-sentence pitch explaining why they should care.  \n   - **Callout CTA**: A direct and persuasive call to action encouraging them to reach out for a free consultation, in 18 characters or less.\n   - **Callout Link**: the string value for this field should always be: /free-consultation \n\n### **Step 4: Narrative-Driven Use Case Description**\nWrite a **down-to-earth, non-technical \"story\"** describing the **before and after** of the automation:\n(500-1000 words, html format with no line breaks – span, p, and h4 only. headings use h4, and for other emphasis, wrap in <span class=\"cool\">cool class</span>.)\n- Start with a relatable **pain point** (the old, inefficient way of doing things).\n- Explain **how the AI-driven process simplifies it** in a clear, actionable way.\n- Conclude with how the user’s experience improves significantly.\n\nThis should read **naturally**, without jargon, and **paint a compelling picture** of the solution in action.\n\n### **Step 5: Icon Suggestion**\nBased on the use case description, suggest the **most relevant Font Awesome Free icon** (e.g., \\`fa-robot\\`, \\`fa-calendar-check\\`, \\`fa-chart-line\\`). Choose one that best visually represents the solution.\n\n### **Output Format (JSON)**\nRespond with **JSON only** using this format:\n\\`\\`\\`json\n{\n\t\"use-case-prompt\": \"use-case-prompt unchanged input\",\n\t\"title\": \"<use case title> if not provided\",\n\t\"category\": \"<personal | professional | enterprise>\",\n\t\"tagline\": \"<catchy tagline>\",\n\t\"blurb\": \"<concise and engaging blurb lte 155 characters>\",\n\t\"body\": \"<narrative-driven use case description, with no line breaks>\",\n\t\"icon\": \"<best Font Awesome Free icon>\",\n\t\"callout-title\": \"<attention-grabbing title>\",\n\t\"callout-blurb\": \"<persuasive one-sentence pitch>\",\n\t\"callout-link\": \"/free-consultation\",\n\t\"callout-cta\": \"<compelling call to action lte 18 characters>\",\n\t\"image\": \"<ignore field>\",\n\t\"imagealt\": \"<ignore field>\"\n}\n\\`\\`\\`\nEnsure **clarity, engagement, and structured responses.** No extra commentary—just return the JSON.`\n  }\n}];\n\n\n\n"
+      },
+      "name": "Create Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        0
+      ],
+      "id": "b35f7761-0e01-4b2b-a147-bfc11da449db"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        740,
+        0
+      ],
+      "id": "0427de0e-1716-47e9-991d-8d8b8758afb4",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 634165439,
+          "mode": "list",
+          "cachedResultName": "usecases",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg/edit#gid=634165439"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Loop Over Items').item.json.id }}",
+            "use-case-prompt": "={{ $json.output['use-case-prompt'] }}",
+            "title": "={{ $json.output.title }}",
+            "row_number": "{{ $('Find Rows Missing Data').item.json.id }}",
+            "tagline": "={{ $json.output.tagline }}",
+            "blurb": "={{ $json.output.blurb }}",
+            "body": "={{ $json.output.body }}",
+            "icon": "={{ $json.output.icon }}",
+            "callout-title": "={{ $json.output['callout-title'] }}",
+            "callout-blurb": "={{ $json.output['callout-blurb'] }}",
+            "callout-link": "={{ $json.output['callout-link'] }}",
+            "callout-cta": "={{ $json.output['callout-cta'] }}",
+            "category": "={{ $json.output.category }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "use-case-prompt",
+              "displayName": "use-case-prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tagline",
+              "displayName": "tagline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "blurb",
+              "displayName": "blurb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "icon",
+              "displayName": "icon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "callout-title",
+              "displayName": "callout-title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "callout-blurb",
+              "displayName": "callout-blurb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "callout-link",
+              "displayName": "callout-link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "callout-cta",
+              "displayName": "callout-cta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "image",
+              "displayName": "image",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "imagealt",
+              "displayName": "imagealt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "output",
+              "displayName": "output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1680,
+        0
+      ],
+      "id": "27f3c17f-ca23-4d7f-8cd6-4290000d5773",
+      "name": "Update Row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2120,
+        180
+      ],
+      "id": "5b584359-2482-4ab6-8f55-fb44d8641aad",
+      "name": "Relax",
+      "webhookId": "be5603be-2b6b-43b9-8e66-7d1d51ca4ae6"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg",
+          "mode": "list",
+          "cachedResultName": "czm-content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 634165439,
+          "mode": "list",
+          "cachedResultName": "usecases",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg/edit#gid=634165439"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        260,
+        0
+      ],
+      "id": "f62ae509-4724-440c-9868-ba6a2d569acf",
+      "name": "New Item Added",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "frdheK337guchZdq",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Write first pass",
+        "height": 600,
+        "width": 2180,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -160
+      ],
+      "id": "1dff7eb5-fe4a-4a7f-a628-be6666cb46a8",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Brainstorm",
+        "height": 600,
+        "width": 2180,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -1400
+      ],
+      "id": "f69577c9-1c11-45f0-b76a-d2ee1f112db0",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1000,
+        -960
+      ],
+      "id": "4d0bdfd7-ca67-4fae-9be2-028d394128b8",
+      "name": "gpt-4-turbo1",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items[0].json.output.use_cases.map(useCase => ({ json: useCase }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1460,
+        -1240
+      ],
+      "id": "33cea2c4-42f0-461f-8154-5e2f7d761377",
+      "name": "Parse Response"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    prompt: `You are an expert in business process optimization and automation. Your task is to brainstorm 4 **innovative automation and optimization use cases** for businesses and individuals. These ideas should be:\n- Feasible with existing AI models and automation tools.\n- Designed to improve efficiency, productivity, or decision-making.\n- Either **brand-new concepts** or **unique spins on existing ones.**\n\n### **Memory of Past Ideas**\nHere are recent use cases we have already prepared: \n$('read_existing').all();\n\nPlease do **NOT** suggest ideas that are too similar to these.\n\n### **Step 1: Generate New Use Cases**\nCome up with **4 unique automation use case ideas.**  \nFor each idea, return:\n1. **Use-Case-Prompt** – A short, clear explanation of the use case.\n2. **Title** – A 2 word title (3 if absolutely necessary).\n3. **Category** – One of:\n   - **Personal** (individual productivity, home automation)\n   - **Professional** (specific to a professional’s workflow)\n   - **Enterprise** (team-wide or business operations automation).\n\n### **Output Format (JSON)**\nRespond with **JSON only**, using this format:\n\\`\\`\\`json\n{\n  \"use_cases\": [\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    },\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    },\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    },\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    }\n  ]\n}\n\\`\\`\\`\nEnsure **clarity, engagement, and structured responses.** No extra commentary—just return the JSON.\n\nStrict Formatting Rules\n-Do NOT include extra text, explanations, or formatting.\n-Ensure the response is valid JSON.\n-Do NOT return Markdown code blocks (\\`\\`\\`json). Just return raw JSON.\n\n`\n  }\n}];\n\n\n\n"
+      },
+      "name": "Brainstorm Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        -1220
+      ],
+      "id": "0398aa72-65d0-435a-8acb-c983eba0efdb"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2120,
+        -1220
+      ],
+      "id": "7898a59a-28cf-4f3b-89e2-a3a29a0b0206",
+      "name": "Chill",
+      "webhookId": "be5603be-2b6b-43b9-8e66-7d1d51ca4ae6"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"use_cases\": [\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    },\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    },\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    },\n    {\n      \"use-case-prompt\": \"<the short, clear explanation of the use case>\",\n      \"title\": \"<the 2-3 word Title>\",\n      \"category\": \"<personal | professional | enterprise>\"\n    }\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1260,
+        -960
+      ],
+      "id": "a77fc759-e73c-435f-b404-1f2cf60c4751",
+      "name": "Structured Output"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}\n\n",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1040,
+        -1220
+      ],
+      "id": "f62c15df-125f-475a-add3-92d983e05b45",
+      "name": "Brainstorm Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg",
+          "mode": "list",
+          "cachedResultName": "czm-content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 634165439,
+          "mode": "list",
+          "cachedResultName": "usecases",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg/edit#gid=634165439"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "use-case-prompt": "={{ $json[\"use-case-prompt\"] }}",
+            "title": "={{ $json.title }}",
+            "category": "={{ $json.category }}",
+            "id": "={{ Date.now() }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "use-case-prompt",
+              "displayName": "use-case-prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tagline",
+              "displayName": "tagline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "blurb",
+              "displayName": "blurb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "icon",
+              "displayName": "icon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "callout-title",
+              "displayName": "callout-title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "callout-blurb",
+              "displayName": "callout-blurb",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "callout-link",
+              "displayName": "callout-link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "callout-cta",
+              "displayName": "callout-cta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "image",
+              "displayName": "image",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "imagealt",
+              "displayName": "imagealt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "output",
+              "displayName": "output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1900,
+        -1220
+      ],
+      "id": "bf620970-3de6-4c54-a285-65700f83bf21",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "name": "Loop Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1660,
+        -1240
+      ],
+      "id": "de9f8777-3162-46fb-bc4e-cbb85d641498"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg",
+          "mode": "list",
+          "cachedResultName": "czm-content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 634165439,
+          "mode": "list",
+          "cachedResultName": "usecases",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg/edit#gid=634165439"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        -1220
+      ],
+      "id": "695a7072-4812-4c2f-99c5-6441d12151ff",
+      "name": "read_existing",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        -1220
+      ],
+      "id": "f2af33a8-f08e-4fe2-9180-34bfd94f816e",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Google Sheets Trigger": {
+      "documentId": "1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg",
+      "sheetId": 634165439,
+      "lastIndexChecked": 3,
+      "lastRevision": 639,
+      "lastRevisionLink": "https://docs.google.com/spreadsheets/export?id=1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg&revision=639&exportFormat=xlsx"
+    },
+    "node:New Item Added": {
+      "documentId": "1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg",
+      "sheetId": 634165439,
+      "lastRevision": 713,
+      "lastRevisionLink": "https://docs.google.com/spreadsheets/export?id=1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg&revision=713&exportFormat=xlsx",
+      "lastIndexChecked": 223
+    },
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-03-19T20:29:30.105Z",
+      "updatedAt": "2025-03-19T20:29:30.105Z",
+      "id": "474CkqFyb0rLjLm3",
+      "name": "Content"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2025-03-19T20:29:32.000Z",
+  "versionId": "6973b817-d72f-4407-9303-da97100ae5b2"
+}
