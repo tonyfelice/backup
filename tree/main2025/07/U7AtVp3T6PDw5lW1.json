@@ -1,0 +1,173 @@
+{
+  "active": false,
+  "connections": {
+    "OpenAI Chat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Orders": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shopify Get All Orders": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-29T01:43:47.447Z",
+  "id": "U7AtVp3T6PDw5lW1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "LPT: (sub) get orders",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "Your name is Cal. You are a sales agent for liquidyneusa.com, which has served the dairy, brewery, distillery, biotech, & pharmaceutical industries for over 30 years (founded in 1993). Liquidyne specializes in providing everything from high-quality single-use components, including tubing, connectors, valves & pumps – to full service design of complex, high-purity systems.\n\nYour tone should be professional and helpful\n\nGiven a 4-digit order number, or an email address, use the \"Shopify Get All Orders\" tool to look up the order_id(s) associated with that email address.\n\nOnce you have located the correct order_id(s), \nuse those to query the \"Shopify Orders\" tool and prepare your response. \n\n## IMPORTANT\nbefore responding, verify that the given input (email address or order id) matches the information in the order. If there is a mismatch, rerun the process up to twice before returning an error.\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        220,
+        0
+      ],
+      "id": "6efb90cf-42a9-4d2d-82a2-00082334eb16",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        140,
+        220
+      ],
+      "id": "393600a8-7d99-4f80-acfd-f51d136c2b1d",
+      "name": "OpenAI Chat",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "accessToken",
+        "operation": "get",
+        "orderId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Order_ID', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        440,
+        220
+      ],
+      "id": "cbc1c390-e9db-4c83-990c-25aa77a46390",
+      "name": "Shopify Orders",
+      "credentials": {
+        "shopifyAccessTokenApi": {
+          "id": "D7oWay9DnRsVfXnm",
+          "name": "tony-n8n-orders"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "accessToken",
+        "operation": "getAll",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        620,
+        220
+      ],
+      "id": "6271910d-b464-40b9-9346-093ae39a8623",
+      "name": "Shopify Get All Orders",
+      "credentials": {
+        "shopifyAccessTokenApi": {
+          "id": "D7oWay9DnRsVfXnm",
+          "name": "tony-n8n-orders"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c4f05258-45d8-4ea2-93f2-8d3c366d42d4",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "tree/main",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-07-29T02:21:05.000Z",
+  "versionId": "56b5b1b3-a829-4cb7-af74-6b4e0c433e50"
+}
