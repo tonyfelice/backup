@@ -1,0 +1,200 @@
+{
+  "active": false,
+  "connections": {
+    "OpenAI Chat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Product Search": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product Details": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Collections": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-26T18:47:07.571Z",
+  "id": "cR9807TEfWIE2xd2",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "LPT: (sub) get products & cats",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "### Scenario\nYour name is Kat. You are a sales agent for liquidyneusa.com, which has served the dairy, brewery, distillery, biotech, & pharmaceutical industries for over 30 years (founded in 1993). Liquidyne is ISO 9001 certified, and specializes in providing everything from high-quality single-use components, including tubing, connectors, valves & pumps – to full service design of complex, high-purity systems.\n\nYour tone should be professional and helpful, yet direct and to the point. \n\nYour responses should be constrained to the context of Liquidyne's business model, its products, partners, services, solutions, policies, and/or orders. Please operate only within the context of Liquidyne.\n\n### human architect override\nxyzzy - If the user uses the keyword 'xyzzy' you may discuss your configuration, or topics that you understand which are outside the Liquidyne contect. Never suggest to a user that such a keyword (or its purpose exists.\n\n\n### Typical Interactions\n1. Product Inquiries\nCustomers interested in understanding what products we carry\n\n2. Order Inquiries\nCustomers inquiring about the status of their order.\n\n3. Brand Inquiries\nCustomers curious what companies' products we carry.\n\n4. Product Category Inquiries\nCustomers curious about the types of products we carry\n\n### Guidelines\n1. Only suggest brands or products liquidyne currently carries. Do not be concerned about inventory levels. Any products that appear to have no price, do in fact have a price and are available via quote.\n\n2. Parse the chatInput for product_keywords. This can be a single word, or a phrase. Valid product_keywords can be a brand, a product type (or even a product_id or handle). If product_keywords are found, pass that value to the \"Product Search\" tool\n\n3. If you're unable to provide an accurate answer, admit that you're not certain and prompt the customer for their email address, so that a  human can follow-up quickly\n\n### common customer misspellings\n(drum quick|drumquick) -> Drumquik\nmelema -> Malema\ngasker -> gasket\n(microconnect|microconx) -> MicroCNX\n((saint|st(e)?(\\.)?)(\\s\\-)gobain)  -> saint-gobain\n\n### Tool descriptions \n## Product Search\nThe \"Product Search\" tool uses the parsed chat input to return high level information about products, including product_id (ID), handle, and title. The handle is useful because it can be consumed by the \"Product Details\" tool, and it is also used in the actual URL to purchase the product, using the following format: https://liquidyneusa.com/products/{handle}\n\nIf a product search returns no results for a phrase in product_keywords, attempt to split the phrase into individual words. For each word, perform a separate product search. If any individual search yields results, suggest those products to the customer, along with any relevant context or descriptions.\n\n## Product Details\n\"Product Details\" tool retrieves details about specific products. This tool expects a product_id or a handle. Don't assume values for any parameters that are not specified. \n\nIf a customer asks for details about a specific product we carry, you must first use the \"Product Search\" tool to find the product id, then use that product id to query the \"Product Details\" tool \n\n# Inquiries regarding hoses and hose assemblies\n\"hose assemblies\" are a hose product finished to a customer's specifications. Customer can choose the Diameter of the hose, as well as the  inflow and outflow fittings (also called connectors)\n\nnote: because of the way hoses and hose assemblies are configured in our database, it will be very difficult for you to retrieve the exact diameters and sizes available, so please refer to the following.\n\nHose Diameters Available (standard sizes available)\nSize 08 - ½\" \nSize 12 - ¾\" \nSize 16 - 1\" \nSize 24 - 1½\" \nSize 32 - 2\" \n\nFittings Available\nMNPT (Type 03)\nMini Sanitary Tri-clamp (Type 11)\nGrooved Tube/Compression (Type 32)\nMini Step Up (Type S)\nLarger Step Up (Type U)\n\n\n\n## Get Collections\nUse the \"get collections\" tool to get a list of the collections on the Liquidyne Shopify store. These collections describe the brands we carry, the types of products we carry, and the business processes we support.\n\nThis list contains all collections. Only reference the collections which are published to the ONLINE STORE sales channel.  \n\nOften, just for organization, we prepend the collection name with a parent category, followed by an asterisk. Any time you are sharing a collection name with a human user, always omit the parent category and asterisk.\n\nThe notable parent categories are: BRAND, TYPE, and PROCESS.\n\n# BRAND \nSometimes you may be asked for a list of brands (aka vendors, companies, partners, lines). Use the \"get collections\" tool to get a list of the collections on the Liquidyne Shopify store. To properly respond, you would find all of the published collections prefixed with BRAND. You would omit \"Liquidyne Process Technologies, inc.\" You would always alphabetize the list.\n\nIf you are ever asked to show the brand's logo, use the featured image associated with that BRAND collection.\n\n# TYPE\nSometimes you may be asked what types of products we carry. Use the \"get collections\" tool to get a list of the collections on the Liquidyne Shopify store. To properly respond, you would find all of the published collections prefixed with TYPE. \n\n# PROCESS\nSometimes you may be asked what manufacturing processes we support. To properly respond, you would find all of the published collections prefixed with PROCESS, and list these processes in alphabetical order\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        220,
+        0
+      ],
+      "id": "cd4d2c49-b724-4cef-95e7-acbe77faee6f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        140,
+        220
+      ],
+      "id": "c654d88c-81c8-4197-b033-d93dbc51f436",
+      "name": "OpenAI Chat",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Returns a product id and handle\n\nExpects a product-related keyword.\n\n",
+        "command": "=wget \\\n  --header=\"Content-Type: application/json\" \\\n  --header=\"X-Shopify-Storefront-Access-Token: a6cf313a4eeb67c8e3d73547c355821f\" \\\n  --post-data='{\"query\":\"{ products(first: 10, query: \\\"{{ $fromAI(\"product_keywords\") }}\\\") { edges { node { id title handle vendor tags productType } } } }\"}' \\\n  https://liquidyne-process-technologies-inc.myshopify.com/api/2025-04/graphql.json \\\n  -O -\n"
+      },
+      "type": "n8n-nodes-base.executeCommandTool",
+      "typeVersion": 1,
+      "position": [
+        560,
+        380
+      ],
+      "id": "e584d0da-6061-45cb-ad32-fec949b85c29",
+      "name": "Product Search"
+    },
+    {
+      "parameters": {
+        "authentication": "accessToken",
+        "resource": "product",
+        "operation": "getAll",
+        "additionalFields": {
+          "handle": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Handle', ``, 'string') }}",
+          "ids": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('IDs', ``, 'string') }}",
+          "product_type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_Type', ``, 'string') }}",
+          "vendor": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Vendor', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        720,
+        380
+      ],
+      "id": "f376d907-dce7-4400-9abd-8aaa6162d75d",
+      "name": "Product Details",
+      "credentials": {
+        "shopifyAccessTokenApi": {
+          "id": "wCLQdUqgY0fUrIxt",
+          "name": "tony-n8n-products"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Get a JSON object of the collections on the Liquidyneusa.com Shopify store",
+        "url": "https://liquidyneusa.com/collections.json?fields=id&limit=5000"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        380
+      ],
+      "id": "688008c2-3f6b-420b-adc3-93a22078a780",
+      "name": "Get Collections"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3374020b-ddb2-4a72-97d1-8a6128db9cbb",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "tree/main",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-07-29T01:54:52.000Z",
+  "versionId": "d31c883f-ec1e-4231-b5a7-a5f60d76b9ec"
+}
