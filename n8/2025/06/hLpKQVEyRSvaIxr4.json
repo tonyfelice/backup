@@ -1,0 +1,175 @@
+{
+  "active": false,
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "get products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract": {
+      "main": [
+        [
+          {
+            "node": "format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get products": {
+      "main": [
+        [
+          {
+            "node": "Extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format": {
+      "main": [
+        [
+          {
+            "node": "LPT:products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-25T17:58:20.521Z",
+  "id": "hLpKQVEyRSvaIxr4",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "LPT:supabase insert",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        220,
+        -300
+      ],
+      "id": "67574e96-6cc3-4e9c-9ab9-ec8bb7051713"
+    },
+    {
+      "parameters": {
+        "functionCode": "const estimated_actuals = items[0].json.estimated_actuals\n\nreturn estimated_actuals.map(estimate => ({ json: estimate }))\n"
+      },
+      "name": "Extract",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        620,
+        -300
+      ],
+      "notesInFlow": true,
+      "id": "7b00251d-9d08-4288-b6e7-0f0e5bfb71d5",
+      "notes": "Extract array from data"
+    },
+    {
+      "parameters": {
+        "table": "pv_estimated_solcast",
+        "columns": "period_end,pv_estimate",
+        "additionalFields": {}
+      },
+      "name": "TimescaleDB",
+      "type": "n8n-nodes-base.timescaleDb",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        80
+      ],
+      "id": "0b228adf-8d71-4682-b4b3-0e0cf6751563",
+      "credentials": {
+        "timescaleDb": {
+          "id": null,
+          "name": "AWS PV Tauxigny Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://liquidyneusa.com/products.json?fields=id&limit=5000",
+        "options": {}
+      },
+      "name": "get products",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -300
+      ],
+      "id": "7eeb4947-8144-4ef1-90d5-78fbca2f1c95"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "period_end",
+              "value": "={{$json[\"period_end\"]}}"
+            },
+            {
+              "name": "pv_estimate",
+              "value": "={{$json[\"pv_estimate\"]}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "format",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        820,
+        -300
+      ],
+      "notesInFlow": true,
+      "id": "b8e6fe1c-510e-46c7-aad7-47fa5e60ee99",
+      "notes": "Prepare data for database"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -300
+      ],
+      "id": "638ba2bc-9f9c-44e2-8a8b-766de42b5599",
+      "name": "LPT:products",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Mr77IC6Qde7WTTt7",
+          "name": "LPT:products"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-25T18:06:16.000Z",
+  "versionId": "b6f1ea28-5510-4680-9308-696d3126363d"
+}
