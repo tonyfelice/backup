@@ -503,7 +503,7 @@
         },
         "filePath": "={{ $('Config').first().json.repo_path }}{{ $json.subPath }}{{$('Execute Workflow Trigger').first().json.id}}.json",
         "fileContent": "={{$('isDiffOrNew').item.json[\"n8n_data_stringy\"]}}",
-        "commitMessage": "={{$('Execute Workflow Trigger').first().json.name}} ({{$json.github_status}})"
+        "commitMessage": "={{ $('Merge Items').first().json.id }} ({{$json.github_status}})"
       },
       "id": "cdc7f306-b7d2-4de1-8e44-0bd8d49a679f",
       "name": "Create new file",
@@ -841,6 +841,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-07T22:25:48.000Z",
-  "versionId": "f32371b6-1a5d-4564-ab62-2028d3457d43"
+  "updatedAt": "2025-08-07T22:28:22.000Z",
+  "versionId": "43998b74-5456-4126-b27d-154a9b333a17"
 }
