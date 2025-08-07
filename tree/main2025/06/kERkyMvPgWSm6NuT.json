@@ -1,0 +1,117 @@
+{
+  "active": false,
+  "connections": {
+    "Item Lists": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "get products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get products": {
+      "main": [
+        [
+          {
+            "node": "Item Lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-25T18:09:17.477Z",
+  "id": "kERkyMvPgWSm6NuT",
+  "meta": {
+    "templateId": "1435"
+  },
+  "name": "LPT:Convert JSON to an Excel file",
+  "nodes": [
+    {
+      "parameters": {
+        "fieldToSplitOut": "=body",
+        "options": {}
+      },
+      "name": "Item Lists",
+      "type": "n8n-nodes-base.itemLists",
+      "position": [
+        600,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "84023d50-a247-4771-a355-eb7647fc736a"
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "xlsx",
+        "options": {}
+      },
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "position": [
+        820,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "1e43d91a-1e3d-4edc-9cdd-e9b8cedcf1bf"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        140,
+        240
+      ],
+      "id": "18d0db8e-646b-443a-b762-23ea235e1f2d",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://liquidyneusa.com/products.json?fields=id&limit=5000",
+        "options": {}
+      },
+      "name": "get products",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        340,
+        240
+      ],
+      "id": "f9d6e066-ac62-46fb-a133-08f7cae9cf81"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "tree/main",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-26T16:59:30.000Z",
+  "versionId": "c7f4fc30-22ce-4494-a3c4-687343336922"
+}
