@@ -1,0 +1,689 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "get_execution_info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_model_prices": {
+      "main": [
+        [
+          {
+            "node": "get_ai_nodes_info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "get_execution_info_subworkflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code5": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_model_prices1": {
+      "main": [
+        [
+          {
+            "node": "get_ai_nodes_info1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "get_model_prices1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code6": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_by_type": {
+      "main": [
+        [
+          {
+            "node": "has_ai_node",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "non_ai_nodes_info",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "has_sub_workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "has_ai_node": {
+      "main": [
+        [
+          {
+            "node": "get_model_prices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "has_sub_workflows": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "output_json": {
+      "main": [
+        [
+          {
+            "node": "get_json_file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_execution_info": {
+      "main": [
+        [
+          {
+            "node": "node_by_type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_execution_info_subworkflow": {
+      "main": [
+        [
+          {
+            "node": "Code5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-06T17:43:48.023Z",
+  "id": "IitQ5KXGmf7ExctR",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: usage auditor",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        320
+      ],
+      "id": "a52cf375-88d4-4381-b2af-243ceca2d14e",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/Xavi1995/models_pricing/refs/heads/main/prices",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        -100
+      ],
+      "id": "380f040f-93aa-437b-b658-3ad6e9a7f589",
+      "name": "get_model_prices"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        560,
+        560
+      ],
+      "id": "fae9c55d-9d9a-4b7f-8fe9-865cf416b566",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nreturn $input.first().json.sub_workflows"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        560
+      ],
+      "id": "816ccb66-ab79-40b9-bec2-39c2e0e234f8",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ab2b0724-8418-4e58-b6c3-0b91ae2498da",
+              "leftValue": "={{ $json.sub_workflows }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "7f008679-ae34-4f6f-86ab-15f50d013607",
+              "leftValue": "={{ $json.sub_workflows }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        980
+      ],
+      "id": "94852ae7-77ec-4a1e-b787-2c978bcb4766",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prices = $input.first().json\nconst aiNodes = $('has_ai_node').first().json.ai_nodes\nconst aiNodesInfo = []\nconst nodesData = $('get_execution_info').first().json.data.resultData.runData\nconst nodeWorkflowData = $('get_execution_info').first().json.workflowData.nodes\n\n\nfor(let i = 0; i < aiNodes.length; i++) {\n  const aiNode = aiNodes[i]\n  const nodeData = nodesData[aiNode.node_name]\n  for(let y = 0; y < nodeWorkflowData.length ; y ++) {\n    if(aiNode.node_name == nodeWorkflowData[y].name) {\n      aiNodesInfo.push(getAiNodesInfo(aiNode, nodeWorkflowData[y], nodeData))\n    }\n  }\n}\n\nfunction getAiNodesInfo(node, workflowData, nodeData){\n  if(node.model_used == null) {\n    return {\n      \"name\" : node.node_name,\n      \"type\" : workflowData.type,\n      \"execution_time\" : nodeData[0].executionTime\n    }\n  } else {\n    return {\n    \"name\" : node.node_name,\n    \"type\" : workflowData.type,\n    \"execution_time\" : nodeData[0].executionTime,\n    \"ai_details\" : {\n      \"model_used\" : node.model_used,\n      \"completion_tokens\" : node.completion_tokens,\n      \"prompt_tokens\" : node.prompt_tokens,\n      \"total_tokens\" : node.total_tokens,\n      \"cost_execution\" : getExecutionCost(node)\n    }\n  }\n  }\n}\n\nfunction getExecutionCost(node){\n    const completionTokens = node.completion_tokens\n    const promptTokens = node.prompt_tokens\n    let price = {}\n    \n    const model = node.model_used;\n    if(model == 'deepseek-chat' || model == 'deepseek-reasoner') {\n      const now = new Date($('get_execution_info1').first().json.startedAt)\n      const currentHour = now.getUTCHours()\n      const currentMinute = now.getUTCMinutes()\n\n      const totalMinutes = currentHour * 60 + currentMinute\n\n      const startThreshold = 0 * 60 + 30\n      const endThreshold = 16 * 60 + 30\n      \n      if(totalMinutes >= startThreshold && totalMinutes < endThreshold) {\n        price = prices[`${model}-standard`]\n      } else {\n        price = prices[`${model}-discount`]\n      }\n    } else {\n      price = prices[model];\n    }\n  if(price == null) {\n    return 'Price not available';\n  } else {\n    const nodePrice = (completionTokens / 1000) * price.completion + (promptTokens / 1000) * price.prompt;\n    if(nodePrice >= 0.01) {\n      return `$${nodePrice.toFixed(2)}`;\n    } else if(nodePrice >= 0.0001){\n      return `$${nodePrice.toFixed(4)}`;\n    } else {\n      return `$${nodePrice.toFixed(8)}`\n    }  \n  }    \n}\n\nconst output = aiNodesInfo\n\nreturn {\n  \"ai_nodes\" : output\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -100
+      ],
+      "id": "f74c9999-1055-4534-b2c8-b2e13d467678",
+      "name": "get_ai_nodes_info"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1380,
+        -40
+      ],
+      "id": "bd0825c1-dce7-450d-8f10-c4aec1a75ee9",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst data = input.data;\nconst workflowInfo = input.workflowData;\nlet nodes = []\nlet nonAiNodes = []\nlet subworkflowNodes = []\nlet aiNodes = []\n\ngetNodesInfo(data)\n\nconst workFlowData = {\n  \"nombre\" : workflowInfo.name,\n  \"fecha_ejecucion\" : formatDate(input.startedAt),\n  \"duracion\" : getExecutionDuration(input.startedAt, input.stoppedAt),\n  \"ai_nodes\" : aiNodes,\n  \"normal_nodes\" : nonAiNodes,\n  \"sub_workflows\" : subworkflowNodes\n  \n}\n\n\nfunction getNodesInfo(data) {\n  let nodesCount = 0\n  \n  const object = Object.keys(data.resultData.runData);\n  object.map((node) => {\n    if( data.resultData.runData[node][0].executionStatus == 'success') {\n      nodesCount += 1;\n      nodes.push(node)\n      \n    }\n  })\n\n  for (let i = 0; i < nodes.length; i++) {\n    const element = nodes[i];\n    \n    getTypeNode(element)\n    \n  }\n}\n\nfunction getTypeNode(node){\n  for (let index = 0; index < $input.first().json.workflowData.nodes.length; index++) {\n    const element = $input.first().json.workflowData.nodes[index];\n    if(element.name == node) {\n      if(element.type.includes('lmChat')) {\n        // AI Node\n        const nodeTokenInfo = $input.first().json.data.resultData.runData[element.name][0].data.ai_languageModel[0][0].json.tokenUsage\n        const modelUsed =  $input.first().json.data.resultData.runData[element.name][0].inputOverride.ai_languageModel[0][0].json.options.model\n        aiNodes.push({\n          \"node_name\" : node,\n          \"model_used\" : modelUsed,\n          \"completion_tokens\" : nodeTokenInfo.completionTokens,\n          \"prompt_tokens\" : nodeTokenInfo.promptTokens,\n          \"total_tokens\" : nodeTokenInfo.totalTokens\n        })\n      } else if( element.type.includes('agent')) {\n        aiNodes.push({\n          \"node_name\" : node,\n          \"executionTime\" :  $input.first().json.data.resultData.runData[element.name][0].executionTime\n        })\n      } \n      \n      else if(element.type.includes('toolWorkflow') || element.type.includes('executeWorkflow') && !element.type.includes('executeWorkflowTrigger')) {\n        let nodeObject = {}\n        const runDataNode = $input.first().json.data.resultData.runData[element.name][0].metadata.subExecution\n        nodeObject[\"nombre\"] = node\n        nodeObject[\"execution_id\"] = runDataNode.executionId\n        nodeObject[\"workflow_id\"] = runDataNode.workflowId\n        subworkflowNodes.push(nodeObject)\n      } else if(element.type.includes('executeWorkflowTrigger')){\n        break\n      }\n      else {\n        // Non AI Workflow\n        nonAiNodes.push(node)\n      }\n    } \n  }\n\n}\n\nfunction formatDate(date){\n    const dateO = new Date(date);\n\n  const day = String(dateO.getUTCDate()).padStart(2, '0');\n  const month = String(dateO.getUTCMonth() + 1).padStart(2, '0');\n  const year = dateO.getUTCFullYear();\n\n  const hours = String(dateO.getUTCHours()).padStart(2, '0');\n  const minutes = String(dateO.getUTCMinutes()).padStart(2, '0');\n  const seconds = String(dateO.getUTCSeconds()).padStart(2, '0');\n\n  return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;\n}\nfunction getExecutionDuration(started, ended) {\n  const startDate = new Date(started)\n  const endDate = new Date(ended)\n  const durationMS = endDate - startDate\n  return durationMS / 1000;\n}\n\n\nreturn  workFlowData\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        780
+      ],
+      "id": "11436a00-7978-4b70-871d-49052ab342e1",
+      "name": "Code5"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1860,
+        -20
+      ],
+      "id": "e65c164c-e051-4fb2-a8a4-91ed54ecc2d7",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a8e9a937-7e5b-4145-aabe-71c7077045bd",
+              "leftValue": "={{ $json.ai_nodes[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "98db7a1a-3af3-465a-813d-1a17416b02c3",
+              "leftValue": "={{ $json.ai_nodes[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        620
+      ],
+      "id": "8d1f5f90-bbc4-457f-81e4-ea556d5bc095",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const normal_nodes = $input.first().json.normal_nodes\nconst nodes_runData = $('get_execution_info_subworkflow').first().json.data.resultData.runData\nconst workflowData  = $('get_execution_info_subworkflow').first().json.workflowData.nodes\nconst executedNodes = []\nconst nonAiNodes = []\ngetExecutedNodesWorkFlowData()\nfunction getExecutedNodesWorkFlowData(){\n  for(let y = 0; y < normal_nodes.length ; y ++) {\n    const nodeName = normal_nodes[y]\n    const workflowDataNode = workflowData.find((element, index) => element.name == nodeName)\n    let runDataNode = {}\n    for(const key in nodes_runData) {\n      if (key === nodeName) {\n        runDataNode = nodes_runData[key][0]\n        break\n      }\n    }\n    nonAiNodes.push({\n      \"name\" : nodeName,\n      \"type\" : workflowDataNode.type,\n      \"execution_time\" : runDataNode.executionTime\n    })\n  }  \n}\n\n\nreturn {\n  \"non_ai_nodes\" : nonAiNodes\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        780
+      ],
+      "id": "da83fb6d-3c6c-4e2d-a6ac-7efd008fd0cf",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/Xavi1995/models_pricing/refs/heads/main/prices",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        500
+      ],
+      "id": "a4d45ff2-ffc9-4157-b162-4e1820c911bd",
+      "name": "get_model_prices1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prices = $input.first().json\nconst aiNodes = $('If3').first().json.ai_nodes\nconst aiNodesInfo = []\nconst nodesData = $('get_execution_info_subworkflow').first().json.data.resultData.runData\nconst nodeWorkflowData = $('get_execution_info_subworkflow').first().json.workflowData.nodes\n\n\nfor(let i = 0; i < aiNodes.length; i++) {\n  const aiNode = aiNodes[i]\n  const nodeData = nodesData[aiNode.node_name]\n  for(let y = 0; y < nodeWorkflowData.length ; y ++) {\n    if(aiNode.node_name == nodeWorkflowData[y].name) {\n      aiNodesInfo.push(getAiNodesInfo(aiNode, nodeWorkflowData[y], nodeData))\n    }\n  }\n}\n\nfunction getAiNodesInfo(node, workflowData, nodeData){\n  if(node.model_used == null) {\n    return {\n      \"name\" : node.node_name,\n      \"type\" : workflowData.type,\n      \"execution_time\" : nodeData[0].executionTime\n    }\n  } else {\n    return {\n    \"name\" : node.node_name,\n    \"type\" : workflowData.type,\n    \"execution_time\" : nodeData[0].executionTime,\n    \"ai_details\" : {\n      \"model_used\" : node.model_used,\n      \"completion_tokens\" : node.completion_tokens,\n      \"prompt_tokens\" : node.prompt_tokens,\n      \"total_tokens\" : node.total_tokens,\n      \"cost_execution\" : getExecutionCost(node)\n    }\n  }\n  }\n}\n\nfunction getExecutionCost(node){\n    const completionTokens = node.completion_tokens\n    const promptTokens = node.prompt_tokens\n    let price = {}\n    \n    const model = node.model_used;\n    if(model == 'deepseek-chat' || model == 'deepseek-reasoner') {\n      const now = new Date($('get_execution_info1').first().json.startedAt)\n      const currentHour = now.getUTCHours()\n      const currentMinute = now.getUTCMinutes()\n\n      const totalMinutes = currentHour * 60 + currentMinute\n\n      const startThreshold = 0 * 60 + 30\n      const endThreshold = 16 * 60 + 30\n      \n      if(totalMinutes >= startThreshold && totalMinutes < endThreshold) {\n        price = prices[`${model}-standard`]\n      } else {\n        price = prices[`${model}-discount`]\n      }\n    } else {\n      price = prices[model];\n    }\n    const nodePrice = (completionTokens / 1000) * price.completion + (promptTokens / 1000) * price.prompt;\n    if(nodePrice >= 0.01) {\n      return `$${nodePrice.toFixed(2)}`;\n    } else if(nodePrice >= 0.0001){\n      return `$${nodePrice.toFixed(4)}`;\n    } else {\n      return `$${nodePrice.toFixed(8)}`\n    }\n   \n    \n}\n\nconst output = aiNodesInfo\n\nreturn {\n  \"ai_nodes\" : output\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        500
+      ],
+      "id": "43e9d790-8336-4082-9ebb-3c7500fed746",
+      "name": "get_ai_nodes_info1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2000,
+        760
+      ],
+      "id": "59419380-a79c-47d2-bbeb-7740d50330de",
+      "name": "Merge1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json\nconst output = {}\n\noutput[\"workflow_name\"] = $('Code5').first().json.nombre\noutput[\"workflow_id\"] = $('get_execution_info_subworkflow').first().json.workflowId\noutput[\"execution_id\"] = $('get_execution_info_subworkflow').first().json.id\noutput[\"finished\"] = $('get_execution_info_subworkflow').first().json.finished\noutput[\"execution_status\"] = $('get_execution_info_subworkflow').first().json.status\noutput[\"execution_date\"] = $('Code5').first().json.fecha_ejecucion\noutput[\"execution_duration\"] = $('Code5').first().json.duracion\nif($input.first().json.ai_nodes != null) {\n  output[\"total_cost\"] = getTotalCost($input.first().json.ai_nodes)\n}\noutput[\"nodes\"] = input\n\nfunction getTotalCost(aiNodes) {\n  let totalCost = 0.0\n  for(let i=0 ; i < aiNodes.length; i++) {\n    const aiNode = aiNodes[i]\n\n    if(aiNode.ai_details != null) {\n      let aiNodeCost\n      aiNodeCost = aiNode.ai_details.cost_execution.replace('$', '')\n      totalCost += parseFloat(aiNodeCost)\n    }\n  }\n\n  return totalCost\n}\n\nreturn output"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2180,
+        760
+      ],
+      "id": "e5b94bae-6827-46f8-bd07-fda35c6a45aa",
+      "name": "Code6"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        760,
+        400
+      ],
+      "id": "2294ed8b-ec24-4b04-93d6-76941b5cc8b9",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst data = input.data;\nconst workflowInfo = input.workflowData;\nlet nodes = []\nlet nonAiNodes = []\nlet subworkflowNodes = []\nlet aiNodes = []\n\ngetNodesInfo(data)\n\nconst workFlowData = {\n  \"nombre\" : workflowInfo.name,\n  \"fecha_ejecucion\" : formatDate(input.startedAt),\n  \"duracion\" : getExecutionDuration(input.startedAt, input.stoppedAt),\n  \"ai_nodes\" : aiNodes,\n  \"normal_nodes\" : nonAiNodes,\n  \"sub_workflows\" : subworkflowNodes\n  \n}\n\n\nfunction getNodesInfo(data) {\n  let nodesCount = 0\n  \n  const object = Object.keys(data.resultData.runData);\n  object.map((node) => {\n    if( data.resultData.runData[node][0].executionStatus == 'success') {\n      nodesCount += 1;\n      nodes.push(node)\n      \n    }\n  })\n\n  for (let i = 0; i < nodes.length; i++) {\n    const element = nodes[i];\n    \n    getTypeNode(element)\n    \n  }\n}\n\nfunction getTypeNode(node){\n  for (let index = 0; index < $input.first().json.workflowData.nodes.length; index++) {\n    const element = $input.first().json.workflowData.nodes[index];\n    if(element.name == node) {\n      \n      if(element.type.includes('lmChat')) {\n        var nodeTokenInfo\n        var modelUsed\n        // AI Node\n        if(element.type.includes('Gemini') || element.type.includes('gemini')) {\n            nodeTokenInfo = $input.first().json.data.resultData.runData[element.name][0].data.ai_languageModel[0][0].json.tokenUsageEstimate\n          modelUsed = $input.first().json.data.resultData.runData[element.name][0].inputOverride.ai_languageModel[0][0].json.options.model_name\n        } else {\n          modelUsed = $input.first().json.data.resultData.runData[element.name][0].inputOverride.ai_languageModel[0][0].json.options.model\n          nodeTokenInfo = $input.first().json.data.resultData.runData[element.name][0].data.ai_languageModel[0][0].json.tokenUsage\n        }\n        \n        aiNodes.push({\n          \"node_name\" : node,\n          \"model_used\" : modelUsed,\n          \"completion_tokens\" : nodeTokenInfo.completionTokens,\n          \"prompt_tokens\" : nodeTokenInfo.promptTokens,\n          \"total_tokens\" : nodeTokenInfo.totalTokens\n        })\n      } else if( element.type.includes('agent')) {\n        aiNodes.push({\n          \"node_name\" : node,\n          \"executionTime\" :  $input.first().json.data.resultData.runData[element.name][0].executionTime\n        })\n      } \n      \n      else if(element.type.includes('toolWorkflow') || element.type.includes('executeWorkflow')&& !element.type.includes('executeWorkflowTrigger')) {\n        let nodeObject = {}\n        const runDataNode = $input.first().json.data.resultData.runData[element.name][0].metadata.subExecution\n        nodeObject[\"nombre\"] = node\n        nodeObject[\"execution_id\"] = runDataNode.executionId\n        nodeObject[\"workflow_id\"] = runDataNode.workflowId\n        subworkflowNodes.push(nodeObject)\n      } \n      else {\n        // Non AI Workflow\n        nonAiNodes.push(node)\n      }\n    } \n  }\n\n}\n\nfunction formatDate(date){\n    const dateO = new Date(date);\n\n  const day = String(dateO.getUTCDate()).padStart(2, '0');\n  const month = String(dateO.getUTCMonth() + 1).padStart(2, '0');\n  const year = dateO.getUTCFullYear();\n\n  const hours = String(dateO.getUTCHours()).padStart(2, '0');\n  const minutes = String(dateO.getUTCMinutes()).padStart(2, '0');\n  const seconds = String(dateO.getUTCSeconds()).padStart(2, '0');\n\n  return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;\n}\nfunction getExecutionDuration(started, ended) {\n  const startDate = new Date(started)\n  const endDate = new Date(ended)\n  const durationMS = endDate - startDate\n  return durationMS / 1000;\n}\n\n\nreturn  workFlowData\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        320
+      ],
+      "id": "5205ec21-f0b5-453d-8901-2c3bd1c433cf",
+      "name": "node_by_type"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a8e9a937-7e5b-4145-aabe-71c7077045bd",
+              "leftValue": "={{ $json.ai_nodes[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "98db7a1a-3af3-465a-813d-1a17416b02c3",
+              "leftValue": "={{ $json.ai_nodes[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        20
+      ],
+      "id": "0a3878bf-678b-4d11-9849-e57cf9bf2776",
+      "name": "has_ai_node"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "293cacaf-64ca-429f-a21e-548967e6f5d1",
+              "leftValue": "={{ $json.sub_workflows }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "7ef27dab-d33b-4107-bb8f-839b58b5d8db",
+              "leftValue": "={{ $json.sub_workflows }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        660
+      ],
+      "id": "6fd873d9-2e72-499c-93b9-a7b44db60573",
+      "name": "has_sub_workflows"
+    },
+    {
+      "parameters": {
+        "jsCode": "const normal_nodes = $input.first().json.normal_nodes\nconst nodes_runData = $('get_execution_info').first().json.data.resultData.runData\nconst workflowData  = $('get_execution_info').first().json.workflowData.nodes\nconst executedNodes = []\nconst nonAiNodes = []\ngetExecutedNodesWorkFlowData()\nfunction getExecutedNodesWorkFlowData(){\n  for(let y = 0; y < normal_nodes.length ; y ++) {\n    const nodeName = normal_nodes[y]\n    const workflowDataNode = workflowData.find((element, index) => element.name == nodeName)\n    let runDataNode = {}\n    for(const key in nodes_runData) {\n      if (key === nodeName) {\n        runDataNode = nodes_runData[key][0]\n        break\n      }\n    }\n    nonAiNodes.push({\n      \"name\" : nodeName,\n      \"type\" : workflowDataNode.type,\n      \"execution_time\" : runDataNode.executionTime\n    })\n  }  \n}\n\n\nreturn {\n  \"non_ai_nodes\" : nonAiNodes\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        320
+      ],
+      "id": "8349d361-8608-4bcb-a9ac-3a7d0d2df83e",
+      "name": "non_ai_nodes_info"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json\nconst output = {}\n\noutput[\"workflow_name\"] = $('node_by_type').first().json.nombre\noutput[\"workflow_id\"] = $('get_execution_info').first().json.workflowId\noutput[\"execution_id\"] = $('get_execution_info').first().json.id\noutput[\"finished\"] = $('get_execution_info').first().json.finished\noutput[\"execution_status\"] = $('get_execution_info').first().json.status\noutput[\"execution_date\"] = $('node_by_type').first().json.fecha_ejecucion\noutput[\"execution_duration\"] = $('node_by_type').first().json.duracion\nif($input.first().json.ai_nodes != null) {\n  output[\"total_cost\"] = getTotalCost($input.first().json.ai_nodes)\n}\noutput[\"nodes\"] = input\n\n\n\nfunction getTotalCost(aiNodes) {\n  let totalCost = 0.0\n  for(let i=0 ; i < aiNodes.length; i++) {\n    const aiNode = aiNodes[i]\n\n    if(aiNode.ai_details != null) {\n      let aiNodeCost\n      aiNodeCost = aiNode.ai_details.cost_execution.replace('$', '')\n      totalCost += parseFloat(aiNodeCost)\n    }\n  }\n\n  return totalCost\n}\n\nreturn output"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        -40
+      ],
+      "id": "2c107aaf-3027-4203-beab-8744f893477b",
+      "name": "clean_data"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input\nconst output = input.first().json\nconst subworkflows = input.last().json\n\nfor(const key in output) {\n  if(key == \"sub_workflows\") {\n    var sub_workflows = $input.first().json\n    output[\"sub_workflows\"] = sub_workflows  \n  }\n}\n\noutput[\"total_cost\"] = getTotalWorkflowCost()\noutput[\"sub_workflows\"] = getSubWorkflows()\n\nfunction getSubWorkflows(){\n  if($input.all().length > 1) {\n    return $input.last().json\n  } \n}\n  \n\nfunction getTotalWorkflowCost(){\n  let totalCost = 0.0\n  let sub_workflow_total_cost = 0.0\n  \n  \n  if(sub_workflows != null) {\n    for(let i = 0; i < sub_workflows[\"\"].length ; i++) {\n      const subWorkflow = sub_workflows[\"\"][i]\n      if(subWorkflow.total_cost != null) {\n        sub_workflow_total_cost += subWorkflow.total_cost  \n      }\n    }\n  }\n  if(output.total_cost != null) {\n    totalCost = output.total_cost\n  }\n  \n    if(totalCost >= 0.01) {\n      return `$${totalCost.toFixed(2)}`;\n    } else if(totalCost >= 0.0001){\n      return `$${totalCost.toFixed(4)}`;\n    } else {\n      return `$${totalCost.toFixed(8)}`\n    }\n\n  \n}\nreturn output\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2100,
+        -20
+      ],
+      "id": "8ef71755-d5fb-4fc5-9465-a3dca97e4e24",
+      "name": "output_json"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2320,
+        -20
+      ],
+      "id": "bfd0a2f4-93a4-4fa0-b359-276bdd46dcd4",
+      "name": "get_json_file"
+    },
+    {
+      "parameters": {
+        "resource": "execution",
+        "operation": "get",
+        "executionId": "2521",
+        "options": {
+          "activeWorkflows": true
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        320
+      ],
+      "id": "f6c239cd-8b7c-4281-9b67-ebee602851b6",
+      "name": "get_execution_info",
+      "credentials": {
+        "n8nApi": {
+          "id": "wFXkU1UHd2kUav3Y",
+          "name": "local n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "execution",
+        "operation": "get",
+        "executionId": "={{ $json.execution_id }}",
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        760,
+        720
+      ],
+      "id": "f975d87b-7995-49ac-af0a-d925a85ea4ec",
+      "name": "get_execution_info_subworkflow",
+      "credentials": {
+        "n8nApi": {
+          "id": "wFXkU1UHd2kUav3Y",
+          "name": "local n8n"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-07T00:14:31.000Z",
+  "versionId": "0356cebd-ee08-4f44-9baf-903b2bcb6ec7"
+}
