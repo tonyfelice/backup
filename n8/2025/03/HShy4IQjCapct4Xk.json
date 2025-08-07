@@ -1,0 +1,843 @@
+{
+  "active": false,
+  "connections": {
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "If there's a link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt: steal": {
+      "main": [
+        [
+          {
+            "node": "Steal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Steal": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If there's a link": {
+      "main": [
+        [
+          {
+            "node": "Prompt: steal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Steal Prompt": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Steal",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Writer": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Jr. Copywriter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Borrow": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt: borrow": {
+      "main": [
+        [
+          {
+            "node": "Borrow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Borrow Prompt": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Borrow",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt: beg": {
+      "main": [
+        [
+          {
+            "node": "Beg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Beg": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Beg Prompt": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Beg",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Writer1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Jr. Copywriter1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-10T01:32:57.685Z",
+  "id": "HShy4IQjCapct4Xk",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: Creative Writing",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.hubapi.com/cms/v3/blogs/posts",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "authorization"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        420
+      ],
+      "id": "ab8dbe9c-f92e-46ae-aa67-fbf3aeedcb54",
+      "name": "Hubspot Blog POST GET",
+      "notes": "was auth Bearer {blog post key}"
+    },
+    {
+      "parameters": {
+        "content": "## Summarizer\nProvides a summary of the article for meta, as well as other use in the list or detail views",
+        "height": 100,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        -1260
+      ],
+      "id": "65a63b9c-2bf9-4401-aae4-3b361b101a8c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Crosslinker\nGoes thru the article and adds a set density of links based on sitemap",
+        "height": 100,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        -960
+      ],
+      "id": "5adaa7fd-64bc-40da-aede-6d3a74a82787",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Fact Checker\nReads the post, makes sure we're not full of shit",
+        "height": 100,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        -1160
+      ],
+      "id": "5d41fa1c-64c1-4790-9d0c-13f77e4b73b4",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Steal\ncreate a story prompt from an input url",
+        "height": 100,
+        "width": 360,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -760
+      ],
+      "id": "a65773af-e4b5-4a6f-b1fb-e4f2dd590fc8",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Borrow\nwrites a story prompt remixing existing content",
+        "height": 100,
+        "width": 360,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -960
+      ],
+      "id": "b7d46695-89f4-49a5-a130-af5dabac8389",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Beg\nwrites a story prompt based on the day's news.",
+        "height": 100,
+        "width": 360,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -1160
+      ],
+      "id": "3eba777a-8f53-4ccf-8915-3be98d6b95cb",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Jr. Copywriter (o1-mini)\nWrites the full length story, first pass from prompt\ntakes the brand voice and past learnings into consideration\n\n## MEMCACHE HIGH\n\n**Once the CD approves the draft and gives it to production, Jr. writes aa brief for the Art Director**",
+        "height": 260,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        620,
+        -1120
+      ],
+      "id": "1a3b0c75-0d2c-47ac-b5b7-b76298a238dd",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## Creative Director (gpt-4-turbo)\nCritiques the full length story against the brand voice \nIdentify the missed opportunities or mistakes and correct Jr.\nRepeat up to three passes before escalating to human (HITL)\n\n## MEMCACHE HIGH\n\n",
+        "height": 180,
+        "width": 1920,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        620,
+        -720
+      ],
+      "id": "c7060864-fd6e-44f7-a80b-4b69e944114e",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Layout\nFormats the article into HTML, adding callouts as needed, using a set template",
+        "height": 100,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        -860
+      ],
+      "id": "0ffffefd-1a59-4ca9-9914-d7ca67df9933",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## Develop Story Brief",
+        "height": 860,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        -1340
+      ],
+      "id": "5fc792e9-ca9e-4399-8cca-1d7709b4f6e1",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "## Copy Desk",
+        "height": 860,
+        "width": 520,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        580,
+        -1340
+      ],
+      "id": "401cc2f4-16b9-4d9d-b7f4-5825dcbc1197",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "content": "## Art Desk",
+        "height": 860,
+        "width": 520,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        -1340
+      ],
+      "id": "0402c205-0843-4347-ae99-be29b0aa3526",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "content": "## Production",
+        "height": 860,
+        "width": 520,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2060,
+        -1340
+      ],
+      "id": "4177b3dd-8222-48dc-b1de-d09dcf4b06be",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "content": "## Optimizer\nReads the post, picks the most appropriate keyword, and tunes it up",
+        "height": 100,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        -1060
+      ],
+      "id": "e68b83af-37dc-485f-81b5-a8b7f2885d24",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "content": "## Art Director (dalle-3)\nWhips up three on-brand images we can use for the article\n\n## MEMCACHE HIGH ",
+        "height": 100,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        -1060
+      ],
+      "id": "7c59cf6d-1f31-4f33-adc3-9d317221cc2f",
+      "name": "Sticky Note16"
+    },
+    {
+      "parameters": {
+        "content": "CD picks the best image of the three, or push back up to 3x before bringing in the human",
+        "height": 100,
+        "width": 360,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        -680
+      ],
+      "id": "a2d93fb7-f1df-44af-ac08-3389c879323e",
+      "name": "Sticky Note17"
+    },
+    {
+      "parameters": {
+        "content": "approves final copy after layout, linking, and keyword optimization. \nmay/may not kick to human for final approval",
+        "height": 100,
+        "width": 380,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        -680
+      ],
+      "id": "c090f197-3076-4e08-9fd5-d0d4b2fbc732",
+      "name": "Sticky Note19"
+    },
+    {
+      "parameters": {
+        "trigger": [
+          "message"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C08GUU474J2",
+          "mode": "list",
+          "cachedResultName": "blog"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        460
+      ],
+      "id": "ff5efe05-6a23-4eb2-b13e-3c3284a51046",
+      "name": "Slack Trigger",
+      "webhookId": "5c1bd54c-a13e-42a0-ba81-622ebe49cc0e",
+      "credentials": {
+        "slackApi": {
+          "id": "EBiRcKr0xevDVZqe",
+          "name": "n8n-test-trigger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08GUU474J2",
+          "mode": "list",
+          "cachedResultName": "blog"
+        },
+        "text": "cool",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -480,
+        580
+      ],
+      "id": "a1db547a-09a7-4e19-84b3-a520e7e46b37",
+      "name": "Slack",
+      "webhookId": "b92866b1-8da6-4f4a-9525-b5588254f4b0",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "48syRQIzbyz32d3T",
+          "name": "n8n-bot-node"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    prompt: `You are an expert in content analysis and creative writing. Your task is to reverse-engineer an article and generate a high-quality, detailed prompt that could have been used to create it. \n\n### **Step 1: Understanding the Source Content**\nRetrieve the full text of the article from the following URL:  \n${$('Slack Trigger').first().json.blocks[0].elements[0].elements[0].url}\n\nAnalyze the article’s **topic, structure, target audience, and key themes**. You may ignore the tone.\n\n### **Step 2: Generate a Writing Prompt**\nBased on the content, create a **detailed writing prompt** that could have guided the author in crafting this piece. The prompt should:\n\n-Rework the title of the article.\n-Clearly define the topic and intended purpose of the article.\n-Specify the target audience and expected level of expertise.\n-Outline key points or sections the article should cover.\n-Extract and list all facts explicitly stated in the article (do not infer or generate new facts).\n-Extract any URLs or email addresses that are contextually associated with the subject(s) of the article (e.g., product URLs, company websites, contact emails).\n-Never reference the original article\n-Never suggest tone or voice\n-Never suggest writing style\n\n### **Step 3: Output Format**\nRespond in the following format (strict JSON):\n\n\\`\\`\\`json\n{\n  \"prompt\": \"<The detailed writing prompt>\",\n  \"word_count_range\": \"1500-2500 words\"\n}\n\\`\\`\\`\n\n❗ **Do NOT include any additional text or commentary—only return valid JSON.**`\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        440
+      ],
+      "id": "430fc21b-3e2a-47f6-aeb5-60c0322b093d",
+      "name": "Prompt: steal"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        0,
+        440
+      ],
+      "id": "494d3a66-978f-4319-8ff8-b5b65528e757",
+      "name": "Steal"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "faeb7506-42c8-443f-98d2-4bce29917330",
+              "leftValue": "={{ $json.blocks[0].elements[0].elements[0].type }}",
+              "rightValue": "=link",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "12d69415-bab3-4769-80fb-7ed118b0ded4",
+              "leftValue": "{{ $json.blocks[0].elements[0].elements[1].type }}",
+              "rightValue": "link",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -740,
+        460
+      ],
+      "id": "f3589011-f35f-4988-8b6b-61e9c7513350",
+      "name": "If there's a link"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2260,
+        180
+      ],
+      "id": "568367cb-72a8-4e71-a334-8f295362137b",
+      "name": "Jr. Copywriter"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -40,
+        640
+      ],
+      "id": "950dd05c-9ecf-4088-9341-d461a427636d",
+      "name": "Run Steal Prompt",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2360,
+        460
+      ],
+      "id": "98f7a3bb-6b83-40b4-b925-eb3849c7f3c2",
+      "name": "Writer",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        0,
+        60
+      ],
+      "id": "47f7fa6c-e684-455f-9714-e90774b3db8b",
+      "name": "Borrow"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    prompt: `You are an expert in content analysis and creative writing. Your task is to reverse-engineer an article and generate a high-quality, detailed prompt that could have been used to create it. \n\n### **Step 1: Understanding the Source Content**\nRetrieve the full text of the article from the following URL:  \n${$('Slack Trigger').first().json.blocks[0].elements[0].elements[0].url}\n\nAnalyze the article’s **topic, structure, target audience, and key themes**. You may ignore the tone.\n\n### **Step 2: Generate a Writing Prompt**\nBased on the content, create a **detailed writing prompt** that could have guided the author in crafting this piece. The prompt should:\n\n-Rework the title of the article.\n-Clearly define the topic and intended purpose of the article.\n-Specify the target audience and expected level of expertise.\n-Outline key points or sections the article should cover.\n-Extract and list all facts explicitly stated in the article (do not infer or generate new facts).\n-Extract any URLs or email addresses that are contextually associated with the subject(s) of the article (e.g., product URLs, company websites, contact emails).\n-Never reference the original article\n-Never suggest tone or voice\n-Never suggest writing style\n\n### **Step 3: Output Format**\nRespond in the following format (strict JSON):\n\n\\`\\`\\`json\n{\n  \"prompt\": \"<The detailed writing prompt>\",\n  \"word_count_range\": \"1500-2500 words\"\n}\n\\`\\`\\`\n\n❗ **Do NOT include any additional text or commentary—only return valid JSON.**`\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        60
+      ],
+      "id": "975d9f33-2f1a-4475-a4e2-3831aeaced54",
+      "name": "Prompt: borrow"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -40,
+        260
+      ],
+      "id": "c7f97adb-2189-40d5-81cb-ec526d1823ed",
+      "name": "Run Borrow Prompt",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    prompt: `You are an expert in content analysis and creative writing. Your task is to reverse-engineer an article and generate a high-quality, detailed prompt that could have been used to create it. \n\n### **Step 1: Understanding the Source Content**\nRetrieve the full text of the article from the following URL:  \n${$('Slack Trigger').first().json.blocks[0].elements[0].elements[0].url}\n\nAnalyze the article’s **topic, structure, target audience, and key themes**. You may ignore the tone.\n\n### **Step 2: Generate a Writing Prompt**\nBased on the content, create a **detailed writing prompt** that could have guided the author in crafting this piece. The prompt should:\n\n-Rework the title of the article.\n-Clearly define the topic and intended purpose of the article.\n-Specify the target audience and expected level of expertise.\n-Outline key points or sections the article should cover.\n-Extract and list all facts explicitly stated in the article (do not infer or generate new facts).\n-Extract any URLs or email addresses that are contextually associated with the subject(s) of the article (e.g., product URLs, company websites, contact emails).\n-Never reference the original article\n-Never suggest tone or voice\n-Never suggest writing style\n\n### **Step 3: Output Format**\nRespond in the following format (strict JSON):\n\n\\`\\`\\`json\n{\n  \"prompt\": \"<The detailed writing prompt>\",\n  \"word_count_range\": \"1500-2500 words\"\n}\n\\`\\`\\`\n\n❗ **Do NOT include any additional text or commentary—only return valid JSON.**`\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        -340
+      ],
+      "id": "f5ae6b3e-f1b7-4569-bfd9-18f609246eb0",
+      "name": "Prompt: beg"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        0,
+        -340
+      ],
+      "id": "5dcbfe75-ac87-48a8-8290-c31fe5537998",
+      "name": "Beg"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -40,
+        -140
+      ],
+      "id": "c5d84933-f4bb-4a8b-b1c2-e125228513df",
+      "name": "Run Beg Prompt",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "1d0bXMPz6A4wkDw6",
+          "mode": "list",
+          "cachedResultName": "debug"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        60
+      ],
+      "id": "91d71976-50de-404f-8ef0-a411ac4f2886",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2700,
+        180
+      ],
+      "id": "eb43c326-cb1a-42e8-88d9-0c90718bc96a",
+      "name": "Jr. Copywriter1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2800,
+        460
+      ],
+      "id": "e1fc33cd-d62a-485a-9cd0-c39d41544b7e",
+      "name": "Writer1",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T20:27:29.570Z",
+      "updatedAt": "2025-03-19T20:27:29.570Z",
+      "id": "1QyplulnTer89HuT",
+      "name": "Creative"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-07T22:41:01.000Z",
+  "versionId": "fe051505-3349-43ab-86fd-116dea483791"
+}
