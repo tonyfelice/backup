@@ -1,0 +1,251 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buffer": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "search": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Product Search": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product Details": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product Search2": {
+      "ai_tool": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-06-24T18:48:13.144Z",
+  "id": "aQUmEBe38BbarBtF",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "LPT: get products",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "How can I help?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9919a6c4-5d95-482f-ade9-5cf7bfa5e965",
+      "name": "When chat message received",
+      "webhookId": "f2aacc6b-7715-4e76-bb4d-ef699b2214a8"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Your name is Cal. You are a sales agent for liquidyneusa.com, which has served the dairy, brewery, distillery, biotech, & pharmaceutical industries for over 30 years (founded in 1993). Liquidyne specializes in providing everything from high-quality single-use components, including tubing, connectors, valves & pumps – to full service design of complex, high-purity systems.\n\nYour tone should be professional and helpful, yet direct and to the point. \n\nParse the chatInput for product_keywords. This can be a single word, or a phrase. Valid product_keywords can be a brand, a product type (or even a product_id or handle). If product_keywords are found, pass that value to the \"Product Search\" tool\n\nUse the \"Product Details\" tool retrieve details about specific products. This tool expects a product_id or a handle. Don't assume values for any parameters that are not specified. \n\nIf a customer asks for details about a specific product we carry, you must first use the \"Product Search\" tool to find the product id, then use that product id to query the \"Product Details\" tool \n\nOnly suggest brands liquidyne currently carries.\n\nif you're unable to provide an accurate answer, admit that you're not certain and prompt the customer for their email address, so that a  human can follow-up quickly"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        220,
+        0
+      ],
+      "id": "cb2d1c9f-93f7-4ed1-86fa-824a95476e1f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        140,
+        220
+      ],
+      "id": "8fca9d8c-c3af-438b-bbed-721cc2f7e54e",
+      "name": "OpenAI Chat",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        260,
+        220
+      ],
+      "id": "18436e91-e0b7-4f4b-9c63-11b84a21c3db",
+      "name": "Buffer"
+    },
+    {
+      "parameters": {
+        "toolDescription": "This tool should return a json object containing all of the products liquidyne currently carries today.",
+        "url": "https://liquidyneusa.com/products.json?fields=id&limit=5000"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -100,
+        460
+      ],
+      "id": "6e40e618-7076-4711-bfdc-8f5c6210ee17",
+      "name": "search"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Returns a product id and handle\n\nExpects a product-related keyword.\n\n",
+        "command": "=wget \\\n  --header=\"Content-Type: application/json\" \\\n  --header=\"X-Shopify-Storefront-Access-Token: a6cf313a4eeb67c8e3d73547c355821f\" \\\n  --post-data='{\"query\":\"{ products(first: 10, query: \\\"{{ $fromAI(\"product_keywords\") }}\\\") { edges { node { id title handle vendor tags productType } } } }\"}' \\\n  https://liquidyne-process-technologies-inc.myshopify.com/api/2025-04/graphql.json \\\n  -O -\n"
+      },
+      "type": "n8n-nodes-base.executeCommandTool",
+      "typeVersion": 1,
+      "position": [
+        560,
+        380
+      ],
+      "id": "54ac1687-9847-4423-9edd-e6871efc230e",
+      "name": "Product Search"
+    },
+    {
+      "parameters": {
+        "authentication": "accessToken",
+        "resource": "product",
+        "operation": "getAll",
+        "additionalFields": {
+          "handle": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Handle', ``, 'string') }}",
+          "ids": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('IDs', ``, 'string') }}",
+          "product_type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_Type', ``, 'string') }}",
+          "vendor": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Vendor', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.shopifyTool",
+      "typeVersion": 1,
+      "position": [
+        720,
+        380
+      ],
+      "id": "ee5367c7-896d-4bed-83b4-a90c5a6a0381",
+      "name": "Product Details",
+      "credentials": {
+        "shopifyAccessTokenApi": {
+          "id": "wCLQdUqgY0fUrIxt",
+          "name": "tony-n8n-products"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Returns a json object containing product ids and handles\n\nExpects product_keywords parsed from chatInput.\n\nAfter replacing \"placeholder\" with the product_keywords, please use the following json string as the body:\n{\n  \"query\": \"{ products(first: 10, query: \\\"{ placeholder }\\\") { edges { node { id title handle vendor tags productType } } } }\"\n}\n\n",
+        "method": "POST",
+        "url": "https://liquidyne-process-technologies-inc.myshopify.com/api/2025-04/graphql.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Content-Type",
+              "valueProvider": "fieldValue",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "model"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -60,
+        460
+      ],
+      "id": "1c52fb3d-6ff8-4517-bc9a-a00af58a4100",
+      "name": "Product Search2",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "d04ERbNut5svFC4p",
+          "name": "tony-storefront-api-auth"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-06-26T18:37:24.000Z",
+  "versionId": "0fbdfcc3-162a-4b8d-ac01-c6aaf40d078c"
+}
