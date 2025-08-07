@@ -1,0 +1,391 @@
+{
+  "active": false,
+  "connections": {
+    "Writer1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sam",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Writer": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Jill",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Writer2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Ted",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sam": {
+      "main": [
+        [
+          {
+            "node": "Jill",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Ted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Jill": {
+      "main": [
+        [
+          {
+            "node": "Ted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ted": {
+      "main": [
+        [
+          {
+            "node": "Jill",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Sam",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "Sam",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sam",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Ted",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Jill",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-11T22:26:10.781Z",
+  "id": "CvbpeEMUJM8bo5Vs",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "chaining poc",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        180,
+        360
+      ],
+      "id": "fe19e5ef-115b-4ab4-841c-8baa4744da2d",
+      "name": "Writer1",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "=This is only a hypothetical test scenario.\n\nYour name is Sam. \n\nYou have brown hair, brown eyes, and are 6'2\" tall.\nYou live in texas.\nYou know about red widgets.\n\nYou have two freinds, Jill and Ted.\nJill knows about pink widgets, and Ted is an expert on green ones.\n\nBetween the three of you, we hope you can help the user on slack who has said {{ $json.text }}\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        160,
+        -20
+      ],
+      "id": "05f27acd-ad1e-44df-a803-0801cec82ac9",
+      "name": "Sam"
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "=This is only a hypothetical test scenario.\n\nYour name is Jill. \n\nYou have brown hair, brown eyes, and are 5'6\" tall.\nYou live in colorado.\nYou know about pink widgets.\n\nYou have two freinds, Sam and Ted.\nSam knows about red widgets, and Ted is an expert on green ones.\n\nBetween the three of you, we hope you can help the user on slack who has said {{ $json.text }}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        640,
+        -20
+      ],
+      "id": "0f94c548-6048-4787-b36e-8ec2ceffb224",
+      "name": "Jill"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        660,
+        380
+      ],
+      "id": "e2a589f4-c1c0-462e-97f5-4f48cfe086cf",
+      "name": "Writer",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        200
+      ],
+      "id": "1588f8f4-4888-4737-9cfd-a4f0e1c4f58f",
+      "name": "Writer2",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "=This is only a hypothetical test scenario.\n\nYour name is Ted. \n\nYou have brown hair, blue eyes, and are 6' tall.\nYou live in colorado.\nYou know about green widgets.\n\nYou have two freinds, Jill and Ted.\nJill knows about pink widgets, and Sam is an expert on red ones.\n\nBetween the three of you, we hope you can help the user on slack who has said {{ $json.text }}\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1060,
+        480
+      ],
+      "id": "7735cb87-5232-4c36-8993-0beed2bb5739",
+      "name": "Ted"
+    },
+    {
+      "parameters": {
+        "trigger": [
+          "message"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C08H2F2V465",
+          "mode": "list",
+          "cachedResultName": "agent"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        -20
+      ],
+      "id": "7e83b793-44ca-4c36-b82e-e12dd7b4c00b",
+      "name": "Slack Trigger",
+      "webhookId": "613eef68-b6bd-499e-8217-0dac6f1e7fe3",
+      "credentials": {
+        "slackApi": {
+          "id": "fyEHznF69YVzfPdI",
+          "name": "n8n-prod-trigger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08H2F2V465",
+          "mode": "list",
+          "cachedResultName": "agent"
+        },
+        "text": "={{ $fromAI() }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slackTool",
+      "typeVersion": 2.3,
+      "position": [
+        320,
+        200
+      ],
+      "id": "45d646f1-6c45-4b72-b5b6-b263c956d089",
+      "name": "Slack",
+      "webhookId": "82853e79-e298-4dd5-9220-bd4c3788d1c0",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "48syRQIzbyz32d3T",
+          "name": "n8n-bot-node"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08H2F2V465",
+          "mode": "list",
+          "cachedResultName": "agent"
+        },
+        "text": "={{ $fromAI() }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slackTool",
+      "typeVersion": 2.3,
+      "position": [
+        820,
+        240
+      ],
+      "id": "2fb0a427-eaf6-4324-9e9a-95e4de3584b9",
+      "name": "Slack1",
+      "webhookId": "82853e79-e298-4dd5-9220-bd4c3788d1c0",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "48syRQIzbyz32d3T",
+          "name": "n8n-bot-node"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08H2F2V465",
+          "mode": "list",
+          "cachedResultName": "agent"
+        },
+        "text": "={{ $fromAI() }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slackTool",
+      "typeVersion": 2.3,
+      "position": [
+        1240,
+        740
+      ],
+      "id": "bb56cdae-7534-4915-abe5-9b0f148f103c",
+      "name": "Slack2",
+      "webhookId": "82853e79-e298-4dd5-9220-bd4c3788d1c0",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "48syRQIzbyz32d3T",
+          "name": "n8n-bot-node"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "tree/main",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T20:29:57.197Z",
+      "updatedAt": "2025-03-19T20:29:57.197Z",
+      "id": "0vGvjL3g8YDdI9cG",
+      "name": "test"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-03-19T20:30:00.000Z",
+  "versionId": "9ff75400-2085-4fea-9325-aad6b8bfb7ca"
+}
