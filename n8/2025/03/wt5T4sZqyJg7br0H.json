@@ -1,0 +1,1123 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tracked Keywords": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Merge Loop Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get Ranking Keywords by URL": {
+      "main": [
+        [
+          {
+            "node": "Insert URL Rankings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert URL Rankings": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Domains": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Get Tracked Keywords",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Loop Data": {
+      "main": [
+        [
+          {
+            "node": "Get Ranking Keywords by URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Get latest row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Date": {
+      "main": [
+        [
+          {
+            "node": "Merge Loop Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get date": {
+      "main": [
+        [
+          {
+            "node": "Merge Loop Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get latest row": {
+      "main": [
+        [
+          {
+            "node": "Get date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Get Top Ranking Keywords Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort1": {
+      "main": [
+        [
+          {
+            "node": "Get last row by date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Sort1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Today - 7d",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Top Ranking Keywords Date": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get last row by date": {
+      "main": [
+        [
+          {
+            "node": "Get date1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get date1": {
+      "main": [
+        [
+          {
+            "node": "Get Keyword Opportunities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Top Ranking Keywords": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Keyword Opportunities": {
+      "main": [
+        [
+          {
+            "node": "Insert Top Ranking Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Today - 7d": {
+      "main": [
+        [
+          {
+            "node": "Get Keyword Opportunities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-19T16:44:26.381Z",
+  "id": "wt5T4sZqyJg7br0H",
+  "meta": null,
+  "name": "Rank Tracker (sheets)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        80,
+        820
+      ],
+      "id": "1ae6e152-ef5c-4313-95bc-1ca43829a698",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1AJRIe-IROQGRtqlBqeiyVP5ayjSlfOMC_nFDGwwLULU",
+          "mode": "list",
+          "cachedResultName": "tracked_keywords",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AJRIe-IROQGRtqlBqeiyVP5ayjSlfOMC_nFDGwwLULU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $json.domain }}",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1160,
+        280
+      ],
+      "id": "1bf2aa22-c04f-46fd-9ff8-ff62176b5339",
+      "name": "Get Tracked Keywords"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    keywordString: $input.all().map(item => `'${item.json.keywords}'`).join(', ')\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        280
+      ],
+      "id": "bfbfc4d7-5a6a-4ce7-92d6-1be61f86a4a3",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "projectId": {
+          "__rl": true,
+          "value": "automations-451008",
+          "mode": "list",
+          "cachedResultName": "automations",
+          "cachedResultUrl": "https://console.cloud.google.com/bigquery?project=automations-451008"
+        },
+        "sqlQuery": "WITH daily_metrics AS (\n  SELECT \n    data_date as date,\n    query as keyword,\n    url,\n    device,\n    SUM(clicks) as clicks,\n    SUM(impressions) as impressions,\n    ROUND(AVG(sum_position / impressions), 1) as position,\n    ROUND(SUM(clicks) / SUM(impressions) * 100, 2) as ctr\n  FROM `{{ $('Loop Over Items').all()[0].json.searchdata_url_impression }}`\n  WHERE \n    data_date > '{{ $('Merge Loop Data').all()[0].json.date }}'\n    AND NOT is_anonymized_query\n    AND lower(query) IN (\n    {{ $('Merge Loop Data').all()[1].json.keywordString }}\n    )\n  -- remove following line if you want to exclude toc rankings\n  AND url NOT LIKE '%#%'\n  GROUP BY date, keyword, url, device\n)\n\nSELECT \n  date,\n  keyword,\n  device,\n  url,\n  clicks,\n  impressions,\n  position,\n  ctr\nFROM daily_metrics\nORDER BY date ASC, keyword, position ASC",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleBigQuery",
+      "typeVersion": 2.1,
+      "position": [
+        2360,
+        260
+      ],
+      "id": "af6bf024-3456-4786-a0b3-bd081262c008",
+      "name": "Get Ranking Keywords by URL",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "19wCg-VAykAIYzeryWTeLfxJEr9G9Sj1Vf3h4DZUITqQ",
+          "mode": "list",
+          "cachedResultName": "rank_tracking",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19wCg-VAykAIYzeryWTeLfxJEr9G9Sj1Vf3h4DZUITqQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Loop Over Items').all()[0].json.domain }}",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "date": "={{ $json.date }}",
+            "keyword": "={{ $json.keyword }}",
+            "url": "={{ $json.url }}",
+            "device": "={{ $json.device }}",
+            "clicks": "={{ $json.clicks }}",
+            "position": "={{ $json.position }}",
+            "ctr": "={{ $json.ctr }}",
+            "impressions": "={{ $json.impressions }}"
+          },
+          "matchingColumns": [
+            "date"
+          ],
+          "schema": [
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "device",
+              "displayName": "device",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "keyword",
+              "displayName": "keyword",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "clicks",
+              "displayName": "clicks",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "impressions",
+              "displayName": "impressions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "position",
+              "displayName": "position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ctr",
+              "displayName": "ctr",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2560,
+        260
+      ],
+      "id": "d3b71cb3-ec94-431d-9f2c-a9c8d3298c66",
+      "name": "Insert URL Rankings"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"domains\": [\n    {\n      \"domain\": \"domain_1\",\n      \"searchdata_url_impression\": \"searchdata_url_impression\",\n      \"searchdata_site_impression\": \"searchdata_site_impression\"\n    },\n    {\n      \"domain\": \"domain_2\",\n      \"searchdata_url_impression\": \"searchdata_url_impression\",\n      \"searchdata_site_impression\": \"searchdata_site_impression\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        820
+      ],
+      "id": "68689793-cbdb-4f57-b297-a8d9f26e3ab4",
+      "name": "Domains"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "domains",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        460,
+        820
+      ],
+      "id": "a649f025-d1a6-4886-b05c-7f866951f610",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        800,
+        180
+      ],
+      "id": "ecbb3676-4170-465e-a1f0-770230ec3a07",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2160,
+        260
+      ],
+      "id": "71b288d2-41b4-4b90-a991-09e576d0bde4",
+      "name": "Merge Loop Data"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19wCg-VAykAIYzeryWTeLfxJEr9G9Sj1Vf3h4DZUITqQ",
+          "mode": "list",
+          "cachedResultName": "rank_tracking",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19wCg-VAykAIYzeryWTeLfxJEr9G9Sj1Vf3h4DZUITqQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $json.domain }}",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1160,
+        120
+      ],
+      "id": "bb0e4dae-39af-4d58-8abc-5f5a22d3cb90",
+      "name": "Google Sheets",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        40
+      ],
+      "id": "91ac870c-c1a1-48af-b172-0b945cccd99b",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1a376642-1bb3-43a3-802f-6844d3b9c2a7",
+              "leftValue": "={{ $('Google Sheets').all()[0].json.isEmpty()}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1400,
+        120
+      ],
+      "id": "d9df803b-30e7-406a-8c95-04326e458fa4",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3ce8bf6-cbee-4949-a338-aeb1523b646a",
+              "name": "=date",
+              "value": "={{ $now.minus({ days: 7 }).format('yyyy-MM-dd') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1640,
+        220
+      ],
+      "id": "2e9d1a58-5ff1-4924-8d43-fcb8fd53eabf",
+      "name": "Set Date",
+      "notes": "In case the pipeline has not been triggered before, then the tracking sheet is empty. If true, we will take as a starting point of today minus 7 days. "
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4538ac52-c81c-460f-96ce-70ab74f313d9",
+              "name": "date",
+              "value": "={{ $json.date }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        40
+      ],
+      "id": "aba3bd13-5f10-472c-b6ea-43947db199f8",
+      "name": "Get date"
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        40
+      ],
+      "id": "3f648ff9-aa01-4687-b35e-a5d582e04a70",
+      "name": "Get latest row"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        800,
+        580
+      ],
+      "id": "6de22ffc-788b-4dbe-a631-cc4db5f050e4",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "32ae47a9-f7f5-41fc-b403-468094ba3f41",
+              "leftValue": "={{ $('Get Top Ranking Keywords Date').all()[0].json.isEmpty()}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1180,
+        680
+      ],
+      "id": "5ba99c6c-5688-449e-8b6e-eb2bb2ab7ffb",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "data_date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        540
+      ],
+      "id": "ac69c3bf-101e-4923-b751-3bb17422367a",
+      "name": "Sort1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4538ac52-c81c-460f-96ce-70ab74f313d9",
+              "name": "date",
+              "value": "={{ $json.data_date }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1740,
+        540
+      ],
+      "id": "623b446e-c221-4842-b2d2-6fd343bd4afd",
+      "name": "Get date1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1KWs-hsuxs_5leU6qELEDlzpFObkhHAFdKgJmDVq5aKg",
+          "mode": "list",
+          "cachedResultName": "Top Ranking Keywords",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KWs-hsuxs_5leU6qELEDlzpFObkhHAFdKgJmDVq5aKg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $('Loop Over Items1').item.json.domain }}",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "data_date": "={{ $json.data_date }}",
+            "query": "={{ $json.query }}",
+            "url": "={{ $json.url }}",
+            "device": "={{ $json.device }}",
+            "result_type": "={{ $json.result_type }}",
+            "total_impressions": "={{ $json.total_impressions }}",
+            "total_clicks": "={{ $json.total_clicks }}",
+            "avg_position": "={{ $json.avg_position }}",
+            "ctr_percentage": "={{ $json.ctr_percentage }}",
+            "position_bucket": "={{ $json.position_bucket }}"
+          },
+          "matchingColumns": [
+            "data_date"
+          ],
+          "schema": [
+            {
+              "id": "data_date",
+              "displayName": "data_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "device",
+              "displayName": "device",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "result_type",
+              "displayName": "result_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_impressions",
+              "displayName": "total_impressions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_clicks",
+              "displayName": "total_clicks",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "avg_position",
+              "displayName": "avg_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ctr_percentage",
+              "displayName": "ctr_percentage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "position_bucket",
+              "displayName": "position_bucket",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2180,
+        740
+      ],
+      "id": "670a5c0e-c7d6-4d82-85d6-9d5a1d6c32c0",
+      "name": "Insert Top Ranking Keywords"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1KWs-hsuxs_5leU6qELEDlzpFObkhHAFdKgJmDVq5aKg",
+          "mode": "list",
+          "cachedResultName": "Top Ranking Keywords",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KWs-hsuxs_5leU6qELEDlzpFObkhHAFdKgJmDVq5aKg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "={{ $json.domain }}",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1020,
+        680
+      ],
+      "id": "14b12835-e9c8-4d7a-bfb6-93c713a27292",
+      "name": "Get Top Ranking Keywords Date",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1580,
+        540
+      ],
+      "id": "f7665f7a-bbd5-41fd-9a3e-6bb051f48d50",
+      "name": "Get last row by date"
+    },
+    {
+      "parameters": {
+        "projectId": {
+          "__rl": true,
+          "value": "automations-451008",
+          "mode": "list",
+          "cachedResultName": "automations",
+          "cachedResultUrl": "https://console.cloud.google.com/bigquery?project=automations-451008"
+        },
+        "sqlQuery": "WITH filtered_queries AS (\n  SELECT \n    data_date,\n    device,\n    query,\n    url,\n    SUM(clicks) as clicks,\n    SUM(impressions) as impressions,\n    SUM(sum_position) as sum_position,\n    SUM(sum_position)/SUM(impressions) + 1 as avg_position,\n    MAX(CASE \n      WHEN is_tpf_faq THEN 'FAQ'\n      WHEN is_tpf_howto THEN 'HowTo'\n      WHEN is_review_snippet THEN 'Review'\n      ELSE 'Normal'\n    END) as result_type\n  FROM `{{ $('Loop Over Items1').all()[0].json.searchdata_url_impression }}`\n  WHERE SAFE_DIVIDE(sum_position, impressions) <= 50\n  AND is_anonymized_query = False\n  AND impressions >= 5\n  AND data_date > '{{ $json.date }}'\n  GROUP BY data_date, device, query, url\n)\n\nSELECT \n  data_date,\n  query,\n  url,\n  device,\n  result_type,\n  impressions as total_impressions,\n  clicks as total_clicks,\n  avg_position,\n  SAFE_DIVIDE(clicks, impressions) * 100 as ctr_percentage,\n  CASE \n    WHEN avg_position <= 3 THEN 'Top 3'\n    WHEN avg_position <= 10 THEN 'Top 10'\n    WHEN avg_position <= 20 THEN 'Top 20'\n    ELSE 'Above 20'\n  END as position_bucket\nFROM filtered_queries\nORDER BY \n  data_date DESC,\n  url",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleBigQuery",
+      "typeVersion": 2.1,
+      "position": [
+        1960,
+        740
+      ],
+      "id": "6ad457e6-2755-40d6-9d86-3b8ef2999f32",
+      "name": "Get Keyword Opportunities",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3ce8bf6-cbee-4949-a338-aeb1523b646a",
+              "name": "=date",
+              "value": "={{ $now.minus({ days: 7 }).format('yyyy-MM-dd') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1420,
+        760
+      ],
+      "id": "806c5f43-c6ec-43c8-9fd1-c009d6d14aae",
+      "name": "Today - 7d",
+      "notes": "In case the pipeline has not been triggered before, then the tracking sheet is empty. If true, we will take as a starting point of today minus 7 days. "
+    },
+    {
+      "parameters": {
+        "content": "# Keyword Tracking by Keyword List",
+        "height": 480,
+        "width": 2120
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        660,
+        0
+      ],
+      "id": "90fb9bc7-7c00-4035-a89b-377bf12ba667",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Keywords by URL and Top position",
+        "height": 480,
+        "width": 2120
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        660,
+        500
+      ],
+      "id": "5e10bfde-fc2c-4394-8c6d-a8486b8cc2ea",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "adjust this node if you want to start with more historical data\n",
+        "height": 200,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        680
+      ],
+      "id": "b76f3c13-be06-4ffb-87d0-0226e8c47670",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "adjust this node if you want to start with more historical data\n",
+        "height": 200,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        160
+      ],
+      "id": "7e562e13-9b17-401a-b358-99026cbf2b36",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "add your domains and tables here",
+        "height": 180,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        780
+      ],
+      "id": "e47dd0ed-0d35-4020-8759-a8da7d2e0c69",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# Instructions\n\n## Description\nThis automation enables you to replace expensive SEO Rank Trackers and track any number of keywords for multiple domains.\n\n## Requirements & Setup (~20 minutes)\nTo use this template, you need bulk export enabled for your property connected to Google Search Console. The automation uses a BigQuery table for data processing.\n\nYou'll also need to set up credentials for accessing both BigQuery and Google Sheets.\n\n## Google Spreadsheets\nThis automation requires three spreadsheets:\n1. **Top Ranking Keywords**: Saves queries where you already rank at a decent position. This data helps identify low-hanging fruits.\n   - Columns: data_date, query, url, device, result_type, total_impressions, total_clicks, avg_position, ctr_percentage, position_bucket\n\n2. **Rank Tracking**: Tracks the daily performance of your monitored keywords.\n   - Columns: date, url, device, keyword, clicks, impressions, position, ctr\n\n3. **Tracked Keywords**: Stores all keywords you want to rank for.\n   - Columns: domain, keyword\n",
+        "height": 980,
+        "width": 640
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "de2de44d-3852-4a98-8a8b-df1ec24cbebb",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Rank Tracker\n\ntrack unlimited keywords for unlimited websites. You can find a demo [here](https://youtu.be/_m_nY3vMSVk).\n\n\n## Overview\nThis repository provides a free rank tracker that allows you to track unlimited keywords for as many websites as you like. It automates the process of keyword rank tracking, saving you time and effort compared to manual checks or expensive SEO tools.\n\n## Why Use This Template?\n\nMost SEO tools for rank tracking are:\n- Expensive\n- Limited to the amount of websites\n- Restricted in the number of keywords or websites\n\nThis automation solves these problems by providing unlimited tracking capabilities for free.\n\n## Features\n\n- Track unlimited keywords\n- Monitor multiple websites\n- Identify low-hanging fruits for content optimization\n- Automated data collection\n- No gaps in data tracking\n- Flexible date range settings\n\n## Setup Instructions\n\n### Initial Setup\n\n1. Set the date range in edit-nodes (marked with stickers)\n   - Default: Uses data from 7 days ago\n   - Adjustable for more historical data\n\n### Dynamic Updates\n\nAfter initial setup, the system:\n- Automatically sets date ranges\n- Uses the last available date from keyword tracking\n- Ensures continuous data collection without gaps\n- Works even without scheduled runs\n\n### Google Spreadsheets Setup\n\n1. Follow node instructions for spreadsheet creation\n2. Copy and paste required columns\n3. Name your spreadsheets\n4. Add your credentials\n\n",
+        "height": 1300,
+        "width": 640
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        -320
+      ],
+      "id": "eb5e876e-ca1b-4ab3-8f87-bc63ed1e66f6",
+      "name": "Sticky Note6"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T16:43:15.681Z",
+      "updatedAt": "2025-03-19T16:43:15.681Z",
+      "id": "SBW9cvvLopJuh2K7",
+      "name": "SEO"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-19T17:05:39.000Z",
+  "versionId": "c813a749-03ce-486a-9de7-be2df7973023"
+}
