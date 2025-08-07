@@ -1,0 +1,90 @@
+{
+  "active": true,
+  "connections": {
+    "HubSpot Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-13T20:42:01.824Z",
+  "id": "7KTqjsWU9NY70xC9",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "hs new contact trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "eventsUi": {
+          "eventValues": [
+            {}
+          ]
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "43c8a8bd-1201-48e1-ba7a-4b9aa2dbf41f",
+      "name": "HubSpot Trigger",
+      "webhookId": "d0b498db-9ea7-4646-a7db-3e3db2618506",
+      "credentials": {
+        "hubspotDeveloperApi": {
+          "id": "OBcrAoWkf72RWijt",
+          "name": "HubSpot Cesium-dev App"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "7035125096",
+        "text": "={{ $json.subscriptionType }} with ID {{ $json.contactId }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "58eec510-13ee-4222-8d6e-04463c05f1b1",
+      "name": "Telegram",
+      "webhookId": "0dc1a105-4a68-4203-a2be-16aac03c0aaf",
+      "credentials": {
+        "telegramApi": {
+          "id": "I8lcVRjq6zQF1oxu",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T20:29:57.197Z",
+      "updatedAt": "2025-03-19T20:29:57.197Z",
+      "id": "0vGvjL3g8YDdI9cG",
+      "name": "test"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2025-03-19T20:30:22.000Z",
+  "versionId": "6bc06181-020b-4acf-9871-3f2b19b834b2"
+}
