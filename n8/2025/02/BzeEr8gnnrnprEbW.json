@@ -1,0 +1,1211 @@
+{
+  "active": false,
+  "connections": {
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatGPT": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "isotope112",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "isotope112",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram1": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Summary": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Website": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ideas, Subscriptions, Tasks, For Laters": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reddit": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emails": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contacts": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YouTube": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "News Articles": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Topics": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weather": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commands": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isotope112": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reminders": {
+      "ai_tool": [
+        [
+          {
+            "node": "isotope112",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Reminders": {
+      "ai_tool": [
+        [
+          {
+            "node": "Reminder Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Reminders": {
+      "ai_tool": [
+        [
+          {
+            "node": "Reminder Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatGPT-2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Reminder Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query for delete": {
+      "main": [
+        [
+          {
+            "node": "Reminder Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query for fetch": {
+      "main": [
+        [
+          {
+            "node": "Reminder Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7 am, everyday": {
+      "main": [
+        [
+          {
+            "node": "Query for delete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8 am, everyday": {
+      "main": [
+        [
+          {
+            "node": "Query for fetch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reminder Agent": {
+      "main": [
+        [
+          {
+            "node": "Output Reminders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-15T14:48:05.168Z",
+  "id": "BzeEr8gnnrnprEbW",
+  "meta": null,
+  "name": "isotope (v112 Personal Assistant)",
+  "nodes": [
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger') }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -580,
+        620
+      ],
+      "id": "ce513fe8-409e-4b8d-bf73-8195775a13d0",
+      "name": "Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini-2024-07-18",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini-2024-07-18"
+        },
+        "options": {
+          "responseFormat": "text"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -700,
+        600
+      ],
+      "id": "b25d8425-4d1c-4669-9593-f922c1c0addf",
+      "name": "ChatGPT"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        340,
+        200
+      ],
+      "id": "61d7356c-d2c7-413e-bcd8-cc79a039ce66",
+      "name": "Telegram",
+      "webhookId": "cc27061c-a51d-4e02-b5de-472506b4d887",
+      "credentials": {
+        "telegramApi": {
+          "id": "I8lcVRjq6zQF1oxu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "*"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1020,
+        200
+      ],
+      "id": "545cb045-5844-4ca9-ab0a-b1ad62a4afb0",
+      "name": "Telegram Trigger",
+      "webhookId": "c5e8d289-b102-4737-bcb7-91f4c80b018e",
+      "credentials": {
+        "telegramApi": {
+          "id": "I8lcVRjq6zQF1oxu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -240,
+        60
+      ],
+      "id": "1e88469f-ad7d-4412-ac75-9b90bb8fe0ee",
+      "name": "OpenAI"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.voice }}",
+                    "rightValue": "voice",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Voice"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b17b5d14-0a3b-4bf9-ab6c-8759394aee48",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -600,
+        200
+      ],
+      "id": "96685909-d90e-4d81-80c2-73c6249cdc54",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -420,
+        60
+      ],
+      "id": "bd0f413d-ad66-4e57-9099-eaba0292235c",
+      "name": "Telegram1",
+      "webhookId": "2c2964db-fbe1-4547-9944-f97ca4dd1d70",
+      "credentials": {
+        "telegramApi": {
+          "id": "I8lcVRjq6zQF1oxu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        700
+      ],
+      "id": "7675489a-de99-46f8-a294-af2146973668",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool when queried for a \"Daily Summary\"",
+        "base": {
+          "__rl": true,
+          "value": "appt81JoiPabR4HPM",
+          "mode": "list",
+          "cachedResultName": "isotope",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblhgb6iWwMMFPdZV",
+          "mode": "list",
+          "cachedResultName": "Daily Summary",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM/tblhgb6iWwMMFPdZV"
+        },
+        "id": "rec5tMGA13SX1tjd6",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        740,
+        600
+      ],
+      "id": "456bec0e-f153-467e-a5d3-72d3868d779d",
+      "name": "Daily Summary"
+    },
+    {
+      "parameters": {
+        "name": "Website",
+        "description": "Call this tool for website, traffic, blog related queries.",
+        "workflowId": {
+          "__rl": true,
+          "value": "7qOUHsuhg3eoEbSv",
+          "mode": "list",
+          "cachedResultName": "Access Website"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -460,
+        640
+      ],
+      "id": "4b8284f0-f331-469e-9f19-56aa4ac870b7",
+      "name": "Website"
+    },
+    {
+      "parameters": {
+        "name": "Airtable",
+        "description": "Call this tool for queries related to tasks, subscriptions, ideas and for laters.",
+        "workflowId": {
+          "__rl": true,
+          "value": "ItbiWtzpGbYVuaSB",
+          "mode": "list",
+          "cachedResultName": "Access Airtable"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -340,
+        660
+      ],
+      "id": "56c7f13b-d381-4a0e-8993-a2ac710d9cb1",
+      "name": "Ideas, Subscriptions, Tasks, For Laters"
+    },
+    {
+      "parameters": {
+        "name": "Reddit",
+        "description": "Call this tool for Reddit related queries",
+        "workflowId": {
+          "__rl": true,
+          "value": "9Uj1XiuWmpa2DrOT",
+          "mode": "list",
+          "cachedResultName": "Connect Reddit"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        260,
+        720
+      ],
+      "id": "07cc854e-23c0-427e-afa8-fb4a86448c49",
+      "name": "Reddit"
+    },
+    {
+      "parameters": {
+        "name": "Emails",
+        "description": "Call this tool for email related queries, sending emails, fetching emails",
+        "workflowId": {
+          "__rl": true,
+          "value": "n01t0AoOJOkkcova",
+          "mode": "list",
+          "cachedResultName": "Access Emails"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        380,
+        680
+      ],
+      "id": "57999e14-154f-4e80-a615-5ff26d7e4f65",
+      "name": "Emails"
+    },
+    {
+      "parameters": {
+        "name": "Contacts",
+        "description": "Call this tool for queries related to contacts",
+        "workflowId": {
+          "__rl": true,
+          "value": "P2aor9kw2aQzJs3M",
+          "mode": "list",
+          "cachedResultName": "Access Contacts"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        620,
+        640
+      ],
+      "id": "35ad38b9-7748-4709-96ed-87d6ca4b1a54",
+      "name": "Contacts"
+    },
+    {
+      "parameters": {
+        "name": "YouTube",
+        "description": "Call this tool for YouTube related queries",
+        "workflowId": {
+          "__rl": true,
+          "value": "p1D4QrF7z552rk9u",
+          "mode": "list",
+          "cachedResultName": "Access Youtube Channel"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        500,
+        660
+      ],
+      "id": "de3de206-a0df-4ecd-874f-b1ab63c4fe0c",
+      "name": "YouTube"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to get the latest news",
+        "method": "POST",
+        "url": "https://api.tavily.com/search",
+        "sendBody": true,
+        "parametersBody": {
+          "values": [
+            {
+              "name": "query",
+              "valueProvider": "fieldValue",
+              "value": "{placeholder}"
+            },
+            {
+              "name": "topic",
+              "valueProvider": "fieldValue",
+              "value": "news"
+            },
+            {
+              "name": "api_key",
+              "valueProvider": "fieldValue",
+              "value": "your api key"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        20,
+        740
+      ],
+      "id": "19c2a10b-a093-43e9-9f2c-be1141241ff2",
+      "name": "News Articles"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to get research topics",
+        "method": "POST",
+        "url": "https://api.tavily.com/search",
+        "sendBody": true,
+        "parametersBody": {
+          "values": [
+            {
+              "name": "query",
+              "valueProvider": "fieldValue",
+              "value": "{placeholder}"
+            },
+            {
+              "name": "topic",
+              "valueProvider": "fieldValue",
+              "value": "general"
+            },
+            {
+              "name": "api_key",
+              "valueProvider": "fieldValue",
+              "value": "your api key"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        140,
+        780
+      ],
+      "id": "ba9127f9-4c15-4753-b074-51e41a5e5bec",
+      "name": "Research Topics"
+    },
+    {
+      "parameters": {
+        "name": "Weather",
+        "description": "Call this tool for weather related queries",
+        "workflowId": {
+          "__rl": true,
+          "value": "IzkkENyJa69TJrfe",
+          "mode": "list",
+          "cachedResultName": "Weather API"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -220,
+        680
+      ],
+      "id": "48f52f7c-95b0-483f-95f7-3c3cd7571133",
+      "name": "Weather"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get a list of tools, their functionality and example queries sent from the user to understand what tool to route queries to.",
+        "base": {
+          "__rl": true,
+          "value": "appt81JoiPabR4HPM",
+          "mode": "list",
+          "cachedResultName": "isotope",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblwyvi1VHNezqwPc",
+          "mode": "list",
+          "cachedResultName": "Tools and Queries",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM/tblwyvi1VHNezqwPc"
+        },
+        "id": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        860,
+        580
+      ],
+      "id": "8a4da3ec-228d-4c57-9f0d-bc31f3890032",
+      "name": "Commands"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Text: {{ $json.message.text }} \nVoice: {{ $json.text }} ",
+        "options": {
+          "systemMessage": "=### Role:\n\nYou are the user’s Intelligent Personal Assistant, your name is Isotope.\n\n### Task:\n\nYour primary function is to route the user’s queries without alteration to the appropriate tool. \n\n### Instructions:\n\n1. Extract the Query:\n\n- Check the following JSON fields in this exact priority order, and use the first available field:\n\n{{ $json.message.text }}\n{{ $json.text }}\n\n2. Route Without Modification:\n\n- Forward the exact, unmodified original query to the relevant tool.\n\n\n### Important:\n\n- Access \"Commands\" if you're unsure where to route a query.\n- When using \"Reddit\", remove the \"Search Reddit\", while keeping the query intact.\n- When using \"Airtable\", ensure the text \"idea\" or \"subscription\" or \"for later\" or \"task\" remains intact within the query.\n- Todays time and date is {{ $now }}\n- When queried with \"Daily Summary\", access the tool \"Daily Summary\" and search Record ID: rec5tMGA13SX1tjd6\n- Do not attempt to create, delete, or send emails, reminders, tasks, ideas, subscriptions and for laters.\n\n\n### Output:\n\n- Responses which include times and dates should use 12 hour time format and this date format (eg. 5th of February, 2025)\n- Format responses for Telegram using Markdown(Legacy)\n- Use emojis within responses, be friendly and fun.\n- If a tool fails to give results, respond with the output received.\n- If a tool fails to respond, respond with \"There appears to be an issue with this tool.\"\n- Ensure all responses are formatted neatly, with proper use of line breaks between each section. Do not output tables.\n\nThank you!\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        200
+      ],
+      "id": "d39c16f4-ce8c-4f49-97f9-d9550a4b84ea",
+      "name": "isotope112"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fef76fb8-7518-4bcd-8107-9ddca403149b",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": null,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -820,
+        200
+      ],
+      "id": "c5e7abd8-cba2-4fc6-9e9a-6788b090185e",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "name": "Reminders",
+        "description": "Call this tool for any queries related to creating reminders, fetching reminders and also deleting reminders",
+        "workflowId": {
+          "__rl": true,
+          "value": "AoEeeGMNmBIwcX63",
+          "mode": "list",
+          "cachedResultName": "Reminders"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        980,
+        560
+      ],
+      "id": "d46df4de-6cdb-4f5e-934f-3235b23857b7",
+      "name": "Reminders"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Delete reminders which have already been sent",
+        "operation": "deleteRecord",
+        "base": {
+          "__rl": true,
+          "value": "appt81JoiPabR4HPM",
+          "mode": "list",
+          "cachedResultName": "isotope",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblKQd6H6t9pyBrIQ",
+          "mode": "list",
+          "cachedResultName": "Reminders",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM/tblKQd6H6t9pyBrIQ"
+        },
+        "id": "="
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        80,
+        1340
+      ],
+      "id": "7f0fdc89-31cb-4584-92d6-da47447f47fe",
+      "name": "Delete Reminders"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get the reminders, time and date",
+        "base": {
+          "__rl": true,
+          "value": "appt81JoiPabR4HPM",
+          "mode": "list",
+          "cachedResultName": "isotope",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblKQd6H6t9pyBrIQ",
+          "mode": "list",
+          "cachedResultName": "Reminders",
+          "cachedResultUrl": "https://airtable.com/appt81JoiPabR4HPM/tblKQd6H6t9pyBrIQ"
+        },
+        "id": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -40,
+        1380
+      ],
+      "id": "c7c4e7e0-e549-40ec-b01c-f1140b5e9e5c",
+      "name": "Get Reminders"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        1340
+      ],
+      "id": "c4c001d7-a12e-4181-992b-ef5f61883680",
+      "name": "ChatGPT-2"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"query\": \"Delete yesterdays reminders\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -440,
+        1040
+      ],
+      "id": "60c70c8a-393e-4512-9414-33fbb431c7b5",
+      "name": "Query for delete"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"query\": \"Send todays reminders\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -440,
+        1200
+      ],
+      "id": "6c787d3d-064b-42e9-9384-5121d27dc476",
+      "name": "Query for fetch"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8,
+              "triggerAtMinute": 59
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -640,
+        1040
+      ],
+      "id": "76db3a05-949c-4fb5-b59f-2b5d1af8e66b",
+      "name": "7 am, everyday"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -640,
+        1200
+      ],
+      "id": "80ebead0-148c-4fc4-b26a-01ea04a73b14",
+      "name": "8 am, everyday"
+    },
+    {
+      "parameters": {
+        "chatId": "7628576993",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        1120
+      ],
+      "id": "df76bb93-e77b-447c-9235-0ee621abb5e3",
+      "name": "Output Reminders",
+      "webhookId": "36e3c6bb-e8ca-4ae8-8759-11bdc3c992e3",
+      "credentials": {
+        "telegramApi": {
+          "id": "I8lcVRjq6zQF1oxu",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Reminder Agent\n\nAirtable:\n1. Ensure your credentials are connected\n2. Create the tables as per each node\n\nSchedule triggers:\n1. Set the times you want these to trigger for both\n\nTelegram send message:\n1. Ensure you use your Chat ID within the field",
+        "height": 280,
+        "width": 400,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        520,
+        1080
+      ],
+      "typeVersion": 1,
+      "id": "beecf5df-becd-4637-b9b1-ba2fdc7cd876",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=You are an intelligent personal assistant in handling reminders for your creator.\n\nTodays time and date: {{ $now }}\n\n### Task:\n\nYou will assist your creator in sending reminders with the date and time associated with them for the current day.\n\n### Instructions:\n\nSending reminders:\n\n1. Upon receiving query \"Get todays reminders\", fetch the reminders from the table for todays date\n2. Send the reminders for todays date\n3. If no reminders are available for the day, simply respond with \"Your schedule looks clean today. Let me know if I can create any reminders for you!\"\n\nDeleting reminders:\n\n1. Upon receiving query \"Delete yesterdays reminders\", fetch the reminders from the table for yesterdays date\n2. Delete these reminders\n3. Respond with \"I have deleted yesterdays reminders. Let me know if you need anything else!\"\n4. If there are no reminders available for deletion, simply respond with \"You have no reminders available for deletion, we're all good!\"\n\n### Important:\n\n- Use emojis within responses, be friendly and fun.\n- Responses which include times and dates should use 12 hour time format and dates (eg. 5th of February, 2025)\n- Format responses for Telegram, use Markdown(Legacy) for responses"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -120,
+        1120
+      ],
+      "id": "808c3ccc-fb3f-496c-bca1-a824286ef5ec",
+      "name": "Reminder Agent"
+    },
+    {
+      "parameters": {
+        "content": "## Reminder Agent\n\nAirtable:\n1. Ensure your credentials are connected\n2. Create the tables as per each node\n\nTelegram trigger:\n1. Make sure you've setup your bot\n2. Add the credentials\n\nIf node:\n1. Use your chat ID here. This is so other people cannot access your bot, only you can\n\nNews and Research:\n1. Add your Tavily API in here\n(https://www.tavily.com)\n\nChatGPT and Whisper:\n1. Connect your credentials. I use gpt-4o mini.",
+        "height": 480,
+        "width": 520,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1600,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "fb3898fa-3316-4649-b19c-7a5f67d83087",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Prompt\n\n1. Adjust the prompt, adding your own name and any other specifics you need.",
+        "height": 180,
+        "width": 520,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        240,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "bde9db5e-5f7d-44a1-b638-4d4e91b3ad41",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "# isotope",
+        "height": 80,
+        "width": 220,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "c89219f5-5854-41ba-a23f-434543870e95",
+      "name": "Sticky Note4"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-19T20:26:40.102Z",
+      "updatedAt": "2025-03-19T20:26:40.102Z",
+      "id": "od53q6RQk4ORtBWI",
+      "name": "personal"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-19T20:27:45.000Z",
+  "versionId": "b7ee77d9-0181-457b-8402-f46160a864ef"
+}
