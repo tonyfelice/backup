@@ -15,6 +15,7 @@
   },
   "createdAt": "2025-02-13T20:42:01.824Z",
   "id": "7KTqjsWU9NY70xC9",
+  "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -91,7 +92,7 @@
       "name": "test"
     }
   ],
-  "triggerCount": 2,
+  "triggerCount": 1,
   "updatedAt": "2025-08-07T22:48:17.000Z",
   "versionId": "a9417b0e-c5fb-4008-958a-6198e0f13344"
 }
