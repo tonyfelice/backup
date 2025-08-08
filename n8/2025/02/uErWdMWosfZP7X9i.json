@@ -747,6 +747,7 @@
   },
   "createdAt": "2025-02-21T03:31:09.159Z",
   "id": "uErWdMWosfZP7X9i",
+  "isArchived": false,
   "meta": null,
   "name": "DeepResearch",
   "nodes": [
