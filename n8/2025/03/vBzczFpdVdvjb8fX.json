@@ -261,6 +261,7 @@
   },
   "createdAt": "2025-03-19T17:08:29.895Z",
   "id": "vBzczFpdVdvjb8fX",
+  "isArchived": false,
   "meta": null,
   "name": "Rank Tracker (postgres)",
   "nodes": [
