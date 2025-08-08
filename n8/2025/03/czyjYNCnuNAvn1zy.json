@@ -325,6 +325,7 @@
   },
   "createdAt": "2025-03-19T16:43:31.652Z",
   "id": "czyjYNCnuNAvn1zy",
+  "isArchived": false,
   "meta": null,
   "name": "SERP Analysis",
   "nodes": [
