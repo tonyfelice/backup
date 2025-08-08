@@ -275,6 +275,7 @@
   },
   "createdAt": "2025-08-07T20:24:53.747Z",
   "id": "5GABsyUFYMKRE992",
+  "isArchived": false,
   "meta": {
     "templateId": "1534"
   },
@@ -845,6 +846,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-08T16:51:50.000Z",
-  "versionId": "720d59e2-d6ec-4035-a609-9c2d5fc14722"
+  "updatedAt": "2025-08-08T16:53:15.000Z",
+  "versionId": "9334050e-c1ca-43e7-8b0a-7fa67e5ee01c"
 }
