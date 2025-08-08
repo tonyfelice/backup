@@ -185,6 +185,7 @@
   },
   "createdAt": "2025-06-06T17:43:48.023Z",
   "id": "IitQ5KXGmf7ExctR",
+  "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
   },
