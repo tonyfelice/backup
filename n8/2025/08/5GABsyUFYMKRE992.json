@@ -279,7 +279,7 @@
   "meta": {
     "templateId": "1534"
   },
-  "name": "CZM: workflow  backup to Github",
+  "name": "N8N: workflow  backup to Github",
   "nodes": [
     {
       "parameters": {},
@@ -287,8 +287,8 @@
       "name": "On clicking 'execute'",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
-        980,
-        280
+        992,
+        288
       ],
       "typeVersion": 1
     },
@@ -299,7 +299,7 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "position": [
         480,
-        1000
+        1008
       ],
       "typeVersion": 1
     },
@@ -312,8 +312,8 @@
       "name": "n8n",
       "type": "n8n-nodes-base.n8n",
       "position": [
-        1380,
-        380
+        1376,
+        384
       ],
       "typeVersion": 1,
       "credentials": {
@@ -341,8 +341,8 @@
       "name": "Return",
       "type": "n8n-nodes-base.set",
       "position": [
-        2200,
-        900
+        2224,
+        1056
       ],
       "typeVersion": 3.3
     },
@@ -355,8 +355,8 @@
       "name": "Get File",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        1120,
-        760
+        1104,
+        800
       ],
       "typeVersion": 4.2
     },
@@ -398,7 +398,7 @@
       "name": "If file too large",
       "type": "n8n-nodes-base.if",
       "position": [
-        920,
+        912,
         800
       ],
       "typeVersion": 2
@@ -409,8 +409,8 @@
       "name": "Merge Items",
       "type": "n8n-nodes-base.merge",
       "position": [
-        920,
-        1060
+        912,
+        1072
       ],
       "typeVersion": 2
     },
@@ -422,8 +422,8 @@
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        1120,
-        1060
+        1104,
+        1072
       ],
       "typeVersion": 1
     },
@@ -451,8 +451,8 @@
       "name": "Check Status",
       "type": "n8n-nodes-base.switch",
       "position": [
-        1520,
-        1060
+        1488,
+        1040
       ],
       "typeVersion": 1
     },
@@ -462,8 +462,8 @@
       "name": "Same file - Do nothing",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        1740,
-        900
+        1840,
+        864
       ],
       "typeVersion": 1
     },
@@ -473,8 +473,8 @@
       "name": "File is different",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        1740,
-        1060
+        1744,
+        1056
       ],
       "typeVersion": 1
     },
@@ -484,8 +484,8 @@
       "name": "File is new",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        1740,
-        1260
+        1744,
+        1248
       ],
       "typeVersion": 1
     },
@@ -510,10 +510,11 @@
       "name": "Create new file",
       "type": "n8n-nodes-base.github",
       "position": [
-        1960,
-        1260
+        1936,
+        1248
       ],
       "typeVersion": 1,
+      "webhookId": "afb65d5c-22a8-4f9e-ac2d-463cb3da24d5",
       "credentials": {
         "githubApi": {
           "id": "SfovVzouuv8hTqdI",
@@ -543,10 +544,11 @@
       "name": "Edit existing file",
       "type": "n8n-nodes-base.github",
       "position": [
-        1960,
-        1060
+        1936,
+        1056
       ],
       "typeVersion": 1,
+      "webhookId": "f065f34c-73a8-41b6-af44-5eca167cb137",
       "credentials": {
         "githubApi": {
           "id": "SfovVzouuv8hTqdI",
@@ -562,8 +564,8 @@
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        1580,
-        380
+        1568,
+        384
       ],
       "typeVersion": 3
     },
@@ -582,7 +584,7 @@
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "position": [
-        980,
+        992,
         480
       ],
       "typeVersion": 1.2
@@ -606,8 +608,8 @@
       "name": "Create sub path",
       "type": "n8n-nodes-base.set",
       "position": [
-        1320,
-        1060
+        1296,
+        1072
       ],
       "typeVersion": 3.3
     },
@@ -622,8 +624,8 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        380,
-        180
+        384,
+        192
       ],
       "typeVersion": 1
     },
@@ -639,7 +641,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         800,
-        180
+        192
       ],
       "typeVersion": 1
     },
@@ -661,8 +663,8 @@
       "name": "Starting Message",
       "type": "n8n-nodes-base.slack",
       "position": [
-        1220,
-        380
+        1184,
+        384
       ],
       "webhookId": "c02eb407-5547-4aa0-9ebf-46dab67b63b6",
       "typeVersion": 2.2,
@@ -683,7 +685,7 @@
       "name": "Execute Workflow",
       "type": "n8n-nodes-base.executeWorkflow",
       "position": [
-        1800,
+        1760,
         400
       ],
       "typeVersion": 1,
@@ -704,8 +706,8 @@
       "name": "Completed Notification",
       "type": "n8n-nodes-base.slack",
       "position": [
-        1800,
-        220
+        1760,
+        224
       ],
       "webhookId": "a0c6e8c8-5d71-40fa-b02b-63a7ed5726c4",
       "executeOnce": true,
@@ -744,6 +746,7 @@
       ],
       "typeVersion": 1,
       "alwaysOutputData": true,
+      "webhookId": "236741aa-6e96-4644-8ebe-916c76c6ddd4",
       "credentials": {
         "githubApi": {
           "id": "SfovVzouuv8hTqdI",
@@ -784,7 +787,7 @@
       "type": "n8n-nodes-base.set",
       "position": [
         720,
-        1160
+        1168
       ],
       "typeVersion": 3.4
     },
@@ -799,8 +802,8 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        380,
-        700
+        384,
+        704
       ],
       "typeVersion": 1
     },
@@ -821,8 +824,8 @@
       "name": "File Failed",
       "type": "n8n-nodes-base.slack",
       "position": [
-        2180,
-        420
+        2192,
+        416
       ],
       "webhookId": "2a092edb-de12-490f-931b-34d70e7d7696",
       "typeVersion": 2.2,
@@ -838,7 +841,11 @@
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
-  "settings": {},
+  "settings": {
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionOrder": "v0",
+    "errorWorkflow": "1IT5YvaiSDzXd7pf"
+  },
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": []
@@ -846,6 +853,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-08T16:53:15.000Z",
-  "versionId": "9334050e-c1ca-43e7-8b0a-7fa67e5ee01c"
+  "updatedAt": "2025-08-09T00:06:51.000Z",
+  "versionId": "1d257252-fd29-4678-a8f5-1ea062708067"
 }
