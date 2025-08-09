@@ -19,7 +19,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "N8N: debug embedded chat",
+  "name": "N8N: stubbed chat",
   "nodes": [
     {
       "parameters": {
@@ -46,7 +46,7 @@
       "type": "n8n-nodes-base.html",
       "typeVersion": 1.2,
       "position": [
-        220,
+        224,
         0
       ],
       "id": "d8694d47-9f11-467b-9ec4-56812518a4e0",
@@ -63,6 +63,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-06T18:41:53.000Z",
-  "versionId": "48dbea54-11d1-4b91-845c-4446f56d4044"
+  "updatedAt": "2025-08-08T23:33:21.000Z",
+  "versionId": "53eb8ca7-2a2c-4642-b362-2f2988025a2e"
 }
