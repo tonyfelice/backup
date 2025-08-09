@@ -1,7 +1,7 @@
 {
   "active": false,
   "connections": {
-    "When clicking ‘Test workflow’": {
+    "When Executed by Another Workflow": {
       "main": [
         [
           {
@@ -17,19 +17,8 @@
   "id": "1d0bXMPz6A4wkDw6",
   "isArchived": false,
   "meta": null,
-  "name": "debug",
+  "name": "LPT: debug",
   "nodes": [
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        0,
-        0
-      ],
-      "id": "071f557d-a089-4afb-8265-103af76602d4",
-      "name": "When clicking ‘Test workflow’"
-    },
     {
       "parameters": {
         "command": "wget \\\n  --header=\"Content-Type: application/json\" \\\n  --header=\"X-Shopify-Storefront-Access-Token: a6cf313a4eeb67c8e3d73547c355821f\" \\\n  --post-data=\"{\\\"query\\\":\\\"{ products(first: 10, query: \\\\\\\"hoses\\\\\\\") { edges { node { id title handle vendor tags productType } } } }\\\"}\" \\\n  https://liquidyne-process-technologies-inc.myshopify.com/api/2025-04/graphql.json \\\n  -O -\n"
@@ -37,11 +26,24 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        220,
+        224,
         0
       ],
       "id": "22a7fdfe-5030-4305-914d-8d2232c801b9",
       "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7de925c8-4cce-4f11-bc53-67a1f4180da7",
+      "name": "When Executed by Another Workflow"
     }
   ],
   "pinData": {},
@@ -54,6 +56,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-06-25T22:18:33.000Z",
-  "versionId": "e9a720c3-299c-404d-acf2-157045a63d68"
+  "updatedAt": "2025-08-08T23:35:47.000Z",
+  "versionId": "c672147d-ca45-451d-9aac-27ebb5b16faa"
 }
