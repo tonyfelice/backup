@@ -1,0 +1,149 @@
+{
+  "active": false,
+  "connections": {
+    "Parse & Extract Error Details": {
+      "main": [
+        [
+          {
+            "node": "Detect Schema Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detect Schema Error": {
+      "main": [
+        [
+          {
+            "node": "Log Schema Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log Other Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Parse & Extract Error Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse & Extract Error Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-08T20:56:07.569Z",
+  "id": "PGeenRzvzti6WNiy",
+  "isArchived": true,
+  "meta": null,
+  "name": "N8N: subflow error handler",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "const err = $json;\n\nlet debugInfo = {\n  workflowName: err.workflow?.name ?? \"Unknown Workflow\",\n  nodeName: err.node?.name ?? \"Unknown Node\",\n  errorMessage: err.error?.message ?? \"No message\",\n  errorStack: err.error?.stack ?? \"No stack trace\",\n  timestamp: new Date().toISOString()\n};\n\nif (debugInfo.errorMessage.includes(\"did not match expected schema\")) {\n  try {\n    debugInfo.toolInput = err.error.context?.input ?? \"Not found\";\n    debugInfo.expectedSchema = err.error.context?.schema ?? \"Not found\";\n  } catch {\n    debugInfo.toolInput = \"Unable to extract\";\n    debugInfo.expectedSchema = \"Unable to extract\";\n  }\n}\n\nreturn [{ json: debugInfo }];"
+      },
+      "id": "a5da1f46-6095-43f6-a93c-38d2fe6f2b96",
+      "name": "Parse & Extract Error Details",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "if ($json.errorMessage.includes(\"did not match expected schema\")) {\n  return [{ json: { type: \"schema_error\", ...$json } }];\n} else {\n  return [{ json: { type: \"other_error\", ...$json } }];\n}"
+      },
+      "id": "145a50cb-f790-44fc-8305-57c4f8a8c777",
+      "name": "Detect Schema Error",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// For now, we just log to console — replace with Slack, Email, or DB insert\nconsole.log(\"SCHEMA ERROR DETECTED:\", $json);\nreturn [{ json: $json }];"
+      },
+      "id": "12ef6d16-f7c2-45ad-ae78-1445a49b40bc",
+      "name": "Log Schema Error",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        592,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Generic errors — could store or notify separately\nconsole.log(\"GENERIC ERROR DETECTED:\", $json);\nreturn [{ json: $json }];"
+      },
+      "id": "5f3af0f8-6cb8-4397-b0c9-9550d5ca4aa2",
+      "name": "Log Other Error",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        592,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        16,
+        -128
+      ],
+      "id": "a035921a-413c-4ec4-b41f-e34a8762f550",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        16,
+        80
+      ],
+      "id": "fbc8e948-0e57-4060-bc19-1e4d7f5cbc70",
+      "name": "Error Trigger"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-08T23:26:40.000Z",
+  "versionId": "d676a36a-2137-4092-bd40-bba1b7a2dab2"
+}
