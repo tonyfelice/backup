@@ -1,0 +1,243 @@
+{
+  "active": true,
+  "connections": {
+    "On Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse & Extract Error Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse & Extract Error Details": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Parse & Extract Error Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-08T19:58:44.849Z",
+  "id": "1IT5YvaiSDzXd7pf",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "N8N: error handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "3d215175-8425-4bbc-bb8d-3769d7940ef2",
+      "name": "On Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const err = $json;\n\nlet debugInfo = {\n  workflowName: err.workflow?.name ?? \"Unknown Workflow\",\n  nodeName: err.node?.name ?? \"Unknown Node\",\n  errorMessage: err.error?.message ?? \"No message\",\n  errorStack: err.error?.stack ?? \"No stack trace\",\n  timestamp: new Date().toISOString()\n};\n\nif (debugInfo.errorMessage.includes(\"did not match expected schema\")) {\n  try {\n    debugInfo.toolInput = err.error.context?.input ?? \"Not found\";\n    debugInfo.expectedSchema = err.error.context?.schema ?? \"Not found\";\n  } catch {\n    debugInfo.toolInput = \"Unable to extract\";\n    debugInfo.expectedSchema = \"Unable to extract\";\n  }\n}\n\nreturn [{ json: debugInfo }];"
+      },
+      "id": "d45c9979-c8bf-4a5a-af9f-d9e8dc53f589",
+      "name": "Parse & Extract Error Details",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -32,
+        80
+      ],
+      "id": "b45ba08f-0c50-4b9b-8efd-9732b1f2290e",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1y66gWGe3sicDtaM8l8uDYAs2Wv0aIQb7OtC6pqdl4v4",
+          "mode": "list",
+          "cachedResultName": "N8N Error Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1y66gWGe3sicDtaM8l8uDYAs2Wv0aIQb7OtC6pqdl4v4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1y66gWGe3sicDtaM8l8uDYAs2Wv0aIQb7OtC6pqdl4v4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $json.timestamp }}",
+            "Workflow": "={{ $json.workflowName }}",
+            "Error Message": "={{ $json.errorMessage }}",
+            "Node": "={{ $json.nodeName }}",
+            "Stack Trace": "={{ $json.errorStack }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Workflow",
+              "displayName": "Workflow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Node",
+              "displayName": "Node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Error Message",
+              "displayName": "Error Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Stack Trace",
+              "displayName": "Stack Trace",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        400,
+        -32
+      ],
+      "id": "54a1c499-7148-4250-8d58-b76a86ad296b",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C099KLP6PRS",
+          "mode": "list",
+          "cachedResultName": "notifications"
+        },
+        "text": "=Error in workflow \"{{ $json.Workflow }}\"; visit https://docs.google.com/spreadsheets/d/1y66gWGe3sicDtaM8l8uDYAs2Wv0aIQb7OtC6pqdl4v4/edit?gid=0#gid=0 ",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        -32
+      ],
+      "id": "dddd2dae-273c-4ea6-b8e1-c0f566d9314b",
+      "name": "Send a message",
+      "webhookId": "6873608b-5b85-4749-9e65-f2edc0f9733e",
+      "credentials": {
+        "slackApi": {
+          "id": "fyEHznF69YVzfPdI",
+          "name": "n8n-prod-trigger"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-09T00:35:14.000Z",
+  "versionId": "c9729564-125f-4f43-87b9-96eb0e193f63"
+}
