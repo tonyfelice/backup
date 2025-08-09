@@ -219,7 +219,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "Brainstorm: Use Cases",
+  "name": "CZM: Brainstorm: Use Cases",
   "nodes": [
     {
       "parameters": {
@@ -229,7 +229,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        500,
+        512,
         0
       ],
       "id": "8953e899-edc7-4e7d-8aec-9c26e521e02a"
@@ -258,7 +258,7 @@
       "typeVersion": 1.2,
       "position": [
         1440,
-        200
+        208
       ],
       "id": "34090dba-c2f5-4f9d-8678-2cfb8065cf80",
       "name": "Structured Output Parser"
@@ -276,8 +276,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1140,
-        200
+        1152,
+        208
       ],
       "id": "03874c29-4d64-4cba-b3da-44d76b99f48a",
       "name": "gpt-4-turbo",
@@ -296,7 +296,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1000,
+        1008,
         0
       ],
       "id": "b35f7761-0e01-4b2b-a147-bfc11da449db"
@@ -308,7 +308,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        740,
+        752,
         0
       ],
       "id": "0427de0e-1716-47e9-991d-8d8b8758afb4",
@@ -539,8 +539,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2120,
-        180
+        2128,
+        192
       ],
       "id": "5b584359-2482-4ab6-8f55-fb44d8641aad",
       "name": "Relax",
@@ -575,7 +575,7 @@
       "type": "n8n-nodes-base.googleSheetsTrigger",
       "typeVersion": 1,
       "position": [
-        260,
+        272,
         0
       ],
       "id": "f62ae509-4724-440c-9868-ba6a2d569acf",
@@ -614,7 +614,7 @@
       "typeVersion": 1,
       "position": [
         160,
-        -1400
+        -1408
       ],
       "id": "f69577c9-1c11-45f0-b76a-d2ee1f112db0",
       "name": "Sticky Note1"
@@ -632,7 +632,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1000,
+        1008,
         -960
       ],
       "id": "4d0bdfd7-ca67-4fae-9be2-028d394128b8",
@@ -651,8 +651,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1460,
-        -1240
+        1472,
+        -1248
       ],
       "id": "33cea2c4-42f0-461f-8154-5e2f7d761377",
       "name": "Parse Response"
@@ -665,8 +665,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        840,
-        -1220
+        848,
+        -1216
       ],
       "id": "0398aa72-65d0-435a-8acb-c983eba0efdb"
     },
@@ -677,8 +677,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2120,
-        -1220
+        2128,
+        -1216
       ],
       "id": "7898a59a-28cf-4f3b-89e2-a3a29a0b0206",
       "name": "Chill",
@@ -691,7 +691,7 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        1260,
+        1264,
         -960
       ],
       "id": "a77fc759-e73c-435f-b404-1f2cf60c4751",
@@ -708,7 +708,7 @@
       "typeVersion": 1.7,
       "position": [
         1040,
-        -1220
+        -1216
       ],
       "id": "f62c15df-125f-475a-add3-92d983e05b45",
       "name": "Brainstorm Agent",
@@ -888,8 +888,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        1900,
-        -1220
+        1904,
+        -1216
       ],
       "id": "bf620970-3de6-4c54-a285-65700f83bf21",
       "name": "Google Sheets",
@@ -908,8 +908,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1660,
-        -1240
+        1664,
+        -1248
       ],
       "id": "de9f8777-3162-46fb-bc4e-cbb85d641498"
     },
@@ -934,8 +934,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        440,
-        -1220
+        448,
+        -1216
       ],
       "id": "695a7072-4812-4c2f-99c5-6441d12151ff",
       "name": "read_existing",
@@ -960,7 +960,7 @@
       "typeVersion": 1.2,
       "position": [
         240,
-        -1220
+        -1216
       ],
       "id": "f2af33a8-f08e-4fe2-9180-34bfd94f816e",
       "name": "Schedule Trigger"
@@ -1001,6 +1001,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2025-03-19T20:29:32.000Z",
-  "versionId": "6973b817-d72f-4407-9303-da97100ae5b2"
+  "updatedAt": "2025-08-08T17:23:41.000Z",
+  "versionId": "9d6749eb-a7fd-4bbe-be86-a34f4d30890a"
 }
