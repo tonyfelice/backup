@@ -56,12 +56,12 @@
       "main": [
         [
           {
-            "node": "If2",
+            "node": "If has subflows",
             "type": "main",
             "index": 0
           },
           {
-            "node": "If3",
+            "node": "If has ai",
             "type": "main",
             "index": 0
           },
@@ -78,17 +78,6 @@
         [
           {
             "node": "get_ai_nodes_info1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If3": {
-      "main": [
-        [
-          {
-            "node": "get_model_prices1",
             "type": "main",
             "index": 0
           }
@@ -181,6 +170,17 @@
           }
         ]
       ]
+    },
+    "If has ai": {
+      "main": [
+        [
+          {
+            "node": "get_model_prices1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-06-06T17:43:48.023Z",
@@ -189,7 +189,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: usage auditor",
+  "name": "N8N: usage auditor",
   "nodes": [
     {
       "parameters": {},
@@ -217,7 +217,7 @@
       "typeVersion": 4.2,
       "position": [
         320,
-        -100
+        16
       ],
       "id": "380f040f-93aa-437b-b658-3ad6e9a7f589",
       "name": "get_model_prices"
@@ -232,7 +232,7 @@
       "typeVersion": 3,
       "position": [
         560,
-        560
+        656
       ],
       "id": "fae9c55d-9d9a-4b7f-8fe9-865cf416b566",
       "name": "Loop Over Items"
@@ -244,55 +244,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        300,
-        560
+        304,
+        656
       ],
       "id": "816ccb66-ab79-40b9-bec2-39c2e0e234f8",
       "name": "Code2"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "ab2b0724-8418-4e58-b6c3-0b91ae2498da",
-              "leftValue": "={{ $json.sub_workflows }}",
-              "rightValue": "",
-              "operator": {
-                "type": "array",
-                "operation": "exists",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "7f008679-ae34-4f6f-86ab-15f50d013607",
-              "leftValue": "={{ $json.sub_workflows }}",
-              "rightValue": "",
-              "operator": {
-                "type": "array",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        1200,
-        980
-      ],
-      "id": "94852ae7-77ec-4a1e-b787-2c978bcb4766",
-      "name": "If2"
     },
     {
       "parameters": {
@@ -302,7 +258,7 @@
       "typeVersion": 2,
       "position": [
         560,
-        -100
+        16
       ],
       "id": "f74c9999-1055-4534-b2c8-b2e13d467678",
       "name": "get_ai_nodes_info"
@@ -312,8 +268,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        1380,
-        -40
+        1392,
+        -48
       ],
       "id": "bd0825c1-dce7-450d-8f10-c4aec1a75ee9",
       "name": "Merge"
@@ -325,8 +281,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        960,
-        780
+        1024,
+        672
       ],
       "id": "11436a00-7978-4b70-871d-49052ab342e1",
       "name": "Code5"
@@ -336,55 +292,11 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        1860,
-        -20
+        1872,
+        -16
       ],
       "id": "e65c164c-e051-4fb2-a8a4-91ed54ecc2d7",
       "name": "Merge2"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "a8e9a937-7e5b-4145-aabe-71c7077045bd",
-              "leftValue": "={{ $json.ai_nodes[0] }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "exists",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "98db7a1a-3af3-465a-813d-1a17416b02c3",
-              "leftValue": "={{ $json.ai_nodes[0] }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        1200,
-        620
-      ],
-      "id": "8d1f5f90-bbc4-457f-81e4-ea556d5bc095",
-      "name": "If3"
     },
     {
       "parameters": {
@@ -393,8 +305,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1400,
-        780
+        1472,
+        672
       ],
       "id": "da83fb6d-3c6c-4e2d-a6ac-7efd008fd0cf",
       "name": "Code3"
@@ -413,21 +325,21 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1520,
-        500
+        1584,
+        320
       ],
       "id": "a4d45ff2-ffc9-4157-b162-4e1820c911bd",
       "name": "get_model_prices1"
     },
     {
       "parameters": {
-        "jsCode": "const prices = $input.first().json\nconst aiNodes = $('If3').first().json.ai_nodes\nconst aiNodesInfo = []\nconst nodesData = $('get_execution_info_subworkflow').first().json.data.resultData.runData\nconst nodeWorkflowData = $('get_execution_info_subworkflow').first().json.workflowData.nodes\n\n\nfor(let i = 0; i < aiNodes.length; i++) {\n  const aiNode = aiNodes[i]\n  const nodeData = nodesData[aiNode.node_name]\n  for(let y = 0; y < nodeWorkflowData.length ; y ++) {\n    if(aiNode.node_name == nodeWorkflowData[y].name) {\n      aiNodesInfo.push(getAiNodesInfo(aiNode, nodeWorkflowData[y], nodeData))\n    }\n  }\n}\n\nfunction getAiNodesInfo(node, workflowData, nodeData){\n  if(node.model_used == null) {\n    return {\n      \"name\" : node.node_name,\n      \"type\" : workflowData.type,\n      \"execution_time\" : nodeData[0].executionTime\n    }\n  } else {\n    return {\n    \"name\" : node.node_name,\n    \"type\" : workflowData.type,\n    \"execution_time\" : nodeData[0].executionTime,\n    \"ai_details\" : {\n      \"model_used\" : node.model_used,\n      \"completion_tokens\" : node.completion_tokens,\n      \"prompt_tokens\" : node.prompt_tokens,\n      \"total_tokens\" : node.total_tokens,\n      \"cost_execution\" : getExecutionCost(node)\n    }\n  }\n  }\n}\n\nfunction getExecutionCost(node){\n    const completionTokens = node.completion_tokens\n    const promptTokens = node.prompt_tokens\n    let price = {}\n    \n    const model = node.model_used;\n    if(model == 'deepseek-chat' || model == 'deepseek-reasoner') {\n      const now = new Date($('get_execution_info1').first().json.startedAt)\n      const currentHour = now.getUTCHours()\n      const currentMinute = now.getUTCMinutes()\n\n      const totalMinutes = currentHour * 60 + currentMinute\n\n      const startThreshold = 0 * 60 + 30\n      const endThreshold = 16 * 60 + 30\n      \n      if(totalMinutes >= startThreshold && totalMinutes < endThreshold) {\n        price = prices[`${model}-standard`]\n      } else {\n        price = prices[`${model}-discount`]\n      }\n    } else {\n      price = prices[model];\n    }\n    const nodePrice = (completionTokens / 1000) * price.completion + (promptTokens / 1000) * price.prompt;\n    if(nodePrice >= 0.01) {\n      return `$${nodePrice.toFixed(2)}`;\n    } else if(nodePrice >= 0.0001){\n      return `$${nodePrice.toFixed(4)}`;\n    } else {\n      return `$${nodePrice.toFixed(8)}`\n    }\n   \n    \n}\n\nconst output = aiNodesInfo\n\nreturn {\n  \"ai_nodes\" : output\n}"
+        "jsCode": "const prices = $input.first().json\nconst aiNodes = $('If has ai').first().json.ai_nodes\nconst aiNodesInfo = []\nconst nodesData = $('get_execution_info_subworkflow').first().json.data.resultData.runData\nconst nodeWorkflowData = $('get_execution_info_subworkflow').first().json.workflowData.nodes\n\n\nfor(let i = 0; i < aiNodes.length; i++) {\n  const aiNode = aiNodes[i]\n  const nodeData = nodesData[aiNode.node_name]\n  for(let y = 0; y < nodeWorkflowData.length ; y ++) {\n    if(aiNode.node_name == nodeWorkflowData[y].name) {\n      aiNodesInfo.push(getAiNodesInfo(aiNode, nodeWorkflowData[y], nodeData))\n    }\n  }\n}\n\nfunction getAiNodesInfo(node, workflowData, nodeData){\n  if(node.model_used == null) {\n    return {\n      \"name\" : node.node_name,\n      \"type\" : workflowData.type,\n      \"execution_time\" : nodeData[0].executionTime\n    }\n  } else {\n    return {\n    \"name\" : node.node_name,\n    \"type\" : workflowData.type,\n    \"execution_time\" : nodeData[0].executionTime,\n    \"ai_details\" : {\n      \"model_used\" : node.model_used,\n      \"completion_tokens\" : node.completion_tokens,\n      \"prompt_tokens\" : node.prompt_tokens,\n      \"total_tokens\" : node.total_tokens,\n      \"cost_execution\" : getExecutionCost(node)\n    }\n  }\n  }\n}\n\nfunction getExecutionCost(node){\n    const completionTokens = node.completion_tokens\n    const promptTokens = node.prompt_tokens\n    let price = {}\n    \n    const model = node.model_used;\n    if(model == 'deepseek-chat' || model == 'deepseek-reasoner') {\n      const now = new Date($('get_execution_info1').first().json.startedAt)\n      const currentHour = now.getUTCHours()\n      const currentMinute = now.getUTCMinutes()\n\n      const totalMinutes = currentHour * 60 + currentMinute\n\n      const startThreshold = 0 * 60 + 30\n      const endThreshold = 16 * 60 + 30\n      \n      if(totalMinutes >= startThreshold && totalMinutes < endThreshold) {\n        price = prices[`${model}-standard`]\n      } else {\n        price = prices[`${model}-discount`]\n      }\n    } else {\n      price = prices[model];\n    }\n    const nodePrice = (completionTokens / 1000) * price.completion + (promptTokens / 1000) * price.prompt;\n    if(nodePrice >= 0.01) {\n      return `$${nodePrice.toFixed(2)}`;\n    } else if(nodePrice >= 0.0001){\n      return `$${nodePrice.toFixed(4)}`;\n    } else {\n      return `$${nodePrice.toFixed(8)}`\n    }\n   \n    \n}\n\nconst output = aiNodesInfo\n\nreturn {\n  \"ai_nodes\" : output\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1780,
-        500
+        1856,
+        320
       ],
       "id": "43e9d790-8336-4082-9ebb-3c7500fed746",
       "name": "get_ai_nodes_info1"
@@ -437,8 +349,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        2000,
-        760
+        2064,
+        656
       ],
       "id": "59419380-a79c-47d2-bbeb-7740d50330de",
       "name": "Merge1",
@@ -451,8 +363,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2180,
-        760
+        2256,
+        656
       ],
       "id": "e5b94bae-6827-46f8-bd07-fda35c6a45aa",
       "name": "Code6"
@@ -466,8 +378,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        760,
-        400
+        816,
+        352
       ],
       "id": "2294ed8b-ec24-4b04-93d6-76941b5cc8b9",
       "name": "Aggregate"
@@ -524,7 +436,7 @@
       "typeVersion": 2.2,
       "position": [
         0,
-        20
+        32
       ],
       "id": "0a3878bf-678b-4d11-9849-e57cf9bf2776",
       "name": "has_ai_node"
@@ -568,7 +480,7 @@
       "typeVersion": 2.2,
       "position": [
         0,
-        660
+        672
       ],
       "id": "6fd873d9-2e72-499c-93b9-a7b44db60573",
       "name": "has_sub_workflows"
@@ -593,8 +505,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1560,
-        -40
+        1568,
+        -48
       ],
       "id": "2c107aaf-3027-4203-beab-8744f893477b",
       "name": "clean_data"
@@ -606,8 +518,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2100,
-        -20
+        2112,
+        -16
       ],
       "id": "8ef71755-d5fb-4fc5-9465-a3dca97e4e24",
       "name": "output_json"
@@ -621,7 +533,7 @@
       "typeVersion": 1.1,
       "position": [
         2320,
-        -20
+        -16
       ],
       "id": "bfd0a2f4-93a4-4fa0-b359-276bdd46dcd4",
       "name": "get_json_file"
@@ -662,8 +574,8 @@
       "type": "n8n-nodes-base.n8n",
       "typeVersion": 1,
       "position": [
-        760,
-        720
+        816,
+        672
       ],
       "id": "f975d87b-7995-49ac-af0a-d925a85ea4ec",
       "name": "get_execution_info_subworkflow",
@@ -673,6 +585,94 @@
           "name": "local n8n"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a8e9a937-7e5b-4145-aabe-71c7077045bd",
+              "leftValue": "={{ $json.ai_nodes[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "98db7a1a-3af3-465a-813d-1a17416b02c3",
+              "leftValue": "={{ $json.ai_nodes[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1264,
+        336
+      ],
+      "id": "8d1f5f90-bbc4-457f-81e4-ea556d5bc095",
+      "name": "If has ai"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ab2b0724-8418-4e58-b6c3-0b91ae2498da",
+              "leftValue": "={{ $json.sub_workflows }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "7f008679-ae34-4f6f-86ab-15f50d013607",
+              "leftValue": "={{ $json.sub_workflows }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1264,
+        528
+      ],
+      "id": "94852ae7-77ec-4a1e-b787-2c978bcb4766",
+      "name": "If has subflows"
     }
   ],
   "pinData": {},
@@ -685,6 +685,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-06-07T00:14:31.000Z",
-  "versionId": "0356cebd-ee08-4f44-9baf-903b2bcb6ec7"
+  "updatedAt": "2025-08-09T02:19:04.000Z",
+  "versionId": "72136e49-25be-42c1-aa35-81e995fae5ec"
 }
