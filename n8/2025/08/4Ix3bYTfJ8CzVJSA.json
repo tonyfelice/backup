@@ -1,0 +1,75 @@
+{
+  "active": false,
+  "connections": {
+    "Call n8n Workflow Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-08T20:26:37.989Z",
+  "id": "4Ix3bYTfJ8CzVJSA",
+  "isArchived": false,
+  "meta": null,
+  "name": "mcp",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "2bdbf183-18ed-491c-8b5a-997f20da2815"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8c760254-c334-418d-b1fb-a2889fc514a1",
+      "name": "MCP Server Trigger",
+      "webhookId": "2bdbf183-18ed-491c-8b5a-997f20da2815"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "IbyycCYN4zlmL3ID",
+          "mode": "list",
+          "cachedResultName": "hello world"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        288,
+        208
+      ],
+      "id": "95dba5d8-75b4-414f-b14f-c6c5dbfa0395",
+      "name": "Call n8n Workflow Tool"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-08T20:55:19.000Z",
+  "versionId": "e73c8427-4a63-4a43-bee9-ed728e265191"
+}
