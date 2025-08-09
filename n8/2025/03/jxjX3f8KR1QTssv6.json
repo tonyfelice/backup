@@ -3,7 +3,7 @@
   "connections": {},
   "createdAt": "2025-03-27T20:51:55.080Z",
   "id": "jxjX3f8KR1QTssv6",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "test triggers",
   "nodes": [],
@@ -17,6 +17,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-03-27T20:51:55.080Z",
-  "versionId": "b5b9c84b-6baf-4032-aa6e-8ad2e1f2473d"
+  "updatedAt": "2025-08-08T17:22:39.000Z",
+  "versionId": "7d519def-e28f-4d09-8fd6-c55885c21551"
 }
