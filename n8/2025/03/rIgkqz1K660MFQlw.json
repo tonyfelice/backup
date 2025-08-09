@@ -108,7 +108,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "get product summary",
+  "name": "CZM: get product summary",
   "nodes": [
     {
       "parameters": {
@@ -120,8 +120,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        1400,
-        -20
+        1408,
+        -16
       ],
       "id": "152259a2-b8a4-4244-ba5b-40e1501719f8",
       "name": "AI Agent"
@@ -133,8 +133,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        1640,
-        180
+        1648,
+        192
       ],
       "id": "47802cc4-2044-4da9-8684-c2b77fb6ba00",
       "name": "Structured Output Parser"
@@ -152,8 +152,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1340,
-        180
+        1344,
+        192
       ],
       "id": "0012adf4-7b8c-47bb-b30f-168cb1928f45",
       "name": "gpt-4-turbo",
@@ -173,7 +173,7 @@
       "typeVersion": 2,
       "position": [
         1200,
-        -20
+        -16
       ],
       "id": "ec85cbbc-cb48-4de5-b9d9-4678c3cdade7"
     },
@@ -185,7 +185,7 @@
       "typeVersion": 3,
       "position": [
         960,
-        -20
+        -16
       ],
       "id": "8b76b6c0-8a99-45a2-8a5b-7a8c64709737",
       "name": "Loop Over Items"
@@ -315,7 +315,7 @@
       "typeVersion": 4.5,
       "position": [
         1760,
-        -20
+        -16
       ],
       "id": "9bae13dc-481a-490e-ac60-a7982046a4eb",
       "name": "Update Row",
@@ -333,7 +333,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2060,
+        2064,
         160
       ],
       "id": "768843ab-e46a-4ab6-b8ec-56cac2b143af",
@@ -374,7 +374,7 @@
       "typeVersion": 1,
       "position": [
         560,
-        -20
+        -16
       ],
       "id": "1d293956-1334-4e02-8125-bc3be17bec77",
       "name": "New Item Added",
@@ -393,8 +393,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        760,
-        -20
+        768,
+        -16
       ],
       "id": "3ebdcce7-3c6e-4625-9a7b-60c639eb697b"
     }
@@ -429,6 +429,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-03-19T20:29:43.000Z",
-  "versionId": "22c161df-7924-4645-8e78-74dd6b0aad25"
+  "updatedAt": "2025-08-08T17:23:43.000Z",
+  "versionId": "7c5d3b66-5f80-43a3-899e-563335e2677f"
 }
