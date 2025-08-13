@@ -5,6 +5,17 @@
       "main": [
         [
           {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
             "node": "HTML",
             "type": "main",
             "index": 0
@@ -41,16 +52,30 @@
     },
     {
       "parameters": {
-        "html": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        "html": "Sample message for testing to avoid running up processing fees. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
       },
       "type": "n8n-nodes-base.html",
       "typeVersion": 1.2,
       "position": [
-        224,
+        432,
         0
       ],
       "id": "d8694d47-9f11-467b-9ec4-56812518a4e0",
       "name": "HTML"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7516911d-7ea3-4ed6-aed7-bf0d49184d25",
+      "name": "Wait",
+      "webhookId": "ea53866d-9014-445b-924c-d686dfc51de1"
     }
   ],
   "pinData": {},
@@ -63,6 +88,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-08T23:33:21.000Z",
-  "versionId": "53eb8ca7-2a2c-4642-b362-2f2988025a2e"
+  "updatedAt": "2025-08-13T00:31:24.000Z",
+  "versionId": "07fa543f-d291-4ad8-84ac-01c24a015880"
 }
