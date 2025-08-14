@@ -199,36 +199,6 @@
           "name": "OpenAi account"
         }
       }
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "1IT5YvaiSDzXd7pf",
-          "mode": "list",
-          "cachedResultName": "N8N: error handler"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {
-          "waitForSubWorkflow": true
-        }
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        1024,
-        0
-      ],
-      "id": "ade5ae99-996f-48ae-bbed-47cb94d5976b",
-      "name": "Error Handler",
-      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {},
@@ -243,6 +213,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-09T02:04:24.000Z",
-  "versionId": "d5ab9b68-a3e1-46eb-b505-c1de67583a5b"
+  "updatedAt": "2025-08-13T18:51:10.000Z",
+  "versionId": "3891a8ce-1ed5-487c-b85c-64dc63f8cf21"
 }
