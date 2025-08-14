@@ -52,7 +52,7 @@
     },
     {
       "parameters": {
-        "html": "Sample message for testing to avoid running up processing fees. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
+        "html": "Sample chat response to avoid gas fees during testing. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
       },
       "type": "n8n-nodes-base.html",
       "typeVersion": 1.2,
@@ -88,6 +88,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-13T00:31:24.000Z",
-  "versionId": "07fa543f-d291-4ad8-84ac-01c24a015880"
+  "updatedAt": "2025-08-13T16:27:24.000Z",
+  "versionId": "964790a2-e7f1-4913-a50e-e702b8c086a4"
 }
