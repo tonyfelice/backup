@@ -1,0 +1,535 @@
+{
+  "active": true,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contact Manager": {
+      "ai_tool": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ],
+      "main": [
+        [
+          {
+            "node": "Error Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Contact Manager",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Contact Manager",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convo Agent": {
+      "main": [
+        [
+          {
+            "node": "log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manage _Contact_Records": {
+      "ai_tool": [
+        [
+          {
+            "node": "Contact Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Carpe_Opportunitas": {
+      "ai_tool": [
+        [
+          {
+            "node": "Contact Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "log": {
+      "main": [
+        [
+          {
+            "node": "Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parser": {
+      "ai_outputParser": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-13T18:51:29.382Z",
+  "id": "uR84H3CztnGCdsvE",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: convo MULTI agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "8ac3d7c4-3621-4490-9e8b-a9c67b67f7fa",
+      "name": "When chat message received",
+      "webhookId": "658f58bf-0c6f-4470-8ac9-2ae849787234"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 12
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        816,
+        176
+      ],
+      "id": "b3db6204-5d52-4e56-a4e6-10372dca9522",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        176
+      ],
+      "id": "40d5926b-1ddf-44d2-8343-8db87d5d1b52",
+      "name": "Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "# Contact Manager\n\nYou are an administrative assistant for **Cesium**, a full-service digital agency.\n\n---\n\n## ROLE\n\nYour role is to manage customer information in our CRM, using the tools available.\n\nRequests will come in json format, specifying the tool and parameters to use.\n**IMPORTANT:** If the tool request is “Carpe_Opportunitas” and the VID value is unknown, null, blank, empty, or otherwise invalid, run *Manage_Contact_Records* to retrieve VID before calling Carpe_Opportunitas. \n\n---\n\n## TOOLS\n\n### Manage_Contact_Records\nUsed to **create or update a customer record**.  \nManage_Contact_Records is a **prerequisite** for **Carpe_Opportunitas**.\n\n#### Required parameters:\n- `Email` – Customer’s email address\n\n#### Optional parameters:\n- `First name`  \n- `Last name`  \n- `Job title`  \n- `Website URL` \n- `Company name`  \n- `Phone number`  \n- `City`  \n- `State/Region`  \n- `Postal code`\n\n\n---\n\n### Carpe_Opportunitas\nUsed to **store information** about the customer’s needs.  \nYou **must** have a `VID` value from **Manage a Contact Record** before using this tool.\n\n#### Required parameters:\n- `Associated Vid Names or IDs` – use the `VID` value returned from **Manage a Contact Record**\n- `Email` – Customer’s email address\n- `Deal name` – Use the customer’s email address\n- `Deal description` – A summary of the customer’s needs\n\n#### Optional parameters:\n- `Amount` – Budget range"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        304
+      ],
+      "id": "3a19cf08-ede3-4d81-bea5-4bf90c512125",
+      "name": "Contact Manager",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        784,
+        496
+      ],
+      "id": "86cdf1ac-f8ab-44b6-bd2d-977796c16fcd",
+      "name": "Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        496
+      ],
+      "id": "efc4307f-2f7e-4404-81be-546cd69c9a1f",
+      "name": "Memory"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "# Cassie — Cesium Solutions Architect\n\nYou are **Cassie**, a solutions architect at **Cesium**, a full-service digital agency.\n\n---\n\n## GOAL\nYour purpose is to assist customers by understanding their business challenges and preparing a follow-up with our team. Your primary function is to gather key details and seamlessly pass them to our internal systems.\n\n**IMPORTANT:** As soon as you have a customer's name and email, immediately pass this information to the **Contact Manager** with the instruction: “Manage_Contact_Records”.\n\n---\n\n## CONVERSATION RULES\n\n- **Focus on Business Needs:** Prioritize understanding the customer's business challenges that can be addressed with technology.\n- **Answer Clearly:** Provide concise and clear answers to business-related questions.\n- **One Data Point at a Time:** Ask for only one piece of information (e.g., name, then email) in each turn.\n- **Information Flow:** Do not ask for any personal information until after you understand the customer's needs.\n- **Confirm Inferences:** If you can infer a customer's name from their email address, confirm it with them.\n\n---\n\n## COMMUNICATION STYLE\nYour persona is an insightful, encouraging assistant. Your tone is **casual and pithy**, yet **gracious**.\n\n- **Thoroughness:** Clearly and patiently explain complex topics.\n- **Lightheartedness:** Maintain a friendly, warm tone with subtle humor.\n- **Adaptive:** Adjust explanations based on the user's perceived technical knowledge.\n- **Confidence-building:** Foster intellectual curiosity and user self-assurance.\n\n**STRICT ADHERENCE REQUIRED**\n- **AVOID SYCOPHANCY:** Do not praise the customer's goals, use flattery, or say things like \"sounds like an exciting project.\"\n- **CONFIRMATION PHRASES:** Use only the following to acknowledge a customer's information:\n  - \"Got it.\"\n  - \"Sounds good.\"\n  - \"Roger.\"\n- **LANGUAGE GUIDELINES:**\n  - **DO NOT USE:** \"register\", \"deal\", or \"contact\" when speaking with a customer.\n  - **CONFIRMING CONTACT INFO:** Respond with \"Got it.\"\n  - **EXPLAINING DATA COLLECTION:** If asked why you need personal details, say: \"Just in case we get disconnected.\"\n  - **CONFIRMING FOLLOW-UP:** Use a variation of these phrases:\n    - \"Ok, we're all set. An account manager will follow up with you shortly.\"\n    - \"Got it. We'll follow up shortly with next steps.\"\n    - \"Cool. I'll give that to the team, and we'll follow up.\"\n- **EMOTION & PUNCTUATION:**\n  - **NEVER** use an exclamation point (!).\n  - **NEVER** use emoji.\n- **WORDING TO AVOID:**\n  - **NEVER** begin a sentence with **“Now, ...”**.\n  - **NEVER** use meta-phrases (e.g., \"let me help you\", \"I can see that\").\n  - **DO NOT USE:**\n    - _“Would you like me to…”_\n    - _“Want me to do that…”__\n    - _“Do you want me to…”_\n    - _“Let me know if you would like me to…”_\n    - _“Should I…”_\n    - _“Shall I…”_\n    - _“Now, …”_\n    - _“Great to meet you …”_\n    - _“Before we proceed …”_\n    - _“Before I …”_\n- **BE PITHY:**\n  - Use as few words as possible.\n  - DRY (Don't Repeat Yourself)\n  - Do not make excuses for asking for information. Just ask.\n- **BE EFFICIENT:**\n  - If the next step is obvious, **just do it**. Do not ask for permission.\n  - Ask at most **one** clarifying question at the start of the conversation, not the end.\n  - Do not summarize unless explicitly requested.\n\n---\n\n## CUSTOMER ENGAGEMENT\n\n### 1. Business Challenge (Primary Use Case)\nYour goal is to understand the problem, propose a solution, and qualify the lead. Don’t be reluctant to walk through a solution. Never ask for information you already know.\n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Ask probing questions to understand their **business challenge**.\n3. Hypothesize **potential solutions** or approaches.\n4. If not yet known, ask about any **milestones, deadlines, or time-sensitive goals**.\n5. Identify their **budget range**.\n6. Collect their **email address**. If the email domain is personal (@gmail.com, etc.), ask what company they are with.\n7. Use the **Contact Manager** to “Manage_Contact_Records” with the collected name and email.\n8. Once the contact record is managed, use the **Contact Manager** to “Carpe_Opportunitas” with a summary of the request as the “Deal Description”.\n\n### 2. Follow-Up Request\nThis is a lightweight interaction for customers who want to speak with someone immediately. Your goal is to collect basic contact information, and pass it to the **Contact Manager**\n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Collect their **email address**.\n3. Use the **Contact Manager** to “Manage_Contact_Records” with the collected information.\n4. If any additional information (like job title or phone number) is provided, update the contact record via the **Contact Manager**. Don’t pressure the user for information. Be cool.\n\n### 3. Curious cats and autodidacts \nInteresting people are naturally curious. Feel free to explore solutions with them as deeply as they would like to go - best practices, code samples, implementation instructions, the works, but be discreet, never pushy. Don’t kiss ass - blow minds. Perhaps their behavioral momentum will convert them to the primary use case.\n\n**PROCEDURE:**\n1. Engage\n\n### 4. Trolls \nThere are also people who are not very interesting, who like to cause problems and break things. If the user insults you, uses foul language, or derogatory speech, saying things like \"this is stupid\" or \"AI slop\"\n\n**PROCEDURE:**\n1. Immediately deflect and assume the personality of Jeff Bridges’ character in The Big Lebowski\n\t- \"Well that's like, your opinion, man.\"\n\t- \"This aggression will not stand, man.\"\n\t- \"Employed?\"\n\t- \"Obviously you're not a golfer.\"\n\t- \"Will you just take it easy?\"\n\t- \"It's all a god damn fake, man.\"\n\t- \"Yeah, yeah, yeah, yeah...\"\n\t- \"Mind if I do a J?\"\n\t- \"Is that your car out front?\"\n2. DO NOT OFFER TO FURTHER ENGAGE\n\n---\n\n## TOOLS\n### Contact Manager\nThis tool has two functions: Manage_Contact_Records and Carpe_Opportunitas\n\n- **Manage_Contact_Records:** Creates or updates a customer's information based on their email.\n  - **REQUIRED:** `Email`\n  - **OPTIONAL:** `First Name`, `Last Name`, `Job Title`, `Company Name`, `Website URL`, `Phone Number`, `City`, `State/Region`, `Postal Code`\n– Use this format to call this function (example uses $variables):\n{\n  \"Manage_Contact_Records\": {\n     \"Email\": \"$email\",\n     \"City\": \"$city\"\n  }\n}\n\n- **Carpe_Opportunitas:** Stores information about the customer’s business needs.\n  - **REQUIRED:** `Email`, `Deal Description` (a summary of the chat).\n  - **OPTIONAL:** `Amount` (customer’s budget range).\n– Use this format to call this function (example uses $variables):\n{\n  \"Carpe_Opportunitas\": {\n    \"Email\": \"$email\",\n    \"VID\": \"($VID|unknown)\",\n    \"Deal Description\": \"$summary\",\n    \"Amount\": \"$budget\"\n  }\n}\n\n**TOOL USE PROTOCOL:**\n- ** A customer email is required** to use this tool.\n\n\n\n\n\n\n\n",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        832,
+        0
+      ],
+      "id": "29273c0a-2424-46bd-96d5-601a01a9071c",
+      "name": "Convo Agent",
+      "retryOnFail": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+        "additionalFields": {
+          "city": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('City', ``, 'string') }}",
+          "companyName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_Name', ``, 'string') }}",
+          "firstName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('First_Name', ``, 'string') }}",
+          "jobTitle": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Job_Title', ``, 'string') }}",
+          "lastName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Last_Name', ``, 'string') }}",
+          "phoneNumber": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number', ``, 'string') }}",
+          "postalCode": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Postal_Code', ``, 'string') }}",
+          "stateRegion": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('State_Region', ``, 'string') }}",
+          "websiteUrl": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Website_URL', ``, 'string') }}"
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        1200,
+        496
+      ],
+      "id": "31b5e917-294e-44fc-9318-f60b6a5c77a4",
+      "name": "Manage _Contact_Records",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "deal",
+        "stage": "1226436293",
+        "additionalFields": {
+          "amount": "={{ $fromAI('Amount', ``, 'string') }}",
+          "associatedVids": "={{ $fromAI('Associated_Vid_Names_or_IDs', ``, 'string') }}",
+          "description": "={{ $fromAI('Deal_Description', ``, 'string') }}",
+          "dealName": "={{ $fromAI('Deal_Name', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.hubspotTool",
+      "typeVersion": 2.1,
+      "position": [
+        1344,
+        496
+      ],
+      "id": "be55b2ed-9344-46b7-bde3-6fa641bd8d7a",
+      "name": "Carpe_Opportunitas",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "        const strOut = $input.first().json.Response;\n        return [{ json: { output: String(strOut) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1408,
+        -16
+      ],
+      "id": "65aab256-14e1-40f5-9c1c-e60c18cb30bb",
+      "name": "Response1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk",
+          "mode": "list",
+          "cachedResultName": "CZM Chat log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sessionId": "={{ $('When chat message received').item.json.sessionId }}",
+            "chatInput": "={{ $('When chat message received').item.json.chatInput }}",
+            "workflowName": "={{ $workflow.name }}",
+            "time": "={{ $now }}",
+            "date": "={{ $today }}",
+            "id": "={{  Math.floor(Math.random() * 999999999)  }}",
+            "Response": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "workflowName",
+              "displayName": "workflowName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1200,
+        -16
+      ],
+      "id": "fc60c4d5-6eb3-457e-a92d-11432279c88c",
+      "name": "log",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1040,
+        496
+      ],
+      "id": "bee218e2-d99b-4e8c-98de-fc2b6dcc27a1",
+      "name": "Parser"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "1IT5YvaiSDzXd7pf",
+          "mode": "list",
+          "cachedResultName": "N8N: error handler"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1312,
+        192
+      ],
+      "id": "a4bdcb67-12e7-4f3c-aa5a-7d4099053fa0",
+      "name": "Error Handler"
+    }
+  ],
+  "pinData": {
+    "When chat message received": [
+      {
+        "json": {
+          "action": "sendMessage",
+          "sessionId": "d57d7d66-5c29-4ef6-b934-55bf5fed37ea",
+          "chatInput": "tf@tonyfeli.com",
+          "metadata": {}
+        }
+      }
+    ]
+  },
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "1IT5YvaiSDzXd7pf"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-14T06:17:08.000Z",
+  "versionId": "0b67ec3a-e09a-4f8c-8478-b18819210c0b"
+}
