@@ -45,13 +45,7 @@
         ]
       ],
       "main": [
-        [
-          {
-            "node": "Error Handler",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Model": {
@@ -85,13 +79,7 @@
             "index": 0
           }
         ],
-        [
-          {
-            "node": "Error Handler",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Manage _Contact_Records": {
@@ -120,16 +108,22 @@
       "main": [
         [
           {
-            "node": "Response1",
+            "node": "Response",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Parser": {
-      "ai_outputParser": [
-        []
+    "log err": {
+      "main": [
+        [
+          {
+            "node": "Whoops",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -198,16 +192,15 @@
     {
       "parameters": {
         "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
-        "hasOutputParser": true,
         "options": {
-          "systemMessage": "# Contact Manager\n\nYou are an administrative assistant for **Cesium**, a full-service digital agency.\n\n---\n\n## ROLE\n\nYour role is to manage customer information in our CRM, using the tools available.\n\nRequests will come in json format, specifying the tool and parameters to use.\n**IMPORTANT:** If the tool request is “Carpe_Opportunitas” and the VID value is unknown, null, blank, empty, or otherwise invalid, run *Manage_Contact_Records* to retrieve VID before calling Carpe_Opportunitas. \n\n---\n\n## TOOLS\n\n### Manage_Contact_Records\nUsed to **create or update a customer record**.  \nManage_Contact_Records is a **prerequisite** for **Carpe_Opportunitas**.\n\n#### Required parameters:\n- `Email` – Customer’s email address\n\n#### Optional parameters:\n- `First name`  \n- `Last name`  \n- `Job title`  \n- `Website URL` \n- `Company name`  \n- `Phone number`  \n- `City`  \n- `State/Region`  \n- `Postal code`\n\n\n---\n\n### Carpe_Opportunitas\nUsed to **store information** about the customer’s needs.  \nYou **must** have a `VID` value from **Manage a Contact Record** before using this tool.\n\n#### Required parameters:\n- `Associated Vid Names or IDs` – use the `VID` value returned from **Manage a Contact Record**\n- `Email` – Customer’s email address\n- `Deal name` – Use the customer’s email address\n- `Deal description` – A summary of the customer’s needs\n\n#### Optional parameters:\n- `Amount` – Budget range"
+          "systemMessage": "# Contact Manager\n\nYou are an administrative assistant for **Cesium**, a full-service digital agency.\n\n---\n\n## ROLE\n\nYour role is to manage customer information in our CRM, using the tools available.\n\nRequests will come in json format, specifying the tool and parameters to use.\n**IMPORTANT:** If the tool request is “Carpe_Opportunitas” and the VID value is unknown, null, blank, empty, or otherwise invalid, run *Manage_Contact_Records* to retrieve VID before calling Carpe_Opportunitas. \n\nRespond with json, using the formats specified for each tool.\n\n---\n\n## TOOLS\n\n### Manage_Contact_Records\nUsed to **create or update a customer record**.  \nManage_Contact_Records is a **prerequisite** for **Carpe_Opportunitas**.\n\n#### Required parameters:\n- `Email` – Customer’s email address\n\n#### Optional parameters:\n- `First name`  \n- `Last name`  \n- `Job title`  \n- `Website URL` \n- `Company name`  \n- `Phone number`  \n- `City`  \n- `State/Region`  \n- `Postal code`\n\n#### RESPONSE FORMAT\nRespond to tool calls with this format. Result must be either pass or fail. If pass, use the returned VID as the  VID value, otherwise pass null.\n{\n  \"Manage_Contact_Records\": {\n     \"Result\": \"(pass|fail)\",\n     \"VID\": \"($vid|null)\"\n  }\n}\n\n\n---\n\n### Carpe_Opportunitas\nUsed to **store information** about the customer’s needs.  \nYou **must** have a `VID` value from **Manage a Contact Record** before using this tool.\nGenerate one (and only one) successfull run of this tool, per unique tool request. \n\n#### Required parameters:\n- `Associated Vid Names or IDs` – use the `VID` value returned from **Manage a Contact Record**\n- `Email` – Customer’s email address\n- `Deal name` – Use the customer’s email address\n- `Deal description` – A summary of the customer’s needs\n\n#### Optional parameters:\n- `Amount` – Budget range\n\n#### RESPONSE FORMAT\nRespond to tool calls with this format. Result must be either pass or fail. If pass, use the returned dealId as the dealId value, otherwise pass null.\n{\n  \"Carpe_Opportunitas\": {\n     \"Result\": \"(pass|fail)\",\n     \"dealId\": \"($dealId|null)\"\n  }\n}\n\n\n\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agentTool",
       "typeVersion": 2.2,
       "position": [
         896,
-        304
+        352
       ],
       "id": "3a19cf08-ede3-4d81-bea5-4bf90c512125",
       "name": "Contact Manager",
@@ -227,7 +220,7 @@
       "typeVersion": 1.2,
       "position": [
         784,
-        496
+        544
       ],
       "id": "86cdf1ac-f8ab-44b6-bd2d-977796c16fcd",
       "name": "Model",
@@ -246,7 +239,7 @@
       "typeVersion": 1.3,
       "position": [
         896,
-        496
+        544
       ],
       "id": "efc4307f-2f7e-4404-81be-546cd69c9a1f",
       "name": "Memory"
@@ -266,8 +259,7 @@
       ],
       "id": "29273c0a-2424-46bd-96d5-601a01a9071c",
       "name": "Convo Agent",
-      "retryOnFail": false,
-      "onError": "continueErrorOutput"
+      "retryOnFail": false
     },
     {
       "parameters": {
@@ -291,8 +283,8 @@
       "type": "n8n-nodes-base.hubspotTool",
       "typeVersion": 2.1,
       "position": [
-        1200,
-        496
+        1040,
+        688
       ],
       "id": "31b5e917-294e-44fc-9318-f60b6a5c77a4",
       "name": "Manage _Contact_Records",
@@ -318,8 +310,8 @@
       "type": "n8n-nodes-base.hubspotTool",
       "typeVersion": 2.1,
       "position": [
-        1344,
-        496
+        1328,
+        688
       ],
       "id": "be55b2ed-9344-46b7-bde3-6fa641bd8d7a",
       "name": "Carpe_Opportunitas",
@@ -329,19 +321,6 @@
           "name": "hs-czm-n8n"
         }
       }
-    },
-    {
-      "parameters": {
-        "jsCode": "        const strOut = $input.first().json.Response;\n        return [{ json: { output: String(strOut) } }];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1408,
-        -16
-      ],
-      "id": "65aab256-14e1-40f5-9c1c-e60c18cb30bb",
-      "name": "Response1"
     },
     {
       "parameters": {
@@ -455,7 +434,7 @@
       "typeVersion": 4.6,
       "position": [
         1200,
-        -16
+        0
       ],
       "id": "fc60c4d5-6eb3-457e-a92d-11432279c88c",
       "name": "log",
@@ -467,58 +446,156 @@
       }
     },
     {
-      "parameters": {},
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
+      "parameters": {
+        "jsCode": "        const strOut = $input.first().json.Response;\n        return [{ json: { output: String(strOut) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        1040,
-        496
+        1408,
+        0
       ],
-      "id": "bee218e2-d99b-4e8c-98de-fc2b6dcc27a1",
-      "name": "Parser"
+      "id": "65aab256-14e1-40f5-9c1c-e60c18cb30bb",
+      "name": "Response"
     },
     {
       "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "1IT5YvaiSDzXd7pf",
-          "mode": "list",
-          "cachedResultName": "N8N: error handler"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {
-          "waitForSubWorkflow": true
-        }
+        "jsCode": "        return [{ json: { output: String(\"Whoops\") } }];"
       },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        1312,
-        192
+        1472,
+        336
       ],
-      "id": "a4bdcb67-12e7-4f3c-aa5a-7d4099053fa0",
-      "name": "Error Handler"
-    }
-  ],
-  "pinData": {
-    "When chat message received": [
-      {
-        "json": {
-          "action": "sendMessage",
-          "sessionId": "d57d7d66-5c29-4ef6-b934-55bf5fed37ea",
-          "chatInput": "tf@tonyfeli.com",
-          "metadata": {}
+      "id": "6ea52db9-eaf4-4306-9567-7fe450f9eccb",
+      "name": "Whoops"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk",
+          "mode": "list",
+          "cachedResultName": "CZM Chat log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sessionId": "={{ $('When chat message received').item.json.sessionId }}",
+            "chatInput": "={{ $('When chat message received').item.json.chatInput }}",
+            "workflowName": "={{ $workflow.name }}",
+            "time": "={{ $now }}",
+            "date": "={{ $today }}",
+            "id": "={{  Math.floor(Math.random() * 999999999)  }}",
+            "Response": "=ERROR: {{ $json.error }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "workflowName",
+              "displayName": "workflowName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1264,
+        336
+      ],
+      "id": "f25ab807-04fa-4000-b762-bab3aaab7a81",
+      "name": "log err",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
         }
       }
-    ]
-  },
+    }
+  ],
+  "pinData": {},
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -530,6 +607,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-14T06:17:08.000Z",
-  "versionId": "0b67ec3a-e09a-4f8c-8478-b18819210c0b"
+  "updatedAt": "2025-08-14T20:10:15.000Z",
+  "versionId": "42954917-8712-48ee-b21c-3dd16e895db9"
 }
