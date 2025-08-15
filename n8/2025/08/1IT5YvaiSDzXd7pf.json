@@ -118,9 +118,12 @@
           "value": {
             "Timestamp": "={{ $json.timestamp }}",
             "Workflow": "={{ $json.workflowName }}",
-            "Error Message": "={{ $json.errorMessage }}",
+            "Error Message": "={{ $('On Error Trigger').item.json.execution.error.message }}",
             "Node": "={{ $json.nodeName }}",
-            "Stack Trace": "={{ $json.errorStack }}"
+            "Stack Trace": "={{ $('On Error Trigger').item.json.execution.error.stack }}",
+            "Session": "={{ $('When Executed by Another Workflow').item.json.sessionId }}",
+            "Output": "={{ $('On Error Trigger').item.json.execution.error.output }}",
+            "URL": "={{ $('On Error Trigger').item.json.execution.url }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -149,7 +152,18 @@
               "defaultMatch": false,
               "display": true,
               "type": "string",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Session",
+              "displayName": "Session",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
               "id": "Node",
@@ -159,6 +173,16 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true
+            },
+            {
+              "id": "Output",
+              "displayName": "Output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
               "id": "Error Message",
@@ -228,7 +252,18 @@
       }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "sessionId": "a5698489ac424ed785d8862a8cdb8e4f",
+          "action": "sendMessage",
+          "chatInput": "Tony@sdfghdfsljhladsfg.com",
+          "error": "Received tool input did not match expected schema"
+        }
+      }
+    ]
+  },
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -238,6 +273,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-09T00:35:14.000Z",
-  "versionId": "c9729564-125f-4f43-87b9-96eb0e193f63"
+  "updatedAt": "2025-08-14T21:55:19.000Z",
+  "versionId": "e1ac0cdc-ec30-47b3-a5b7-dba20c538584"
 }
