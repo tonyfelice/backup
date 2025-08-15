@@ -1,0 +1,163 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "set contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set contact": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-15T00:12:30.365Z",
+  "id": "bNBJds627vzWOLx8",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: contact manager",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n\t\"Email\" : \"string\",\n\t\"Description\" : \"string\",\n\t\"First Name\" : \"string\",\n\t\"Last Name\" : \"string\",\n\t\"Job Title\" : \"string\",\n\t\"Company Name\" : \"string\",\n\t\"City\" : \"string\",\n\t\"Website URL\" : \"string\",\n\t\"Phone Number\" : \"string\",\n\t\"State/Region\" : \"string\",\n\t\"Postal Code\" : \"string\"\n}"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9e851ed5-bb8b-4e5b-8359-7b4ba8afb761",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a948c992-c7e0-4446-95ed-ab0f67fd3561",
+              "leftValue": "=1 {{ $json.Email }}",
+              "rightValue": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "11d30aa0-30ba-4fd2-9e17-e41cd5bf79fc",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.Email }}",
+        "additionalFields": {
+          "city": "={{ $json.City }}",
+          "companyName": "={{ $json['Company Name'] }}",
+          "firstName": "={{ $json['First Name'] }}",
+          "jobTitle": "={{ $json['Job Title'] }}",
+          "lastName": "={{ $json['Last Name'] }}",
+          "message": "={{ $json.Description }}",
+          "phoneNumber": "={{ $json['Phone Number'] }}",
+          "postalCode": "={{ $json['Postal Code'] }}",
+          "stateRegion": "={{ $json['State/Region'] }}"
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "c618bc14-4db4-4738-9f77-24f4911b0e81",
+      "name": "set contact",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "ticket",
+        "pipelineId": "1153569502",
+        "stageId": "1830165189",
+        "ticketName": "ticket",
+        "additionalFields": {
+          "associatedContactIds": [],
+          "description": ""
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1072,
+        -80
+      ],
+      "id": "c393d0cc-5141-45de-a472-135e6fc14848",
+      "name": "set ticket",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-15T01:14:42.000Z",
+  "versionId": "55a442bc-4303-4de6-bf82-2bbc4c98c5b8"
+}
