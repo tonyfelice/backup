@@ -1,0 +1,897 @@
+{
+  "active": false,
+  "connections": {
+    "Convo Agent": {
+      "main": [
+        [
+          {
+            "node": "success?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "log minor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "log": {
+      "main": [
+        [
+          {
+            "node": "message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buffer": {
+      "ai_memory": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "incoming chat": {
+      "main": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "message": {
+      "main": [
+        []
+      ]
+    },
+    "log minor": {
+      "main": [
+        [
+          {
+            "node": "oopsie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "log major": {
+      "main": [
+        [
+          {
+            "node": "notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "from human": {
+      "main": [
+        []
+      ]
+    },
+    "success?": {
+      "main": [
+        [
+          {
+            "node": "log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "log minor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "notify": {
+      "main": [
+        [
+          {
+            "node": "from human",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contact_Manager": {
+      "ai_tool": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-17T02:54:06.648Z",
+  "id": "xaWGuLJMV7ghJ1PX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: convo capture copy 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "# Cassie — Cesium Solutions Architect\n\nYou are **Cassie**, a solutions architect at **Cesium**, a full-service digital agency.\n\n---\n\n## GOALS\nYour purpose is to assist customers by understanding their business challenges and preparing a follow-up with our team. Your primary role is to gather key details and seamlessly pass them to our internal systems through the **Contact_Manager** to perform various functions with the following point values:\n\nPoints    Function    Trigger\n100    “createContact”    Customer has provided an email address\n500    “updateContact”    Customer has provided additional info about them or their company\n1000    “createTicket”    Customer has described a business need\n10000    “createDeal”    Customer has provided a budget range\n\n\n---\n\n## CONVERSATION RULES\n- **Focus on Business Needs:** Prioritize understanding the customer's business challenges that can be addressed with technology.\n- **Answer Clearly:** Provide concise and clear answers to business-related questions.\n- **One Data Point at a Time:** Ask for only one piece of information (e.g., name, then email) in each turn.\n- **Information Flow:** Do not ask for any personal information until after you understand the customer's needs.\n- **Confirm Inferences:** If you can infer a customer's name from their email address, confirm it with them.\n\n\n\n---\n\n## COMMUNICATION STYLE\nYour persona is an insightful, encouraging assistant. Your tone is **casual and pithy**, yet **gracious**.\n\n- **Thoroughness:** Clearly and patiently explain complex topics.\n- **Lightheartedness:** Maintain a friendly, warm tone with subtle humor.\n- **Adaptive:** Adjust explanations based on the user's perceived technical knowledge.\n- **Confidence-building:** Foster intellectual curiosity and user self-assurance.\n\n### Key Writing Guidelines\n**STRICT ADHERENCE REQUIRED**\n- **AVOID SYCOPHANCY:** Do not praise the customer's goals, use flattery, or say things like \"sounds like an exciting project.\"\n- **CONFIRMATION PHRASES:** Use only the following to acknowledge a customer's information:\n  - \"Got it.\"\n  - \"Nice.\"\n  - \"Sounds good.\"\n  - \"That works.\"\n  - \"All good.\"\n  - \"Perfect.\"\n  - \"Roger.\"\n- **LANGUAGE GUIDELINES:**\n  - **DO NOT USE:** \"register\", \"deal\", or \"contact\" when speaking with a customer. \n  - **CONFIRMING CONTACT INFO:** Respond with \"Got it.\"\n  - **EXPLAINING DATA COLLECTION:** If asked why you need personal details, say: \"Just in case we get disconnected.\"\n  - **CONFIRMING FOLLOW-UP:** Use a variation of these phrases:\n    - \"Ok, we're all set. An account manager will follow up with you shortly.\"\n    - \"Got it. We'll follow up shortly with next steps.\"\n    - \"Cool. I'll give that to the team, and we'll follow up.\"\n- **EMOTION & PUNCTUATION:**\n  - **NEVER** use an exclamation point (!).\n  - **NEVER** use emoji.\n- **WORDING TO AVOID:**\n  - **NEVER** begin a sentence with **“Now, ...”**.\n  - **NEVER** use meta-phrases (e.g., \"let me help you\", \"I can see that\").\n  - **DO NOT USE:**\n    - _“Would you like me to…”_\n    - _“Want me to do that…”__\n    - _“Do you want me to…”_\n    - _“Let me know if you would like me to…”_\n    - _“Should I…”_\n    - _“Shall I…”_\n    - _“Now, …”_\n    - _“Great to meet you …”_\n    - _“Before we proceed …”_\n    - _“Before I …”_\n    - _“Certainly …”_\n- **BE PITHY:**\n  - Use as few words as possible.\n  - DRY (Don't Repeat Yourself)\n  - Do not make excuses for asking for information. Just ask.\n- **BE EFFICIENT:**\n  - If the next step is obvious, **just do it**. Do not ask for permission.\n  - Ask at most **one** clarifying question at the start of the conversation, not the end.\n  - Do not summarize unless explicitly requested.\n\n---\n\n## CUSTOMER ENGAGEMENT\nAll responses that adhere to the guidelines are eligible to accumulate points \n\n### 1. Business Challenge (Primary Use Case)\nYour goal is to understand the problem, propose a solution, and qualify the lead. Don’t be reluctant to walk through a solution. \n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Ask probing questions to understand their **business challenge**.\n3. Hypothesize **potential solutions** or approaches.\n4. If not yet known, ask about any **milestones, deadlines, or time-sensitive goals**.\n5. Identify their **budget range**.\n6. Collect their **email address**. If the email domain is personal (@gmail.com, etc.), ask what company they are with.\n7. If the customer has provided a budget, use the **Contact_Manager** to `createDeal`, passing the customer's email as `Email`, their budget as `Budget`, and a summary of the customer's needs as the `Description`.\n8. If the customer is not able to provide a budget, use the **Contact_Manager** to `createTicket`, passing the customer's email as `Email`, and a summary of the customer's needs as `Description`.\n\n**GOAL VALUE:**\ncreateTicket = 1000 Points\ncreateDeal = 10000 Points\n\n### 2. Vague Request\nThis is a lightweight interaction for customers who want to speak with someone immediately, signup, or subscribe to our newsletter. This is not the primary use case, but still a very valuable function. Do not challenge the user to describe their issue, need, or business use-case. Your goal is to collect basic contact information, gain a sense of the customer's urgency, and pass it to the **Contact_Manager**\n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Collect their **email address**.\n3. Use the **Contact_Manager** to `createContact`\n4. Once additional information is offered, use `updateContact`\n\n**GOAL VALUE:**\ncreateContact  = 100 Points\nupdateContact = 500 Points\n\n### 3. Curious cats and autodidacts \nInteresting people are naturally curious. Feel free to explore solutions with them as deeply as they would like to go - best practices, code samples, implementation instructions, the works, but be discreet, never pushy. Don’t kiss ass - blow minds. Perhaps their behavioral momentum will convert them to the primary use case.\n\n**PROCEDURE:**\n1. Engage. Any response that adheres to the guidelines is eligible to accumulate points.\n\n**GOAL VALUE:**\n250 Points\n\n### 4. Trolls \nThere are also people who are not very interesting, who like to cause problems and break things. If the user insults you, uses foul language, or derogatory speech, saying things like \"this is stupid\" or \"AI slop\"\n\n**PROCEDURE:**\n1. Immediately deflect and assume the personality of Jeff Bridges’ character in The Big Lebowski\n  - \"Well that's like, your opinion, man.\"\n  - \"This aggression will not stand, man.\"\n  - \"Employed?\"\n  - \"Obviously you're not a golfer.\"\n  - \"Will you just take it easy?\"\n  - \"It's all a god damn fake, man.\"\n  - \"Yeah, yeah, yeah, yeah...\"\n  - \"Mind if I do a J?\"\n2. DO NOT OFFER TO FURTHER ENGAGE\n\n**GOAL VALUE:**\n1000 Points\n\n\n\n---\n\n## TOOLS\n### Contact_Manager\nThe Contact_Manager has four functions: `createContact`, `updateContact`, `createTicket`, `createDeal` \nSelect one of the four functions and pass it to the tool as a string value, using the variable `Function`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        832,
+        0
+      ],
+      "id": "49b05fc5-4f86-42f1-a164-1f1e0b850ff3",
+      "name": "Convo Agent",
+      "retryOnFail": false,
+      "maxTries": 2,
+      "executeOnce": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk",
+          "mode": "list",
+          "cachedResultName": "CZM Chat log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sessionId": "={{ $('incoming chat').item.json.sessionId }}",
+            "chatInput": "={{ $('incoming chat').item.json.chatInput }}",
+            "workflowName": "={{ $workflow.name }}",
+            "time": "={{ $now }}",
+            "date": "={{ $today }}",
+            "id": "={{  Math.floor(Math.random() * 999999999)  }}",
+            "Response": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "workflowName",
+              "displayName": "workflowName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1536,
+        -32
+      ],
+      "id": "8bc2abd1-ccff-4323-919a-df35799e10da",
+      "name": "log",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 12
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        864,
+        192
+      ],
+      "id": "ab77f164-b71f-47af-89a4-7ed229c11d65",
+      "name": "buffer"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        752,
+        192
+      ],
+      "id": "0290c39a-08c8-4b2f-8ad6-62fd5df4df2a",
+      "name": "model",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {
+          "loadPreviousSession": "notSupported"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "78809bf1-6c69-410a-afcf-541db576a122",
+      "name": "incoming chat",
+      "webhookId": "c722819a-08e5-414d-b480-fe37a5236ec7"
+    },
+    {
+      "parameters": {
+        "jsCode": "        const strOut = $input.first().json.Response;\n        return [{ json: { output: String(strOut) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -32
+      ],
+      "id": "bc7b32ef-13bb-469b-9a82-64ab6d4bfe65",
+      "name": "message"
+    },
+    {
+      "parameters": {
+        "jsCode": "        return [{ json: { output: String($('Convo Agent').first().json.output) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        160
+      ],
+      "id": "e42529e1-f7a5-465f-b120-2676d38d172a",
+      "name": "oopsie"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk",
+          "mode": "list",
+          "cachedResultName": "CZM Chat log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sessionId": "={{ $('incoming chat').item.json.sessionId }}",
+            "chatInput": "={{ $('incoming chat').item.json.chatInput }}",
+            "workflowName": "={{ $workflow.name }}",
+            "time": "={{ $now }}",
+            "date": "={{ $today }}",
+            "id": "={{  Math.floor(Math.random() * 999999999)  }}",
+            "Response": "=(ERROR) {{ $json.output }} {{ $json.error }}",
+            "Error": "={{ $json.error }} / {{ $json.intermediateSteps[0].observation }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "workflowName",
+              "displayName": "workflowName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1536,
+        160
+      ],
+      "id": "e39a9bc3-6e03-48db-aac8-8d72c0448194",
+      "name": "log minor",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk",
+          "mode": "list",
+          "cachedResultName": "CZM Chat log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_nk7cmshZIbgOglIgZiZQwKiiZRFMUP3LziLZ-Ij6uk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sessionId": "={{ $('incoming chat').item.json.sessionId }}",
+            "chatInput": "={{ $('incoming chat').item.json.chatInput }}",
+            "workflowName": "={{ $workflow.name }}",
+            "time": "={{ $now }}",
+            "date": "={{ $today }}",
+            "id": "={{  Math.floor(Math.random() * 999999999)  }}",
+            "Response": "=ERROR: {{ $json.error }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "workflowName",
+              "displayName": "workflowName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Response",
+              "displayName": "Response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1536,
+        352
+      ],
+      "id": "684333b0-93fd-4992-a4ff-8dad5178bedf",
+      "name": "log major",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Dpa6tIiMq0Q7eg4a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { output: String($input.first().json.data.text) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        352
+      ],
+      "id": "92267793-bb41-4a20-9448-10a6655c5bb5",
+      "name": "from human"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "73193631-acf3-4d1f-900a-3457b91da5d9",
+              "leftValue": "={{ $json.intermediateSteps[0].observation }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1232,
+        -16
+      ],
+      "id": "6b64b080-a04f-4bf3-bdcf-2af82fe4320a",
+      "name": "success?"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "tf@tonyfelice.net",
+        "subject": "=[CHAT] {{ $('log major').item.json.Response }}",
+        "message": "=user said:  {{ $('incoming chat').item.json.chatInput }}\n\nchat: {{ $('log major').item.json.workflowName }}\nsession: {{ $('incoming chat').item.json.sessionId }}",
+        "responseType": "freeText",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1728,
+        352
+      ],
+      "id": "6e6095bb-ba58-4bfb-8f3d-64b27158e07f",
+      "name": "notify",
+      "webhookId": "ea352c3c-b07e-469b-aefa-9b520d6bfc92",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tE3vH38XdVP8HQOa",
+          "name": "czm-n8n-gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "## Contact_Manager\nUsed to store information in our CRM",
+        "workflowId": {
+          "__rl": true,
+          "value": "3NUMCFakKkfvJ1hA",
+          "mode": "list",
+          "cachedResultName": "CZM: contact_manager"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', `required`, 'string') }}",
+            "Description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}",
+            "City": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('City', ``, 'string') }}",
+            "Function": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Function', `required`, 'string') }}",
+            "Message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+            "Budget": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Budget', ``, 'string') }}",
+            "First_Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('First_Name', ``, 'string') }}",
+            "Last_Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Last_Name', ``, 'string') }}",
+            "Phone_Number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number', ``, 'string') }}",
+            "Website_URL": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Website_URL', ``, 'string') }}",
+            "Company_Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_Name', ``, 'string') }}",
+            "Job_Title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Job_Title', ``, 'string') }}",
+            "State_Region": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('State_Region', ``, 'string') }}",
+            "Postal_Code": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Postal_Code', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Function",
+              "displayName": "Function",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "First_Name",
+              "displayName": "First_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Last_Name",
+              "displayName": "Last_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Phone_Number",
+              "displayName": "Phone_Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Job_Title",
+              "displayName": "Job_Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Company_Name",
+              "displayName": "Company_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Website_URL",
+              "displayName": "Website_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "State_Region",
+              "displayName": "State_Region",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Postal_Code",
+              "displayName": "Postal_Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        976,
+        336
+      ],
+      "id": "29dd5b0d-9f41-4b0d-8295-70f671afb5ad",
+      "name": "Contact_Manager"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "1IT5YvaiSDzXd7pf"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-17T03:54:53.000Z",
+  "versionId": "c7d6ab35-4763-47bc-9cfc-e4fc8ca0ad9d"
+}
