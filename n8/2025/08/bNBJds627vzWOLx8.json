@@ -84,7 +84,7 @@
   },
   "createdAt": "2025-08-15T00:12:30.365Z",
   "id": "bNBJds627vzWOLx8",
-  "isArchived": false,
+  "isArchived": true,
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -309,6 +309,19 @@
       ],
       "id": "cb8f3fbb-216b-4cb9-a982-926116049e7b",
       "name": "output"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { output: String(\"ok\") } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        176
+      ],
+      "id": "11ad1012-9676-4e52-a276-0dc9a3b5f2c1",
+      "name": "stubbed"
     }
   ],
   "pinData": {},
@@ -322,6 +335,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-16T00:35:16.000Z",
-  "versionId": "d2daab5d-45f2-4ee6-916c-dba051d8ed7e"
+  "updatedAt": "2025-08-16T20:15:53.000Z",
+  "versionId": "690dd96c-9812-4386-ae3f-a4e3e73e8e66"
 }
