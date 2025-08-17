@@ -17,7 +17,7 @@
   "id": "IbyycCYN4zlmL3ID",
   "isArchived": false,
   "meta": null,
-  "name": "N8N: stubbed sub",
+  "name": "testing: stubbed sub",
   "nodes": [
     {
       "parameters": {
@@ -56,6 +56,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-09T02:04:49.000Z",
-  "versionId": "8151e19e-845f-4231-90d1-3d3090bc4aab"
+  "updatedAt": "2025-08-17T01:09:27.000Z",
+  "versionId": "3844f03f-bec7-4594-883d-2f86264a4644"
 }
