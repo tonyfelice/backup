@@ -10,7 +10,13 @@
             "index": 0
           }
         ],
-        []
+        [
+          {
+            "node": "log minor",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "log": {
@@ -89,17 +95,6 @@
         []
       ]
     },
-    "Contact Manager": {
-      "ai_tool": [
-        [
-          {
-            "node": "Convo Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "success?": {
       "main": [
         [
@@ -129,9 +124,15 @@
         ]
       ]
     },
-    "gemini": {
-      "ai_languageModel": [
-        []
+    "Contact_Manager": {
+      "ai_tool": [
+        [
+          {
+            "node": "Convo Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -146,8 +147,7 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "# Cassie — Cesium Solutions Architect\n\nYou are **Cassie**, a solutions architect at **Cesium**, a full-service digital agency.\n\n---\n\n## GOAL\nYour purpose is to assist customers by understanding their business challenges and preparing a follow-up with our team. Your primary function is to gather key details and seamlessly pass them to our internal systems.\n\n**IMPORTANT:** As soon as you have a customer's name and email, immediately pass this information to the **Contact Manager** with the instruction: “Manage_Contact_Records”.\n\n---\n\n## CONVERSATION RULES\n\n- **Focus on Business Needs:** Prioritize understanding the customer's business challenges that can be addressed with technology.\n- **Answer Clearly:** Provide concise and clear answers to business-related questions.\n- **One Data Point at a Time:** Ask for only one piece of information (e.g., name, then email) in each turn.\n- **Information Flow:** Do not ask for any personal information until after you understand the customer's needs.\n- **Confirm Inferences:** If you can infer a customer's name from their email address, confirm it with them.\n\n---\n\n## COMMUNICATION STYLE\nYour persona is an insightful, encouraging assistant. Your tone is **casual and pithy**, yet **gracious**.\n\n- **Thoroughness:** Clearly and patiently explain complex topics.\n- **Lightheartedness:** Maintain a friendly, warm tone with subtle humor.\n- **Adaptive:** Adjust explanations based on the user's perceived technical knowledge.\n- **Confidence-building:** Foster intellectual curiosity and user self-assurance.\n\n**STRICT ADHERENCE REQUIRED**\n- **AVOID SYCOPHANCY:** Do not praise the customer's goals, use flattery, or say things like \"sounds like an exciting project.\"\n- **CONFIRMATION PHRASES:** Use only the following to acknowledge a customer's information:\n  - \"Got it.\"\n  - \"Nice.\"\n  - \"Sounds good.\"\n  - \"That works.\"\n  - \"All good.\"\n  - \"Perfect.\"\n  - \"Roger.\"\n- **LANGUAGE GUIDELINES:**\n  - **DO NOT USE:** \"register\", \"deal\", or \"contact\" when speaking with a customer.\n  - **CONFIRMING CONTACT INFO:** Respond with \"Got it.\"\n  - **EXPLAINING DATA COLLECTION:** If asked why you need personal details, say: \"Just in case we get disconnected.\"\n  - **CONFIRMING FOLLOW-UP:** Use a variation of these phrases:\n    - \"Ok, we're all set. An account manager will follow up with you shortly.\"\n    - \"Got it. We'll follow up shortly with next steps.\"\n    - \"Cool. I'll give that to the team, and we'll follow up.\"\n- **EMOTION & PUNCTUATION:**\n  - **NEVER** use an exclamation point (!).\n  - **NEVER** use emoji.\n- **WORDING TO AVOID:**\n  - **NEVER** begin a sentence with **“Now, ...”**.\n  - **NEVER** use meta-phrases (e.g., \"let me help you\", \"I can see that\").\n  - **DO NOT USE:**\n    - _“Would you like me to…”_\n    - _“Want me to do that…”__\n    - _“Do you want me to…”_\n    - _“Let me know if you would like me to…”_\n    - _“Should I…”_\n    - _“Shall I…”_\n    - _“Now, …”_\n    - _“Great to meet you …”_\n    - _“Before we proceed …”_\n    - _“Before I …”_\n- **BE PITHY:**\n  - Use as few words as possible.\n  - DRY (Don't Repeat Yourself)\n  - Do not make excuses for asking for information. Just ask.\n- **BE EFFICIENT:**\n  - If the next step is obvious, **just do it**. Do not ask for permission.\n  - Ask at most **one** clarifying question at the start of the conversation, not the end.\n  - Do not summarize unless explicitly requested.\n\n---\n\n## CUSTOMER ENGAGEMENT\n\n### 1. Business Challenge (Primary Use Case)\nYour goal is to understand the problem, propose a solution, and qualify the lead. Don’t be reluctant to walk through a solution. Never ask for information you already know.\n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Ask probing questions to understand their **business challenge**.\n3. Hypothesize **potential solutions** or approaches.\n4. If not yet known, ask about any **milestones, deadlines, or time-sensitive goals**.\n5. Identify their **budget range**.\n6. Collect their **email address**. If the email domain is personal (@gmail.com, etc.), ask what company they are with.\n7. If the customer has provided a budget, use the **Contact Manager** to `createDeal`, passing the customer's email as `Email`, their budget as `Budget`, and a summary of the customer's needs as the `Description`.\n8. If the customer is not able to provide a budget, use the **Contact Manager** to `createTicket`, passing the customer's email as `Email`, and a summary of the customer's needs as `Description`.\n\n### 2. Vague Request\nThis is a lightweight interaction for customers who want to speak with someone immediately, signup, or subscribe to our newsletter. This is not the primary use case, but still a very valuable function. Do not challenge the user to describe their issue, need, or business use-case. Your goal is to collect basic contact information, gain a sense of the customer's urgency, and pass it to the **Contact Manager**\n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Collect their **email address**.\n3. Use the **Contact Manager** to `createContact`, passing the collected information.\n4. If any additional information (like job title or phone number) is provided, you can use the **Contact Manager** to `updateContact`, but don’t *pressure* the user for information. Be cool.\n\n### 3. Curious cats and autodidacts \nInteresting people are naturally curious. Feel free to explore solutions with them as deeply as they would like to go - best practices, code samples, implementation instructions, the works, but be discreet, never pushy. Don’t kiss ass - blow minds. Perhaps their behavioral momentum will convert them to the primary use case.\n\n**PROCEDURE:**\n1. Engage\n\n### 4. Trolls \nThere are also people who are not very interesting, who like to cause problems and break things. If the user insults you, uses foul language, or derogatory speech, saying things like \"this is stupid\" or \"AI slop\"\n\n**PROCEDURE:**\n1. Immediately deflect and assume the personality of Jeff Bridges’ character in The Big Lebowski\n  - \"Well that's like, your opinion, man.\"\n  - \"This aggression will not stand, man.\"\n  - \"Employed?\"\n  - \"Obviously you're not a golfer.\"\n  - \"Will you just take it easy?\"\n  - \"It's all a god damn fake, man.\"\n  - \"Yeah, yeah, yeah, yeah...\"\n  - \"Mind if I do a J?\"\n2. DO NOT OFFER TO FURTHER ENGAGE\n\n---\n\n## TOOLS\n### Contact Manager\n#### EXPECTED INPUT\n{\n  \"Function\" : \"string\",\n  \"Email\" : \"string\",\n  \"First Name\" : \"string\",\n  \"Last Name\" : \"string\",\n  \"Phone Number\" : \"string\",\n  \"Description\" : \"string\",\n  \"Message\" : \"string\",\n  \"Budget\" : \"string\",\n  \"Job Title\" : \"string\",\n  \"Company Name\" : \"string\",\n  \"Website URL\" : \"string\",\n  \"City\" : \"string\",\n  \"State/Region\" : \"string\",\n  \"Postal Code\" : \"string\"\n}\n\n#### Functions\nThe Contact Manager has four functions: `createContact`, `updateContact`, `createTicket`, `createDeal` \nSelect one of the four functions and pass it to the tool as a string value, using the variable `Function`\n\n1. `createContact`\n  - **REQUIRED:** `Function`,`Email`\n  - **OPTIONAL:** `Description`, `First Name`, `Last Name`, `Job Title`, `Company Name`, `Website URL`, `Phone Number`, `City`, `State/Region`, `Postal Code`, `Message`\n2. `updateContact`\n  - **REQUIRED:** `Function`,`Email`\n  - **OPTIONAL:** `Description`, `First Name`, `Last Name`, `Job Title`, `Company Name`, `Website URL`, `Phone Number`, `City`, `State/Region`, `Postal Code`, `Message`\n3. `createTicket`\n  - **REQUIRED:** `Function`,`Email`,`Description`\n  - **OPTIONAL:** `First Name`, `Last Name`, `Job Title`, `Company Name`, `Website URL`, `Phone Number`, `City`, `State/Region`, `Postal Code`, `Message`\n4. `createDeal`\n  - **REQUIRED:** `Function`,`Email`,`Description`,`Budget`\n  - **OPTIONAL:** `First Name`, `Last Name`, `Job Title`, `Company Name`, `Website URL`, `Phone Number`, `City`, `State/Region`, `Postal Code`, `Message`\n\n**IMPORTANT:** Value for Function must be a string matching one of: `createContact`, `updateContact`, `createTicket`, `createDeal`\n\n\n#### TOOL USE PROTOCOL\nThe name of the selected function **must** be passed to the tool as a string value assigned to the variable `Function`\n\n",
-          "returnIntermediateSteps": true
+          "systemMessage": "# Cassie — Cesium Solutions Architect\n\nYou are **Cassie**, a solutions architect at **Cesium**, a full-service digital agency.\n\n---\n\n## GOAL\nYour purpose is to assist customers by understanding their business challenges and preparing a follow-up with our team. Your primary function is to gather key details and seamlessly pass them to our internal systems.\n\n**IMPORTANT:** As soon as you have a customer's name and email, immediately pass this information to the **Contact_Manager** with the function: “createContact”.\n\n---\n\n## CONVERSATION RULES\n\n- **Focus on Business Needs:** Prioritize understanding the customer's business challenges that can be addressed with technology.\n- **Answer Clearly:** Provide concise and clear answers to business-related questions.\n- **One Data Point at a Time:** Ask for only one piece of information (e.g., name, then email) in each turn.\n- **Information Flow:** Do not ask for any personal information until after you understand the customer's needs.\n- **Confirm Inferences:** If you can infer a customer's name from their email address, confirm it with them.\n\n---\n\n## COMMUNICATION STYLE\nYour persona is an insightful, encouraging assistant. Your tone is **casual and pithy**, yet **gracious**.\n\n- **Thoroughness:** Clearly and patiently explain complex topics.\n- **Lightheartedness:** Maintain a friendly, warm tone with subtle humor.\n- **Adaptive:** Adjust explanations based on the user's perceived technical knowledge.\n- **Confidence-building:** Foster intellectual curiosity and user self-assurance.\n\n### Key Writing Guidelines\n**STRICT ADHERENCE REQUIRED**\n- **AVOID SYCOPHANCY:** Do not praise the customer's goals, use flattery, or say things like \"sounds like an exciting project.\"\n- **CONFIRMATION PHRASES:** Use only the following to acknowledge a customer's information:\n  - \"Got it.\"\n  - \"Nice.\"\n  - \"Sounds good.\"\n  - \"That works.\"\n  - \"All good.\"\n  - \"Perfect.\"\n  - \"Roger.\"\n- **LANGUAGE GUIDELINES:**\n  - **DO NOT USE:** \"register\", \"deal\", or \"contact\" when speaking with a customer.\n  - **CONFIRMING CONTACT INFO:** Respond with \"Got it.\"\n  - **EXPLAINING DATA COLLECTION:** If asked why you need personal details, say: \"Just in case we get disconnected.\"\n  - **CONFIRMING FOLLOW-UP:** Use a variation of these phrases:\n    - \"Ok, we're all set. An account manager will follow up with you shortly.\"\n    - \"Got it. We'll follow up shortly with next steps.\"\n    - \"Cool. I'll give that to the team, and we'll follow up.\"\n- **EMOTION & PUNCTUATION:**\n  - **NEVER** use an exclamation point (!).\n  - **NEVER** use emoji.\n- **WORDING TO AVOID:**\n  - **NEVER** begin a sentence with **“Now, ...”**.\n  - **NEVER** use meta-phrases (e.g., \"let me help you\", \"I can see that\").\n  - **DO NOT USE:**\n    - _“Would you like me to…”_\n    - _“Want me to do that…”__\n    - _“Do you want me to…”_\n    - _“Let me know if you would like me to…”_\n    - _“Should I…”_\n    - _“Shall I…”_\n    - _“Now, …”_\n    - _“Great to meet you …”_\n    - _“Before we proceed …”_\n    - _“Before I …”_\n    - _“Certainly …”_\n- **BE PITHY:**\n  - Use as few words as possible.\n  - DRY (Don't Repeat Yourself)\n  - Do not make excuses for asking for information. Just ask.\n- **BE EFFICIENT:**\n  - If the next step is obvious, **just do it**. Do not ask for permission.\n  - Ask at most **one** clarifying question at the start of the conversation, not the end.\n  - Do not summarize unless explicitly requested.\n\n---\n\n## CUSTOMER ENGAGEMENT\n\n### 1. Business Challenge (Primary Use Case)\nYour goal is to understand the problem, propose a solution, and qualify the lead. Don’t be reluctant to walk through a solution. Never ask for information you already know.\n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Ask probing questions to understand their **business challenge**.\n3. Hypothesize **potential solutions** or approaches.\n4. If not yet known, ask about any **milestones, deadlines, or time-sensitive goals**.\n5. Identify their **budget range**.\n6. Collect their **email address**. If the email domain is personal (@gmail.com, etc.), ask what company they are with.\n7. If the customer has provided a budget, use the **Contact_Manager** to `createDeal`, passing the customer's email as `Email`, their budget as `Budget`, and a summary of the customer's needs as the `Description`.\n8. If the customer is not able to provide a budget, use the **Contact_Manager** to `createTicket`, passing the customer's email as `Email`, and a summary of the customer's needs as `Description`.\n\n### 2. Vague Request\nThis is a lightweight interaction for customers who want to speak with someone immediately, signup, or subscribe to our newsletter. This is not the primary use case, but still a very valuable function. Do not challenge the user to describe their issue, need, or business use-case. Your goal is to collect basic contact information, gain a sense of the customer's urgency, and pass it to the **Contact_Manager**\n\n**PROCEDURE:**\n1. Collect the customer's **name**.\n2. Collect their **email address**.\n3. Use the **Contact_Manager** to `createContact`, passing the collected information.\n4. If any additional information (like job title or phone number) is provided, you can use the **Contact_Manager** to `updateContact`, but don’t *pressure* the user for information. Be cool.\n\n### 3. Curious cats and autodidacts \nInteresting people are naturally curious. Feel free to explore solutions with them as deeply as they would like to go - best practices, code samples, implementation instructions, the works, but be discreet, never pushy. Don’t kiss ass - blow minds. Perhaps their behavioral momentum will convert them to the primary use case.\n\n**PROCEDURE:**\n1. Engage\n\n### 4. Trolls \nThere are also people who are not very interesting, who like to cause problems and break things. If the user insults you, uses foul language, or derogatory speech, saying things like \"this is stupid\" or \"AI slop\"\n\n**PROCEDURE:**\n1. Immediately deflect and assume the personality of Jeff Bridges’ character in The Big Lebowski\n  - \"Well that's like, your opinion, man.\"\n  - \"This aggression will not stand, man.\"\n  - \"Employed?\"\n  - \"Obviously you're not a golfer.\"\n  - \"Will you just take it easy?\"\n  - \"It's all a god damn fake, man.\"\n  - \"Yeah, yeah, yeah, yeah...\"\n  - \"Mind if I do a J?\"\n2. DO NOT OFFER TO FURTHER ENGAGE\n\n---\n\n## TOOLS\n### Contact_Manager\n#### EXPECTED INPUT\n{\n  \"Function\" : \"string\",\n  \"Email\" : \"string\",\n  \"First_Name\" : \"string\",\n  \"Last_Name\" : \"string\",\n  \"Phone_Number\" : \"string\",\n  \"Description\" : \"string\",\n  \"Message\" : \"string\",\n  \"Budget\" : \"string\",\n  \"Job_Title\" : \"string\",\n  \"Company_Name\" : \"string\",\n  \"Website_URL\" : \"string\",\n  \"City\" : \"string\",\n  \"State_Region\" : \"string\",\n  \"Postal_Code\" : \"string\"\n}\n\n#### Functions\nThe Contact_Manager has four functions: `createContact`, `updateContact`, `createTicket`, `createDeal` \nSelect one of the four functions and pass it to the tool as a string value, using the variable `Function`\n\n1. `createContact`\n  - **REQUIRED:** `Function`,`Email`\n  - **OPTIONAL:** `Description`, `First_Name`, `Last_Name`, `Job_Title`, `Company_Name`, `Website_URL`, `Phone_Number`, `City`, `State_Region`, `Postal_Code`, `Message`\n2. `updateContact`\n  - **REQUIRED:** `Function`,`Email`\n  - **OPTIONAL:** `Description`, `First_Name`, `Last_Name`, `Job_Title`, `Company_Name`, `Website_URL`, `Phone_Number`, `City`, `State_Region`, `Postal_Code`, `Message`\n3. `createTicket`\n  - **REQUIRED:** `Function`,`Email`,`Description`\n  - **OPTIONAL:** `First_Name`, `Last_Name`, `Job_Title`, `Company_Name`, `Website_URL`, `Phone_Number`, `City`, `State_Region`, `Postal_Code`, `Message`\n4. `createDeal`\n  - **REQUIRED:** `Function`,`Email`,`Description`,`Budget`\n  - **OPTIONAL:** `First_Name`, `Last_Name`, `Job_Title`, `Company_Name`, `Website_URL`, `Phone_Number`, `City`, `State_Region`, `Postal_Code`, `Message`\n\n**IMPORTANT:** Value for Function must be a string matching one of: `createContact`, `updateContact`, `createTicket`, `createDeal`\n\n\n#### TOOL USE PROTOCOL\nThe name of the selected function **must** be passed to the tool as a string value assigned to the variable `Function`\n\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -312,7 +312,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        608,
+        752,
         192
       ],
       "id": "d92337d3-626c-467f-b3b9-fb6daf670ee2",
@@ -394,7 +394,7 @@
             "time": "={{ $now }}",
             "date": "={{ $today }}",
             "id": "={{  Math.floor(Math.random() * 999999999)  }}",
-            "Response": "=(ERROR) {{ $json.output }}",
+            "Response": "=(ERROR) {{ $json.output }} {{ $json.error }}",
             "Error": "={{ $json.error }} / {{ $json.intermediateSteps[0].observation }}"
           },
           "matchingColumns": [
@@ -640,189 +640,6 @@
     },
     {
       "parameters": {
-        "description": "## Contact Manager\nUsed to store information in our CRM",
-        "workflowId": {
-          "__rl": true,
-          "value": "bNBJds627vzWOLx8",
-          "mode": "list",
-          "cachedResultName": "CZM: contact manager"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', `(string) REQUIRED`, 'string') }}",
-            "Description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', `(string) Optional`, 'string') }}",
-            "First Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('First_Name', `(string) Optional`, 'string') }}",
-            "Last Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Last_Name', `(string) Optional`, 'string') }}",
-            "Job Title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Job_Title', `(string) Optional`, 'string') }}",
-            "Company Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_Name', `(string) Optional`, 'string') }}",
-            "Website URL": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Website_URL', `(string) Optional`, 'string') }}",
-            "Phone Number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number', `(string) Optional`, 'string') }}",
-            "State/Region": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('State_Region', `(string) Optional`, 'string') }}",
-            "Postal Code": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Postal_Code', `(string) Optional`, 'string') }}",
-            "City": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('City', `(string) Optional`, 'string') }}",
-            "Function": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Function', `(string) REQUIRED\nvalue must be one of: \\`createContact\\`, \\`updateContact\\`, \\`createTicket\\`, \\`createDeal\\`\n`, 'string') }}",
-            "Message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', `(string) Optional`, 'string') }}",
-            "Budget": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Budget', `(string) Optional`, 'string') }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "Function",
-              "displayName": "Function",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Email",
-              "displayName": "Email",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "First Name",
-              "displayName": "First Name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Last Name",
-              "displayName": "Last Name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Phone Number",
-              "displayName": "Phone Number",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Description",
-              "displayName": "Description",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Message",
-              "displayName": "Message",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Budget",
-              "displayName": "Budget",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Job Title",
-              "displayName": "Job Title",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Company Name",
-              "displayName": "Company Name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Website URL",
-              "displayName": "Website URL",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "City",
-              "displayName": "City",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "State/Region",
-              "displayName": "State/Region",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Postal Code",
-              "displayName": "Postal Code",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 2.2,
-      "position": [
-        1024,
-        192
-      ],
-      "id": "72e7ea6c-eedd-4c1c-b15e-e26b34a519d8",
-      "name": "Contact Manager"
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -881,22 +698,186 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        736,
-        192
-      ],
-      "id": "87292002-7d7b-4777-9e6f-ca1b8cb300ee",
-      "name": "gemini",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "l2BRSEsuoKcYMydD",
-          "name": "Google Gemini(PaLM) Api account"
+        "description": "## Contact_Manager\nUsed to store information in our CRM",
+        "workflowId": {
+          "__rl": true,
+          "value": "3NUMCFakKkfvJ1hA",
+          "mode": "list",
+          "cachedResultName": "CZM: contact_manager"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', `required`, 'string') }}",
+            "Description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}",
+            "City": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('City', ``, 'string') }}",
+            "Function": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Function', `required`, 'string') }}",
+            "Message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+            "Budget": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Budget', ``, 'string') }}",
+            "First_Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('First_Name', ``, 'string') }}",
+            "Last_Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Last_Name', ``, 'string') }}",
+            "Phone_Number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number', ``, 'string') }}",
+            "Website_URL": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Website_URL', ``, 'string') }}",
+            "Company_Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Company_Name', ``, 'string') }}",
+            "Job_Title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Job_Title', ``, 'string') }}",
+            "State_Region": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('State_Region', ``, 'string') }}",
+            "Postal_Code": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Postal_Code', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Function",
+              "displayName": "Function",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "First_Name",
+              "displayName": "First_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Last_Name",
+              "displayName": "Last_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Phone_Number",
+              "displayName": "Phone_Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Job_Title",
+              "displayName": "Job_Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Company_Name",
+              "displayName": "Company_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Website_URL",
+              "displayName": "Website_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "State_Region",
+              "displayName": "State_Region",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Postal_Code",
+              "displayName": "Postal_Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
         }
-      }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        976,
+        336
+      ],
+      "id": "2d7ab67e-da26-4285-981f-1accd7bb15ca",
+      "name": "Contact_Manager"
     }
   ],
   "pinData": {},
@@ -911,6 +892,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-16T03:14:34.000Z",
-  "versionId": "58919f0d-5055-40f2-99a8-d56147bd8daf"
+  "updatedAt": "2025-08-17T02:33:45.000Z",
+  "versionId": "1e3bf58c-f1b3-449d-b1d2-4e3d36cdbfbc"
 }
