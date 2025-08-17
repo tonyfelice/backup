@@ -1,0 +1,411 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "set contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set contact": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "set ticket",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "set deal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "set ticket": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set deal": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "merge": {
+      "main": [
+        [
+          {
+            "node": "output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-16T19:55:04.872Z",
+  "id": "3NUMCFakKkfvJ1hA",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: contact_manager",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Function"
+            },
+            {
+              "name": "Email"
+            },
+            {
+              "name": "First_Name"
+            },
+            {
+              "name": "Last_Name"
+            },
+            {
+              "name": "Phone_Number"
+            },
+            {
+              "name": "Description"
+            },
+            {
+              "name": "Message"
+            },
+            {
+              "name": "Budget"
+            },
+            {
+              "name": "Job_Title"
+            },
+            {
+              "name": "Company_Name"
+            },
+            {
+              "name": "Website_URL"
+            },
+            {
+              "name": "City"
+            },
+            {
+              "name": "State_Region"
+            },
+            {
+              "name": "Postal_Code"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c6ba0918-9c9d-4236-a3a3-84a2f67b0bcd",
+      "name": "When Executed by Another Workflow",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.Email }}",
+        "additionalFields": {
+          "city": "={{ $json.City }}",
+          "companyName": "={{ $json.Company_Name }}",
+          "firstName": "={{ $json.First_Name }}",
+          "jobTitle": "={{ $json.Job_Title }}",
+          "lastName": "={{ $json.Last_Name }}",
+          "message": "={{ $json.Description }}",
+          "phoneNumber": "={{ $json.Phone_Number }}",
+          "postalCode": "={{ $json.Postal_Code }}",
+          "stateRegion": "={{ $json.State_Region }}"
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "177f3ad3-1580-44c2-883b-0a880de57883",
+      "name": "set contact",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "ticket",
+        "pipelineId": "1153569502",
+        "stageId": "1830165189",
+        "ticketName": "={{ $('When Executed by Another Workflow').item.json.Email }}",
+        "additionalFields": {
+          "associatedContactIds": "={{ $json.vid }}",
+          "description": "={{ $('When Executed by Another Workflow').item.json.Description }}"
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        -192
+      ],
+      "id": "e9709f7f-edf8-4326-a5c9-17be9d909609",
+      "name": "set ticket",
+      "retryOnFail": false,
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "createTicket",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "5642627a-6e9a-47fc-8832-9ae0ca638383"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "createTicket"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "85dabdfc-25be-42f8-9899-979d8613eaf6",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "createDeal",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "createDeal"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b7adfcf7-3c20-4cd2-9606-b0db154ca76e",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "^(createTicket|createDeal)$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "other"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        416,
+        -16
+      ],
+      "id": "788f1bfb-f7d1-43c0-9cc2-e4b615654950",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "deal",
+        "stage": "1226436293",
+        "additionalFields": {
+          "amount": "={{ $('When Executed by Another Workflow').item.json.Budget }}",
+          "associatedVids": "={{ $json.vid }}",
+          "description": "={{ $('When Executed by Another Workflow').item.json.Description }}",
+          "dealName": "={{ $('When Executed by Another Workflow').item.json.Email }}"
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        0
+      ],
+      "id": "088a80c0-755b-48c8-991f-9e826799c587",
+      "name": "set deal",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1056,
+        -16
+      ],
+      "id": "3e24d8b7-e33d-4e69-9035-f227a25cca47",
+      "name": "merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nif (numerRegex.test($('set contact').first().json.vid)) {\n  return [{ json: { output: String(\"Success\") } }];\n} else {\n  return [{ json: { output: String(\"Service Unavailable. Please retry.\") } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        0
+      ],
+      "id": "d79be2db-0816-4669-a771-49331a6ed4c6",
+      "name": "output"
+    },
+    {
+      "parameters": {
+        "content": "### Need v 107 update\nReturns Cannot read properties of undefined (reading 'cause')\n\nCreates a ticket, but doesn't assign to contact. ",
+        "height": 288,
+        "width": 352,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        704,
+        -320
+      ],
+      "id": "5139b37e-eb61-4c2a-afb3-13b5ecb09cd8",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "Function": "createDeal",
+          "Email": "t@xmgear.com",
+          "First_Name": "",
+          "Last_Name": "",
+          "Phone_Number": "",
+          "Description": "Looking for automation for Shopify site to create a spreadsheet with specific headers upon order placement.",
+          "Message": "",
+          "Budget": "$5000",
+          "Job_Title": "",
+          "Company_Name": "",
+          "Website_URL": "",
+          "City": "",
+          "State_Region": "",
+          "Postal_Code": ""
+        }
+      }
+    ]
+  },
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-17T04:01:48.000Z",
+  "versionId": "6a9e7162-7b7a-4270-84bb-294442b8aff5"
+}
