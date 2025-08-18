@@ -69,7 +69,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: convo agent",
+  "name": "CZM: convo agent 1st pass",
   "nodes": [
     {
       "parameters": {
@@ -213,6 +213,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-16T03:15:37.000Z",
-  "versionId": "3891a8ce-1ed5-487c-b85c-64dc63f8cf21"
+  "updatedAt": "2025-08-17T23:57:01.000Z",
+  "versionId": "ee9999b2-b8c0-46d1-b7dc-214ecc183f2d"
 }
