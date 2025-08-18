@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Convo Agent": {
       "main": [
@@ -142,7 +142,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: convo capture",
+  "name": "CZM: convo agent 3rd pass",
   "nodes": [
     {
       "parameters": {
@@ -892,6 +892,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-17T02:33:45.000Z",
-  "versionId": "1e3bf58c-f1b3-449d-b1d2-4e3d36cdbfbc"
+  "updatedAt": "2025-08-17T23:57:31.000Z",
+  "versionId": "be5514bf-c2c9-4b2e-8b49-759e7cee80bb"
 }
