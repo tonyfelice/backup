@@ -135,6 +135,9 @@
             },
             {
               "name": "Postal_Code"
+            },
+            {
+              "name": "sessionId"
             }
           ]
         }
@@ -156,6 +159,14 @@
         "additionalFields": {
           "city": "={{ $json.City }}",
           "companyName": "={{ $json.Company_Name }}",
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "chatsessionid",
+                "value": "={{ $json.sessionId }}"
+              }
+            ]
+          },
           "firstName": "={{ $json.First_Name }}",
           "jobTitle": "={{ $json.Job_Title }}",
           "lastName": "={{ $json.Last_Name }}",
@@ -413,6 +424,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-17T23:59:59.000Z",
-  "versionId": "831545f4-8e07-41c0-b11f-933455be7b7d"
+  "updatedAt": "2025-08-18T21:18:16.000Z",
+  "versionId": "957c2692-3747-4cff-aefc-45e04edebe9a"
 }
