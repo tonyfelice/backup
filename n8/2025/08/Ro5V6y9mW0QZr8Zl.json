@@ -34,27 +34,21 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "3NUMCFakKkfvJ1hA",
+          "value": "9amjzLNITUBn6eWk",
           "mode": "list",
-          "cachedResultName": "CZM: contact_manager"
+          "cachedResultName": "CZM: scheduler"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "Function": "createDeal",
-            "Email": "tony@xmgear.com",
-            "First_Name": "tony",
-            "Description": "test deal",
-            "Last_Name": "felice",
-            "Message": "test msg",
-            "Budget": "1000",
-            "Job_Title": "title",
-            "Company_Name": "xxmgear.com",
-            "Website_URL": "xxmgear.com",
-            "City": "denver",
-            "State_Region": "co",
-            "Postal_Code": "80112",
-            "Phone_Number": "720-722-2152"
+            "Function": "getAvailability",
+            "Email": "t@xmgear.com",
+            "Summary": "test meeting summary",
+            "Minutes": 30,
+            "Description": "This is the body for the entire meeting",
+            "DateString": "08/19/2025",
+            "TimeString": "13:00",
+            "ZoneOffset": "-06:00"
           },
           "matchingColumns": [],
           "schema": [
@@ -77,26 +71,8 @@
               "type": "string"
             },
             {
-              "id": "First_Name",
-              "displayName": "First_Name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "Last_Name",
-              "displayName": "Last_Name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "Phone_Number",
-              "displayName": "Phone_Number",
+              "id": "Summary",
+              "displayName": "Summary",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -110,79 +86,47 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "removed": false
             },
             {
-              "id": "Message",
-              "displayName": "Message",
+              "id": "DateString",
+              "displayName": "DateString",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "removed": false
             },
             {
-              "id": "Budget",
-              "displayName": "Budget",
+              "id": "TimeString",
+              "displayName": "TimeString",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "removed": false
             },
             {
-              "id": "Job_Title",
-              "displayName": "Job_Title",
+              "id": "ZoneOffset",
+              "displayName": "ZoneOffset",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "removed": false
             },
             {
-              "id": "Company_Name",
-              "displayName": "Company_Name",
+              "id": "Minutes",
+              "displayName": "Minutes",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "Website_URL",
-              "displayName": "Website_URL",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "City",
-              "displayName": "City",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "State_Region",
-              "displayName": "State_Region",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "Postal_Code",
-              "displayName": "Postal_Code",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "number"
             }
           ],
           "attemptToConvertTypes": true,
@@ -210,6 +154,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-17T01:19:12.000Z",
-  "versionId": "3b1c5f9f-2bb7-4ddb-8c07-d275b8548592"
+  "updatedAt": "2025-08-18T23:57:38.000Z",
+  "versionId": "67d12a70-2498-4f4e-a8b8-fc0f8d2b5f36"
 }
