@@ -1,0 +1,578 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "get contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "merge": {
+      "main": [
+        [
+          {
+            "node": "output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create": {
+      "main": [
+        [
+          {
+            "node": "update field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "delete": {
+      "main": [
+        [
+          {
+            "node": "clear field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get contact": {
+      "main": [
+        [
+          {
+            "node": "switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update field": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "clear field": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "set date": {
+      "main": [
+        [
+          {
+            "node": "create",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "switch": {
+      "main": [
+        [
+          {
+            "node": "set date",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "delete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "available slots",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "available slots": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-18T14:33:04.931Z",
+  "id": "9amjzLNITUBn6eWk",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Function"
+            },
+            {
+              "name": "Email"
+            },
+            {
+              "name": "Summary"
+            },
+            {
+              "name": "Description"
+            },
+            {
+              "name": "DateString"
+            },
+            {
+              "name": "TimeString"
+            },
+            {
+              "name": "ZoneOffset"
+            },
+            {
+              "name": "Minutes",
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8442bca7-d963-4752-a91b-00264d09ba50",
+      "name": "When Executed by Another Workflow",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1248,
+        -32
+      ],
+      "id": "b8bb631f-f366-4487-98e9-a2b78d4bf0f1",
+      "name": "merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nif (numerRegex.test($('get contact').first().json.vid)) {\n  return [{ json: { output: String(\"Success\") } }];\n} else {\n  return [{ json: { output: String(\"Service Unavailable. Please retry.\") } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        0
+      ],
+      "id": "c58991bb-4a97-42e7-86df-d2e2f6d8dfe7",
+      "name": "output"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "t@czm.ai",
+          "mode": "list",
+          "cachedResultName": "t@czm.ai"
+        },
+        "eventId": "={{ $json.properties.nextmeetingid.value }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        736,
+        -160
+      ],
+      "id": "12544520-c94e-4e10-9618-3f3b3cd8a397",
+      "name": "delete",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TjfI6pImMD1Cb9xq",
+          "name": "czm-n8n-gcal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "t@czm.ai",
+          "mode": "list",
+          "cachedResultName": "t@czm.ai"
+        },
+        "start": "={{  $json.dateTimeObj }}",
+        "end": "={{ $json.dateTimeObj.plus($('When Executed by Another Workflow').item.json.Minutes, 'minutes') }}",
+        "additionalFields": {
+          "attendees": [
+            "={{ $('When Executed by Another Workflow').item.json.Email }}"
+          ],
+          "conferenceDataUi": {
+            "conferenceDataValues": {
+              "conferenceSolution": "hangoutsMeet"
+            }
+          },
+          "description": "={{ $('When Executed by Another Workflow').item.json.Description }}",
+          "sendUpdates": "all",
+          "showMeAs": "opaque",
+          "summary": "={{ $('When Executed by Another Workflow').item.json.Summary }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        832,
+        -336
+      ],
+      "id": "9fd03bda-c5ed-47a8-9afd-d02f8db43b17",
+      "name": "create",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TjfI6pImMD1Cb9xq",
+          "name": "czm-n8n-gcal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.Email }}",
+        "additionalFields": {},
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b7e5e054-efdd-4075-89f5-2f2b8dcd13a2",
+      "name": "get contact",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $('When Executed by Another Workflow').item.json.Email }}",
+        "additionalFields": {
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "nextmeetingid",
+                "value": "={{ $json.id }}"
+              },
+              {
+                "property": "nextmeetinglink",
+                "value": "={{ $json.htmlLink }}"
+              }
+            ]
+          }
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1008,
+        -336
+      ],
+      "id": "e9713915-a3ae-4605-b9ba-9e16aec231cb",
+      "name": "update field",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $('When Executed by Another Workflow').item.json.Email }}",
+        "additionalFields": {
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "nextmeetingid",
+                "value": "=cancelled"
+              },
+              {
+                "property": "nextmeetinglink",
+                "value": "=cancelled"
+              }
+            ]
+          }
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        928,
+        -160
+      ],
+      "id": "6a032dcb-2fd3-4b18-8efb-ec74a4535aea",
+      "name": "clear field",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "function createDateObj(DateString, TimeString, ZoneOffset) {\n  // Split the date string into month, day, and year parts\n  const parts = DateString.split('/');\n  const month = parts[0];\n  const day = parts[1];\n  const year = parts[2];\n\n  // Reformat the date to YYYY-MM-DD\n  const isoFormattedDate = `${year}-${month}-${day}`;\n  \n  // Combine with the time string\n  const combinedString = `${isoFormattedDate}T${TimeString}${ZoneOffset}`;\n\n  // Return the new Date object\n  return new Date(combinedString);\n  //return combinedString;\n}\n\nconst dateTimeObj =  createDateObj($('When Executed by Another Workflow').first().json.DateString, $('When Executed by Another Workflow').first().json.TimeString, $('When Executed by Another Workflow').first().json.ZoneOffset);\n\n\nreturn [\n  {\n    \"json\": {\n\t  dateTimeObj\n\t}\n  }\n]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -336
+      ],
+      "id": "5ef36091-38ad-48f2-9346-a6f95cfed419",
+      "name": "set date"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "85dabdfc-25be-42f8-9899-979d8613eaf6",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "createEvent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "createEvent"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f6f41ab1-3262-48e0-b6b6-233929873a71",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "deleteEvent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "deleteEvent"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "getAvailability",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "5642627a-6e9a-47fc-8832-9ae0ca638383"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "getAvailability"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b7adfcf7-3c20-4cd2-9606-b0db154ca76e",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "^(createEvent|deleteEvent|getAvailability)$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "other"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        416,
+        -32
+      ],
+      "id": "201b0ffd-2075-445c-8e56-b1200f7598eb",
+      "name": "switch"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "dH9CyWINP2rSoYgH",
+          "mode": "list",
+          "cachedResultName": "CZM: suggest availability"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "DateString",
+              "displayName": "DateString",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "TimeString",
+              "displayName": "TimeString",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "ZoneOffset",
+              "displayName": "ZoneOffset",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        832,
+        16
+      ],
+      "id": "4a6a69ff-43d2-4b2f-9c7b-d102ef48b46e",
+      "name": "available slots"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-18T20:37:12.000Z",
+  "versionId": "96abd103-a59b-4a3f-bf4f-8480dc4a605c"
+}
