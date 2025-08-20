@@ -284,7 +284,7 @@
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -528,7 +528,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "Dpa6tIiMq0Q7eg4a",
-          "name": "Google Sheets account"
+          "name": "czm-n8n-gsheet"
         }
       }
     },
@@ -640,7 +640,7 @@
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -896,7 +896,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "Dpa6tIiMq0Q7eg4a",
-          "name": "Google Sheets account"
+          "name": "czm-n8n-gsheet"
         }
       }
     },
@@ -942,7 +942,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "Dpa6tIiMq0Q7eg4a",
-          "name": "Google Sheets account"
+          "name": "czm-n8n-gsheet"
         }
       }
     },
@@ -992,15 +992,8 @@
       "recurrenceRules": []
     }
   },
-  "tags": [
-    {
-      "createdAt": "2025-03-19T20:29:30.105Z",
-      "updatedAt": "2025-03-19T20:29:30.105Z",
-      "id": "474CkqFyb0rLjLm3",
-      "name": "Content"
-    }
-  ],
+  "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-08-08T17:23:41.000Z",
-  "versionId": "9d6749eb-a7fd-4bbe-be86-a34f4d30890a"
+  "updatedAt": "2025-08-20T00:53:08.000Z",
+  "versionId": "5da13410-1ea8-4586-9fd2-663108a3c468"
 }
