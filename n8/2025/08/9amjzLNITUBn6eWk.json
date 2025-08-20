@@ -571,8 +571,15 @@
     "callerPolicy": "workflowsFromSameOwner"
   },
   "staticData": null,
-  "tags": [],
+  "tags": [
+    {
+      "createdAt": "2025-08-20T00:54:13.241Z",
+      "updatedAt": "2025-08-20T00:54:13.241Z",
+      "id": "BhMyF8l07FgXl3Oi",
+      "name": "pre-prod"
+    }
+  ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-18T20:37:12.000Z",
-  "versionId": "96abd103-a59b-4a3f-bf4f-8480dc4a605c"
+  "updatedAt": "2025-08-20T00:54:21.000Z",
+  "versionId": "3747d3d3-aeb7-4e7f-a58d-4a4d3fab8e68"
 }
