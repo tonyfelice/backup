@@ -177,7 +177,7 @@
       "typeVersion": 4.2,
       "position": [
         1120,
-        420
+        432
       ],
       "id": "ab8dbe9c-f92e-46ae-aa67-fbf3aeedcb54",
       "name": "Hubspot Blog POST GET",
@@ -193,8 +193,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2100,
-        -1260
+        2112,
+        -1264
       ],
       "id": "65a63b9c-2bf9-4401-aae4-3b361b101a8c",
       "name": "Sticky Note"
@@ -209,7 +209,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2100,
+        2112,
         -960
       ],
       "id": "5adaa7fd-64bc-40da-aede-6d3a74a82787",
@@ -225,8 +225,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2100,
-        -1160
+        2112,
+        -1168
       ],
       "id": "5d41fa1c-64c1-4790-9d0c-13f77e4b73b4",
       "name": "Sticky Note2"
@@ -241,8 +241,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -60,
-        -760
+        -64,
+        -768
       ],
       "id": "a65773af-e4b5-4a6f-b1fb-e4f2dd590fc8",
       "name": "Sticky Note4"
@@ -257,7 +257,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -60,
+        -64,
         -960
       ],
       "id": "b7d46695-89f4-49a5-a130-af5dabac8389",
@@ -273,8 +273,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -60,
-        -1160
+        -64,
+        -1168
       ],
       "id": "3eba777a-8f53-4ccf-8915-3be98d6b95cb",
       "name": "Sticky Note6"
@@ -289,7 +289,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        620,
+        624,
         -1120
       ],
       "id": "1a3b0c75-0d2c-47ac-b5b7-b76298a238dd",
@@ -305,7 +305,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        620,
+        624,
         -720
       ],
       "id": "c7060864-fd6e-44f7-a80b-4b69e944114e",
@@ -321,8 +321,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2100,
-        -860
+        2112,
+        -864
       ],
       "id": "0ffffefd-1a59-4ca9-9914-d7ca67df9933",
       "name": "Sticky Note9"
@@ -337,8 +337,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -100,
-        -1340
+        -96,
+        -1344
       ],
       "id": "5fc792e9-ca9e-4399-8cca-1d7709b4f6e1",
       "name": "Sticky Note10"
@@ -353,8 +353,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        580,
-        -1340
+        592,
+        -1344
       ],
       "id": "401cc2f4-16b9-4d9d-b7f4-5825dcbc1197",
       "name": "Sticky Note11"
@@ -369,8 +369,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1320,
-        -1340
+        1328,
+        -1344
       ],
       "id": "0402c205-0843-4347-ae99-be29b0aa3526",
       "name": "Sticky Note12"
@@ -385,8 +385,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2060,
-        -1340
+        2064,
+        -1344
       ],
       "id": "4177b3dd-8222-48dc-b1de-d09dcf4b06be",
       "name": "Sticky Note13"
@@ -401,8 +401,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2100,
-        -1060
+        2112,
+        -1056
       ],
       "id": "e68b83af-37dc-485f-81b5-a8b7f2885d24",
       "name": "Sticky Note14"
@@ -418,7 +418,7 @@
       "typeVersion": 1,
       "position": [
         1360,
-        -1060
+        -1056
       ],
       "id": "7c59cf6d-1f31-4f33-adc3-9d317221cc2f",
       "name": "Sticky Note16"
@@ -433,8 +433,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1400,
-        -680
+        1408,
+        -688
       ],
       "id": "a2d93fb7-f1df-44af-ac08-3389c879323e",
       "name": "Sticky Note17"
@@ -449,8 +449,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2120,
-        -680
+        2128,
+        -688
       ],
       "id": "c090f197-3076-4e08-9fd5-d0d4b2fbc732",
       "name": "Sticky Note19"
@@ -472,7 +472,7 @@
       "typeVersion": 1,
       "position": [
         -960,
-        460
+        464
       ],
       "id": "ff5efe05-6a23-4eb2-b13e-3c3284a51046",
       "name": "Slack Trigger",
@@ -501,7 +501,7 @@
       "typeVersion": 2.3,
       "position": [
         -480,
-        580
+        592
       ],
       "id": "a1db547a-09a7-4e19-84b3-a520e7e46b37",
       "name": "Slack",
@@ -520,8 +520,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -260,
-        440
+        -256,
+        448
       ],
       "id": "430fc21b-3e2a-47f6-aeb5-60c0322b093d",
       "name": "Prompt: steal"
@@ -536,7 +536,7 @@
       "typeVersion": 1.7,
       "position": [
         0,
-        440
+        448
       ],
       "id": "494d3a66-978f-4319-8ff8-b5b65528e757",
       "name": "Steal"
@@ -577,8 +577,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -740,
-        460
+        -736,
+        464
       ],
       "id": "f3589011-f35f-4988-8b6b-61e9c7513350",
       "name": "If there's a link"
@@ -592,8 +592,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        2260,
-        180
+        2272,
+        192
       ],
       "id": "568367cb-72a8-4e71-a334-8f295362137b",
       "name": "Jr. Copywriter"
@@ -611,7 +611,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -40,
+        -48,
         640
       ],
       "id": "950dd05c-9ecf-4088-9341-d461a427636d",
@@ -619,7 +619,7 @@
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -636,15 +636,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        2360,
-        460
+        2368,
+        464
       ],
       "id": "98f7a3bb-6b83-40b4-b925-eb3849c7f3c2",
       "name": "Writer",
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -658,7 +658,7 @@
       "typeVersion": 1.7,
       "position": [
         0,
-        60
+        64
       ],
       "id": "47f7fa6c-e684-455f-9714-e90774b3db8b",
       "name": "Borrow"
@@ -670,8 +670,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -260,
-        60
+        -256,
+        64
       ],
       "id": "975d9f33-2f1a-4475-a4e2-3831aeaced54",
       "name": "Prompt: borrow"
@@ -689,15 +689,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -40,
-        260
+        -48,
+        272
       ],
       "id": "c7f97adb-2189-40d5-81cb-ec526d1823ed",
       "name": "Run Borrow Prompt",
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -708,8 +708,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -260,
-        -340
+        -256,
+        -336
       ],
       "id": "f5ae6b3e-f1b7-4569-bfd9-18f609246eb0",
       "name": "Prompt: beg"
@@ -724,7 +724,7 @@
       "typeVersion": 1.7,
       "position": [
         0,
-        -340
+        -336
       ],
       "id": "5dcbfe75-ac87-48a8-8290-c31fe5537998",
       "name": "Beg"
@@ -742,15 +742,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -40,
-        -140
+        -48,
+        -144
       ],
       "id": "c5d84933-f4bb-4a8b-b1c2-e125228513df",
       "name": "Run Beg Prompt",
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -775,8 +775,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        660,
-        60
+        672,
+        64
       ],
       "id": "91d71976-50de-404f-8ef0-a411ac4f2886",
       "name": "Execute Workflow"
@@ -790,8 +790,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        2700,
-        180
+        2704,
+        192
       ],
       "id": "eb43c326-cb1a-42e8-88d9-0c90718bc96a",
       "name": "Jr. Copywriter1"
@@ -810,14 +810,14 @@
       "typeVersion": 1.2,
       "position": [
         2800,
-        460
+        464
       ],
       "id": "e1fc33cd-d62a-485a-9cd0-c39d41544b7e",
       "name": "Writer1",
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     }
@@ -830,15 +830,8 @@
     "executionOrder": "v1"
   },
   "staticData": null,
-  "tags": [
-    {
-      "createdAt": "2025-03-19T20:27:29.570Z",
-      "updatedAt": "2025-03-19T20:27:29.570Z",
-      "id": "1QyplulnTer89HuT",
-      "name": "Creative"
-    }
-  ],
+  "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-08T17:16:17.000Z",
-  "versionId": "fe051505-3349-43ab-86fd-116dea483791"
+  "updatedAt": "2025-08-20T00:53:14.000Z",
+  "versionId": "8e00b79c-85ee-4b36-9d1d-66681d91707c"
 }
