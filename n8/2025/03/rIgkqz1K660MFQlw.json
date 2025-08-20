@@ -160,7 +160,7 @@
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -322,7 +322,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "Dpa6tIiMq0Q7eg4a",
-          "name": "Google Sheets account"
+          "name": "czm-n8n-gsheet"
         }
       }
     },
@@ -420,15 +420,8 @@
       "lastRevisionLink": "https://docs.google.com/spreadsheets/export?id=1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg&revision=1506&exportFormat=xlsx"
     }
   },
-  "tags": [
-    {
-      "createdAt": "2025-03-19T20:29:30.105Z",
-      "updatedAt": "2025-03-19T20:29:30.105Z",
-      "id": "474CkqFyb0rLjLm3",
-      "name": "Content"
-    }
-  ],
+  "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-08T17:23:43.000Z",
-  "versionId": "7c5d3b66-5f80-43a3-899e-563335e2677f"
+  "updatedAt": "2025-08-20T00:53:00.000Z",
+  "versionId": "e6afff12-9804-4798-8d6c-8c7e9e5eb7b5"
 }
