@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Default Data Loader": {
       "ai_document": [
@@ -418,6 +418,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-08T17:22:19.000Z",
+  "updatedAt": "2025-08-19T18:57:54.000Z",
   "versionId": "96b1e51e-a836-4ab1-8a3b-6c812cf1b856"
 }
