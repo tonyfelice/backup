@@ -28,21 +28,20 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "jBU5ABdRopDAYVIM",
+          "value": "dFCvdxTuhLpee5sk",
           "mode": "list",
-          "cachedResultName": "CZM: file handler (recovered)"
+          "cachedResultName": "CZM: file handler 3.0"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
             "sessionId": "={{ $json.sessionId }}",
-            "action": "={{ $json.action }}",
             "chatInput": "={{ $json.chatInput }}",
-            "files": "={{ $json.files }}"
+            "action": "={{ $json.action }}",
+            "files": "={{ $json.files }}",
+            "fileData": "={{ null }}"
           },
-          "matchingColumns": [
-            "files"
-          ],
+          "matchingColumns": [],
           "schema": [
             {
               "id": "sessionId",
@@ -51,8 +50,7 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
+              "type": "string"
             },
             {
               "id": "action",
@@ -61,8 +59,7 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
+              "type": "string"
             },
             {
               "id": "chatInput",
@@ -71,8 +68,7 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
+              "type": "string"
             },
             {
               "id": "files",
@@ -81,8 +77,7 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "array",
-              "removed": false
+              "type": "array"
             },
             {
               "id": "fileData",
@@ -91,8 +86,7 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "array",
-              "removed": false
+              "type": "array"
             }
           ],
           "attemptToConvertTypes": true,
@@ -137,6 +131,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-20T00:37:39.000Z",
-  "versionId": "e46a7232-a20c-4210-8adb-dc36775a3e7c"
+  "updatedAt": "2025-08-20T23:40:18.000Z",
+  "versionId": "94e9112d-e79b-4bed-a46d-9acd0f5665b8"
 }
