@@ -1,0 +1,911 @@
+{
+  "active": false,
+  "connections": {
+    "find binaries": {
+      "main": [
+        [
+          {
+            "node": "split open",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "switch": {
+      "main": [
+        [
+          {
+            "node": "to binary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "plaintext",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "pdf",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "json",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "rtf",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "csv",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "markup",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ods",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "xls",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "xlsx",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "plaintext": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "find binaries",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pdf": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "json": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "rtf": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "csv": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "markup": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ods": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "xls": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "xlsx": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "aggregate": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "split open": {
+      "main": [
+        [
+          {
+            "node": "convert to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "convert to file": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "loop": {
+      "main": [
+        [
+          {
+            "node": "aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "merge": {
+      "main": [
+        [
+          {
+            "node": "code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "to binary": {
+      "main": [
+        [
+          {
+            "node": "analyze",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "analyze": {
+      "main": [
+        [
+          {
+            "node": "loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-20T23:35:06.311Z",
+  "id": "dFCvdxTuhLpee5sk",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: file handler 3.0",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const files = $input.all().at(0)?.binary;\nconst isFilesSent = typeof files === 'object' && Object.keys(files)?.length;\nif(isFilesSent){\n   return { files }\n}\nreturn $input.all()"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1904,
+        16
+      ],
+      "id": "abebdb8b-9b20-46ca-a825-6f6b92e831ef",
+      "name": "find binaries"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "image/",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "2db1ea81-6732-4625-921c-13b3a3b2bc5e"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "30c7c3fe-e468-47db-93a2-325210d2256e",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "text/plain",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "plain text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "76cafa71-c2db-4e14-8d10-de756ab27377",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "application/pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "pdf"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "45a1038c-1525-4c90-97b0-efe5b30989cc",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "application/json",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "json"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dc225f42-d378-4a30-a3fe-8f13df36d675",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "application/rtf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "rtf"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "50bf48c3-a998-4b15-a230-9509b2d84119",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "text/csv",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "csv"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5c68dba3-a9e7-45ac-ab10-d3bdabc693eb",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "^(text\\/html|application\\/xml)$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "html / xml"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "57e2ada6-62ef-4552-9210-433018a5b52f",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "application/vnd.oasis.opendocument.spreadsheet",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ods"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b777803b-4aac-4e12-81ee-3c283ea26906",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "application/vnd.ms-excel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "xls"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "67677bce-a8e8-4586-9b31-ac92fbd66c90",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "xlsx"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -912,
+        112
+      ],
+      "id": "faccc72a-0339-4dae-9976-7eb3072f7e08",
+      "name": "switch"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        256
+      ],
+      "id": "37230879-698c-415a-9a3b-e18e4307e2d9",
+      "name": "plaintext"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        416
+      ],
+      "id": "66719d7a-bca4-4626-9d86-366ab600e44d",
+      "name": "pdf"
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        576
+      ],
+      "id": "732d7c5f-9fcb-4182-8af3-7b6acea02e56",
+      "name": "json"
+    },
+    {
+      "parameters": {
+        "operation": "rtf",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        736
+      ],
+      "id": "15edf4e6-02c6-432e-adba-554f2bf38c75",
+      "name": "rtf"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        896
+      ],
+      "id": "ea23b5e6-00a5-46b6-84bc-d71e2bc5bb2a",
+      "name": "csv"
+    },
+    {
+      "parameters": {
+        "operation": "xml",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        1056
+      ],
+      "id": "7744aa38-9056-41d4-bb9d-fa0d4831ead5",
+      "name": "markup"
+    },
+    {
+      "parameters": {
+        "operation": "ods",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        1216
+      ],
+      "id": "84283bfd-d9ee-490b-9e1a-593436327336",
+      "name": "ods"
+    },
+    {
+      "parameters": {
+        "operation": "xls",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        1376
+      ],
+      "id": "95d06b63-5dd7-4084-b2e4-97bf0470307d",
+      "name": "xls"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "fileBinary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        1536
+      ],
+      "id": "0810081c-1e37-46bf-a6fe-629f78c7ee48",
+      "name": "xlsx"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "sessionId"
+            },
+            {
+              "name": "action"
+            },
+            {
+              "name": "chatInput"
+            },
+            {
+              "name": "files",
+              "type": "array"
+            },
+            {
+              "name": "fileData",
+              "type": "array"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2128,
+        -176
+      ],
+      "id": "e692cee3-3b42-4211-adf8-13692cc8d315",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "fileData",
+        "options": {
+          "includeBinaries": true
+        }
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cc583337-0697-4568-a21d-ecfb32a6bdac",
+      "name": "aggregate"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        208,
+        -160
+      ],
+      "id": "f914eefc-621a-4615-9938-4cedcb256637",
+      "name": "merge"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "files",
+        "options": {
+          "includeBinary": true
+        }
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1712,
+        16
+      ],
+      "id": "28bb6813-6066-404a-96a8-0580143229e6",
+      "name": "split open"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data",
+        "binaryPropertyName": "fileBinary",
+        "options": {
+          "fileName": "={{ $json.fileName }}",
+          "mimeType": "={{ $json.mimeTYpe }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -1536,
+        16
+      ],
+      "id": "2b450759-25c5-4da6-b62e-31c1098d80b6",
+      "name": "convert to file"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1328,
+        16
+      ],
+      "id": "f9951e5e-49ed-4b53-93f0-6175c31a9ad2",
+      "name": "loop"
+    },
+    {
+      "parameters": {
+        "jsCode": "const chat = $('merge').first().json;\nconst aggregateNode = $('aggregate');\nlet folio = null;\n\nif (chat.files) {\n  folio = aggregateNode.first().json;\n}\n\nlet jsonOut;\n\nif (folio != null && folio.fileData) {\n  jsonOut = Object.assign({}, chat, folio); \n  \n  // Create a readable string of the file data to prepend\n  const fileDataString = folio.fileData\n    .map(f => f.data)\n    .join('\\n');\n\n  // Prepend the chatInput with the file data and a clear separator\n  jsonOut.chatInput = `Attached file(s):\\n${fileDataString}\\n\\n${jsonOut.chatInput}`;\n\n} else {\n  jsonOut = chat;\n}\n\nreturn jsonOut;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -160
+      ],
+      "id": "aaf97052-db48-4cbd-a711-04018ae5f4eb",
+      "name": "code"
+    },
+    {
+      "parameters": {
+        "jsCode": "function base64ToBinary(base64) {\n  return Buffer.from(base64, 'base64');\n}\nconst base64String = $('split open').item.json.data;\nconst binaryData = base64ToBinary(base64String);\n\n\nreturn [{ json: { bin: binaryData } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        96
+      ],
+      "id": "2d2026b2-5c69-4bdc-bcc0-b8de34adff79",
+      "name": "to binary"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "inputType": "base64",
+        "binaryPropertyName": "={{ $json.bin.data }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -304,
+        96
+      ],
+      "id": "e03e83ec-2362-4840-a758-17011170ec4b",
+      "name": "analyze",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "sessionId": "676b3125c0e54673aed1bd9ec2de7021",
+          "action": "sendMessage",
+          "chatInput": "fasdf",
+          "files": [
+            {
+              "fileName": "cesium-ai-automation-logo-_-full-color-dark.png",
+              "fileSize": "10095 bytes",
+              "fileExtension": "png",
+              "fileType": "image",
+              "mimeType": "image/png"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-20T00:54:13.241Z",
+      "updatedAt": "2025-08-20T00:54:13.241Z",
+      "id": "BhMyF8l07FgXl3Oi",
+      "name": "pre-prod"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-20T23:54:28.000Z",
+  "versionId": "949d98f4-9ae2-4b92-90bf-c0186f07ae08"
+}
