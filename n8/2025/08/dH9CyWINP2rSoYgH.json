@@ -1,22 +1,6 @@
 {
   "active": false,
   "connections": {
-    "When Executed by Another Workflow": {
-      "main": [
-        [
-          {
-            "node": "get calendar",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "possible slots",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "get calendar": {
       "main": [
         [
@@ -87,6 +71,22 @@
           }
         ]
       ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "get calendar",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "possible slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-18T19:01:44.480Z",
@@ -95,31 +95,6 @@
   "meta": null,
   "name": "CZM: suggest availability",
   "nodes": [
-    {
-      "parameters": {
-        "workflowInputs": {
-          "values": [
-            {
-              "name": "DateString"
-            },
-            {
-              "name": "TimeString"
-            },
-            {
-              "name": "ZoneOffset"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -384,
-        288
-      ],
-      "id": "498f4349-e356-4840-9ba4-0c9abc736202",
-      "name": "When Executed by Another Workflow"
-    },
     {
       "parameters": {
         "operation": "getAll",
@@ -157,7 +132,7 @@
       "name": "avail slots",
       "type": "n8n-nodes-base.code",
       "position": [
-        832,
+        864,
         288
       ],
       "typeVersion": 2
@@ -190,7 +165,7 @@
       "name": "blocked?",
       "type": "n8n-nodes-base.if",
       "position": [
-        608,
+        624,
         464
       ],
       "typeVersion": 2.2
@@ -267,10 +242,35 @@
       "name": "possible - busy",
       "type": "n8n-nodes-base.merge",
       "position": [
-        416,
+        432,
         464
       ],
       "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "DateString"
+            },
+            {
+              "name": "TimeString"
+            },
+            {
+              "name": "ZoneOffset"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -384,
+        288
+      ],
+      "id": "498f4349-e356-4840-9ba4-0c9abc736202",
+      "name": "start"
     }
   ],
   "pinData": {},
@@ -290,6 +290,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-20T00:55:54.000Z",
-  "versionId": "70ebb9a8-8d4b-47c7-9c45-b750f734636a"
+  "updatedAt": "2025-08-20T21:44:47.000Z",
+  "versionId": "00b392fe-8f29-4f84-8276-b29314e3d70e"
 }
