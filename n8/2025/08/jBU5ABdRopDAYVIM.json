@@ -267,7 +267,7 @@
       "main": [
         [
           {
-            "node": "Code",
+            "node": "code",
             "type": "main",
             "index": 0
           }
@@ -816,7 +816,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const chat = $('merge').first().json;\nconst aggregateNode = $('aggregate');\nlet folio;\n\n/* if (Array.isArray(aggregateNode) && aggregateNode.length > 0) {*/\nif (chat.files) {\n  folio = aggregateNode.first().json;\n} else {\n  folio = null;\n}\n\nvar final;\n\nif (folio != null && folio.fileData) {\n  final = Object.assign(chat, folio);\n} else {\n  final = chat;\n}\n\nreturn final;"
+        "jsCode": "/*\nto make the files avaialble to your AI agent node, use this as your prompt\n\n{{ $json.fileData?.length && $json.fileData.filter((f) => Object.keys(f)?.length > 0).length > 0 ? \"Attached file(s): \\n \" + JSON.stringify($json.fileData.filter((f) => Object.keys(f)?.length > 0)) : '' }}\n\n{{ $json.chatInput }}\n\n*/\n\n\nconst chat = $('merge').first().json;\nconst aggregateNode = $('aggregate');\nlet folio;\n\nif (chat.files) {\n  folio = aggregateNode.first().json;\n} else {\n  folio = null;\n}\n\nvar jsonOut;\n\nif (folio != null && folio.fileData) {\n  // if there are files, add the array to the chat object\n  jsonOut = Object.assign(chat, folio);\n} else {\n  // no files? just pass on thru\n  jsonOut = chat;\n}\n\nreturn jsonOut;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -825,7 +825,23 @@
         -160
       ],
       "id": "92387ee2-d3b1-43e1-a68e-d631044f780e",
-      "name": "Code"
+      "name": "code"
+    },
+    {
+      "parameters": {
+        "content": "## Pass to Agent \n\n{{ $json.fileData?.length && $json.fileData.filter((f) => Object.keys(f)?.length > 0).length > 0 ? \"Attached file(s): \\n \" + JSON.stringify($json.fileData.filter((f) => Object.keys(f)?.length > 0)) : '' }}\n\n{{ $json.chatInput }}",
+        "height": 432,
+        "width": 598,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        368,
+        -400
+      ],
+      "id": "5ef42ed3-23d4-4a4c-a6c3-5ca5d9eb9113",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -845,6 +861,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-20T00:56:29.000Z",
-  "versionId": "2ab1890b-3f0d-4312-8ba7-9db5606e1c5f"
+  "updatedAt": "2025-08-20T21:47:58.000Z",
+  "versionId": "0bb3fe5d-e107-4f7f-8a57-f3eb7cc613e8"
 }
