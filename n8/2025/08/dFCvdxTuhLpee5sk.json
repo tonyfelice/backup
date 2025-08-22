@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "to binary",
+            "node": "analyze",
             "type": "main",
             "index": 0
           }
@@ -227,6 +227,11 @@
       "main": [
         [
           {
+            "node": "upload",
+            "type": "main",
+            "index": 0
+          },
+          {
             "node": "loop",
             "type": "main",
             "index": 0
@@ -263,22 +268,22 @@
         ]
       ]
     },
-    "to binary": {
+    "analyze": {
       "main": [
         [
           {
-            "node": "analyze",
+            "node": "loop",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "analyze": {
+    "upload": {
       "main": [
         [
           {
-            "node": "loop",
+            "node": "Code",
             "type": "main",
             "index": 0
           }
@@ -301,7 +306,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1904,
+        -2048,
         16
       ],
       "id": "abebdb8b-9b20-46ca-a825-6f6b92e831ef",
@@ -584,7 +589,8 @@
         256
       ],
       "id": "37230879-698c-415a-9a3b-e18e4307e2d9",
-      "name": "plaintext"
+      "name": "plaintext",
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -732,7 +738,7 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -2128,
+        -2272,
         -176
       ],
       "id": "e692cee3-3b42-4211-adf8-13692cc8d315",
@@ -776,7 +782,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -1712,
+        -1856,
         16
       ],
       "id": "28bb6813-6066-404a-96a8-0580143229e6",
@@ -789,13 +795,13 @@
         "binaryPropertyName": "fileBinary",
         "options": {
           "fileName": "={{ $json.fileName }}",
-          "mimeType": "={{ $json.mimeTYpe }}"
+          "mimeType": "={{ $json.mimeType }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        -1536,
+        -1680,
         16
       ],
       "id": "2b450759-25c5-4da6-b62e-31c1098d80b6",
@@ -829,19 +835,6 @@
     },
     {
       "parameters": {
-        "jsCode": "function base64ToBinary(base64) {\n  return Buffer.from(base64, 'base64');\n}\nconst base64String = $('split open').item.json.data;\nconst binaryData = base64ToBinary(base64String);\n\n\nreturn [{ json: { bin: binaryData } }];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -496,
-        96
-      ],
-      "id": "2d2026b2-5c69-4bdc-bcc0-b8de34adff79",
-      "name": "to binary"
-    },
-    {
-      "parameters": {
         "resource": "image",
         "operation": "analyze",
         "modelId": {
@@ -850,9 +843,10 @@
           "mode": "list",
           "cachedResultName": "GPT-4O-MINI"
         },
-        "inputType": "base64",
-        "binaryPropertyName": "={{ $json.bin.data }}",
-        "options": {}
+        "imageUrls": "=data:{{ $('split open').item.json.mimeType }};base64,{{ $('split open').item.json.data }}",
+        "options": {
+          "detail": "auto"
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
@@ -867,7 +861,56 @@
           "id": "X3Nhu6EWyz9LN2fj",
           "name": "czm-openai"
         }
+      },
+      "notes": "{{ $json.webContentLink }}"
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "fileBinary",
+        "name": "={{ $('split open').item.json.fileName }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1fer_5cMknvjYmTxuxavY3WqmvAm671tA",
+          "mode": "list",
+          "cachedResultName": "chatUploads",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1fer_5cMknvjYmTxuxavY3WqmvAm671tA"
+        },
+        "options": {
+          "simplifyOutput": true
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1680,
+        256
+      ],
+      "id": "cd61668b-ef72-48cb-b1e4-545181d665a3",
+      "name": "upload",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "if( $input.first().json.id ){\n  return [{\"drive\":\"success\"}]\n}else{\n   return [{\"drive\":\"no response\"}]\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1680,
+        512
+      ],
+      "id": "f8a9f7e9-a567-455c-a7a0-7491f7cfb377",
+      "name": "Code"
     }
   ],
   "pinData": {
@@ -876,16 +919,17 @@
         "json": {
           "sessionId": "676b3125c0e54673aed1bd9ec2de7021",
           "action": "sendMessage",
-          "chatInput": "fasdf",
+          "chatInput": "adfgsd",
           "files": [
             {
-              "fileName": "cesium-ai-automation-logo-_-full-color-dark.png",
-              "fileSize": "10095 bytes",
-              "fileExtension": "png",
-              "fileType": "image",
-              "mimeType": "image/png"
+              "fileName": "testfile.txt",
+              "fileSize": "18 bytes",
+              "fileExtension": "txt",
+              "fileType": "text",
+              "mimeType": "text/plain"
             }
-          ]
+          ],
+          "fileData": null
         }
       }
     ]
@@ -896,16 +940,25 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "createdAt": "2025-08-20T23:35:06.319Z",
+      "updatedAt": "2025-08-20T23:35:06.319Z",
+      "role": "workflow:owner",
+      "workflowId": "dFCvdxTuhLpee5sk",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-20T00:54:13.241Z",
-      "updatedAt": "2025-08-20T00:54:13.241Z",
-      "id": "BhMyF8l07FgXl3Oi",
-      "name": "pre-prod"
+      "createdAt": "2025-08-21T23:30:26.930Z",
+      "updatedAt": "2025-08-21T23:30:26.930Z",
+      "id": "TC6GN8ukWr58QCW8",
+      "name": "dev"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-20T23:54:28.000Z",
-  "versionId": "949d98f4-9ae2-4b92-90bf-c0186f07ae08"
+  "updatedAt": "2025-08-21T23:31:02.000Z",
+  "versionId": "613a251d-b62e-4d80-a4d5-333d051891e9"
 }
