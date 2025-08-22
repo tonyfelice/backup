@@ -973,6 +973,15 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "createdAt": "2025-03-05T23:34:33.524Z",
+      "updatedAt": "2025-03-05T23:34:33.524Z",
+      "role": "workflow:owner",
+      "workflowId": "CZTHekU4TsxWRidc",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
   "staticData": {
     "node:Google Sheets Trigger": {
       "documentId": "1W8Vz4j6tf426XK7ANIzv1WHxJs3aMNC9SxwJ8VGdHYg",
