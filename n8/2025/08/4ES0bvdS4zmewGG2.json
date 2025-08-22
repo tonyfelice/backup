@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-21T15:32:34.301Z",
+  "id": "4ES0bvdS4zmewGG2",
+  "isArchived": false,
+  "meta": null,
+  "name": "test file binary !!!!!!!!!!!!",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ae76035f-f9a8-4d8e-b472-82c7efffe771",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "jsCode": "let results = [];\n\nfor (item of items) {\n  for (key of Object.keys(item.binary)) {\n    results.push({\n      json: item.json.files.find(file => file.fileName === item.binary[key].fileName),\n      binary: {\n          data: item.binary[key],\n      }\n    });\n  }\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "5a2b9b0b-37ed-4eb6-9c02-adb7e1763643",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-21T15:32:34.308Z",
+      "updatedAt": "2025-08-21T15:32:34.308Z",
+      "role": "workflow:owner",
+      "workflowId": "4ES0bvdS4zmewGG2",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-21T15:33:51.000Z",
+  "versionId": "0efc9017-e0af-4e67-a174-356b53a553cc"
+}
