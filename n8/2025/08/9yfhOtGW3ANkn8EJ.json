@@ -398,6 +398,15 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner"
   },
+  "shared": [
+    {
+      "createdAt": "2025-08-18T13:35:00.834Z",
+      "updatedAt": "2025-08-18T13:35:00.834Z",
+      "role": "workflow:owner",
+      "workflowId": "9yfhOtGW3ANkn8EJ",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
