@@ -37,9 +37,8 @@
           "value": {
             "sessionId": "={{ $json.sessionId }}",
             "chatInput": "={{ $json.chatInput }}",
-            "action": "={{ $json.action }}",
             "files": "={{ $json.files }}",
-            "fileData": "={{ null }}"
+            "action": "={{ $json.action }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -97,7 +96,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        64,
+        48,
         -48
       ],
       "id": "f857879f-5eb5-46ce-864c-986cdae692d4",
@@ -128,9 +127,18 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "createdAt": "2025-08-17T00:31:31.387Z",
+      "updatedAt": "2025-08-17T00:31:31.387Z",
+      "role": "workflow:owner",
+      "workflowId": "Ro5V6y9mW0QZr8Zl",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-20T23:40:18.000Z",
-  "versionId": "94e9112d-e79b-4bed-a46d-9acd0f5665b8"
+  "updatedAt": "2025-08-21T16:28:09.000Z",
+  "versionId": "6d2f71fa-ba3d-4d53-8f01-35090819a3e6"
 }
