@@ -846,6 +846,15 @@
     "executionOrder": "v0",
     "errorWorkflow": "1IT5YvaiSDzXd7pf"
   },
+  "shared": [
+    {
+      "createdAt": "2025-08-07T20:24:53.753Z",
+      "updatedAt": "2025-08-07T20:24:53.753Z",
+      "role": "workflow:owner",
+      "workflowId": "5GABsyUFYMKRE992",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": []
