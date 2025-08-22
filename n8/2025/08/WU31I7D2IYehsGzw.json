@@ -1024,6 +1024,15 @@
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
   "settings": null,
+  "shared": [
+    {
+      "createdAt": "2025-08-18T21:41:16.606Z",
+      "updatedAt": "2025-08-18T21:41:16.606Z",
+      "role": "workflow:owner",
+      "workflowId": "WU31I7D2IYehsGzw",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
