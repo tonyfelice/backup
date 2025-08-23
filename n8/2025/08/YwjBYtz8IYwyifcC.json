@@ -1,0 +1,241 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-22T22:03:25.324Z",
+  "id": "YwjBYtz8IYwyifcC",
+  "isArchived": true,
+  "meta": null,
+  "name": "testing arrays",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -512,
+        176
+      ],
+      "id": "c81a1934-1b60-4055-b8fb-4b597cbfbac8",
+      "name": "When chat message received",
+      "webhookId": "9f364351-d196-4278-af5f-44064d57cc3a"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        288,
+        96
+      ],
+      "id": "4be05881-70d0-4306-b1ae-d77def8fb518",
+      "name": "Merge",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f38da7d-5a3e-47b5-866f-4378d7edf6a6",
+              "name": "foo",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "3d0468a9-ccfa-4369-9836-cdd902dba212",
+              "name": "bar",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "f5901782-405e-4d64-9fca-9101c5aa3f70",
+              "name": "two",
+              "value": "[]",
+              "type": "array"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        176
+      ],
+      "id": "a94baf35-9433-46a1-b185-6d8164f93598",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f38da7d-5a3e-47b5-866f-4378d7edf6a6",
+              "name": "bat",
+              "value": "[]",
+              "type": "array"
+            },
+            {
+              "id": "3d0468a9-ccfa-4369-9836-cdd902dba212",
+              "name": "baz",
+              "value": "{}",
+              "type": "object"
+            },
+            {
+              "id": "e4150a74-697a-4c79-bfdd-e42c862875f1",
+              "name": "thr",
+              "value": "[]",
+              "type": "array"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        336
+      ],
+      "id": "faec2ff7-bdc0-4ee0-a80c-7c98079ab9af",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f38da7d-5a3e-47b5-866f-4378d7edf6a6",
+              "name": "one",
+              "value": "[]",
+              "type": "array"
+            },
+            {
+              "id": "3d0468a9-ccfa-4369-9836-cdd902dba212",
+              "name": "baz",
+              "value": "{}",
+              "type": "object"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        32
+      ],
+      "id": "b7eef229-7830-4293-8673-cde3793f08b9",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all()[2];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        112
+      ],
+      "id": "330a251e-93d2-46c4-845d-e9bab73877e8",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-22T22:03:25.330Z",
+      "updatedAt": "2025-08-22T22:03:25.330Z",
+      "role": "workflow:owner",
+      "workflowId": "YwjBYtz8IYwyifcC",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-22T22:31:52.000Z",
+  "versionId": "4bc98d98-55e6-457e-b44b-f96cafe7da77"
+}
