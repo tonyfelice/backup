@@ -15,7 +15,7 @@
   },
   "createdAt": "2025-08-21T15:32:34.301Z",
   "id": "4ES0bvdS4zmewGG2",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "test file binary !!!!!!!!!!!!",
   "nodes": [
@@ -65,6 +65,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-21T15:33:51.000Z",
-  "versionId": "0efc9017-e0af-4e67-a174-356b53a553cc"
+  "updatedAt": "2025-08-22T23:49:17.000Z",
+  "versionId": "e8d62646-ad2f-42c1-aeb2-a93865265477"
 }
