@@ -28,16 +28,16 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "dFCvdxTuhLpee5sk",
+          "value": "MJBMRuWejaMlDJh5",
           "mode": "list",
-          "cachedResultName": "CZM: file handler 3.0"
+          "cachedResultName": "CZM: file handler 5.0"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
             "sessionId": "={{ $json.sessionId }}",
-            "chatInput": "={{ $json.chatInput }}",
             "files": "={{ $json.files }}",
+            "chatInput": "={{ $json.chatInput }}",
             "action": "={{ $json.action }}"
           },
           "matchingColumns": [],
@@ -77,15 +77,6 @@
               "display": true,
               "canBeUsedToMatch": true,
               "type": "array"
-            },
-            {
-              "id": "fileData",
-              "displayName": "fileData",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "array"
             }
           ],
           "attemptToConvertTypes": true,
@@ -96,7 +87,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        48,
+        64,
         -48
       ],
       "id": "f857879f-5eb5-46ce-864c-986cdae692d4",
@@ -139,6 +130,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-21T16:28:09.000Z",
-  "versionId": "6d2f71fa-ba3d-4d53-8f01-35090819a3e6"
+  "updatedAt": "2025-08-22T23:50:32.000Z",
+  "versionId": "a896f22f-c070-48a4-80b5-65875e6431e8"
 }
