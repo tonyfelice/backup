@@ -90,7 +90,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -117,7 +117,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -128,7 +128,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -139,7 +139,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -150,7 +150,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -161,7 +161,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -172,7 +172,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -183,7 +183,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -194,7 +194,7 @@
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -232,7 +232,7 @@
             "index": 0
           },
           {
-            "node": "upload",
+            "node": "uploads",
             "type": "main",
             "index": 0
           }
@@ -250,22 +250,11 @@
         ]
       ]
     },
-    "upload": {
-      "main": [
-        [
-          {
-            "node": "format",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "image": {
       "main": [
         [
           {
-            "node": "extract",
+            "node": "filedata",
             "type": "main",
             "index": 0
           }
@@ -297,6 +286,28 @@
             "node": "merge",
             "type": "main",
             "index": 6
+          }
+        ]
+      ]
+    },
+    "filedata": {
+      "main": [
+        [
+          {
+            "node": "extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "uploads": {
+      "main": [
+        [
+          {
+            "node": "format",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -488,17 +499,17 @@
                   {
                     "id": "5c68dba3-a9e7-45ac-ab10-d3bdabc693eb",
                     "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
-                    "rightValue": "^(text\\/html|application\\/xml)$",
+                    "rightValue": "application/xml",
                     "operator": {
                       "type": "string",
-                      "operation": "regex"
+                      "operation": "equals"
                     }
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "html / xml"
+              "outputKey": "xml"
             },
             {
               "conditions": {
@@ -582,7 +593,7 @@
       "typeVersion": 3.2,
       "position": [
         -912,
-        112
+        160
       ],
       "id": "f2e5d147-e8fd-42e2-8458-598ddc611aef",
       "name": "switch"
@@ -598,7 +609,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        256
+        304
       ],
       "id": "8e074b3d-0dee-4183-8ea7-3b3c50bfee31",
       "name": "plaintext"
@@ -615,7 +626,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        416
+        464
       ],
       "id": "b0203949-2314-4e87-b0d5-c6353e3b5db6",
       "name": "pdf"
@@ -631,7 +642,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        576
+        624
       ],
       "id": "179350bf-2a7a-4887-a703-6e849dd60530",
       "name": "json"
@@ -646,7 +657,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        736
+        784
       ],
       "id": "ab9c208d-3084-49fa-88e9-188c0f806268",
       "name": "rtf"
@@ -664,7 +675,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        896
+        944
       ],
       "id": "e9a8e6ca-c058-424e-aef9-429cba94d54f",
       "name": "csv"
@@ -680,7 +691,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        1056
+        1104
       ],
       "id": "672841cc-40f1-4909-a76f-1c3aae3bedd2",
       "name": "markup"
@@ -695,7 +706,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        1216
+        1264
       ],
       "id": "ee195067-04a4-44d9-b8d1-95c681908790",
       "name": "ods"
@@ -710,7 +721,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        1376
+        1424
       ],
       "id": "4ea5a09b-e1c0-42a1-bcb1-58e025da7982",
       "name": "xls"
@@ -725,7 +736,7 @@
       "typeVersion": 1,
       "position": [
         -304,
-        1536
+        1584
       ],
       "id": "af7a18e8-3889-4e6c-98f5-1b158e0209b0",
       "name": "xlsx"
@@ -745,10 +756,6 @@
             },
             {
               "name": "files",
-              "type": "array"
-            },
-            {
-              "name": "fileData",
               "type": "array"
             }
           ]
@@ -775,7 +782,7 @@
       "typeVersion": 1,
       "position": [
         0,
-        0
+        48
       ],
       "id": "d8e02893-a0b7-42fb-b799-4555e64aa6c9",
       "name": "aggregate"
@@ -830,42 +837,7 @@
     },
     {
       "parameters": {
-        "inputDataFieldName": "fileBinary",
-        "name": "={{ $('start').item.json.sessionId }}-{{ $('split open').item.json.fileName }}",
-        "driveId": {
-          "__rl": true,
-          "mode": "list",
-          "value": "My Drive"
-        },
-        "folderId": {
-          "__rl": true,
-          "value": "1fer_5cMknvjYmTxuxavY3WqmvAm671tA",
-          "mode": "list",
-          "cachedResultName": "chatUploads",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1fer_5cMknvjYmTxuxavY3WqmvAm671tA"
-        },
-        "options": {
-          "simplifyOutput": true
-        }
-      },
-      "type": "n8n-nodes-base.googleDrive",
-      "typeVersion": 3,
-      "position": [
-        -1312,
-        -144
-      ],
-      "id": "32a0b43c-d7e8-4ab4-8d05-e9d590fb93eb",
-      "name": "upload",
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "hpyRggGv1xon9oys",
-          "name": "drive.t@czm"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "const chat = $input.first().json;\nconst allItems = $input.all();\nconst uploadsItem = allItems.find(item => {\n  return item.json.uploads !== undefined;\n});\n\nlet folio = null;\nconst folioItem = allItems.find(item => {\n  return item.json.fileData !== undefined;\n});\nif (folioItem){\n  folio = folioItem.json;\n}\n/*\n\n\nif (chat.files) {\n  folio = $input.last().json;\n}\n*/\n\nlet jsonOut;\n\nif (folio != null && folio.fileData) {\n  jsonOut = Object.assign({}, chat, folio); \n  \n  // Create a readable string of the file data to prepend\n  const fileDataString = folio.fileData\n    .map(f => f.content)\n    .join('\\n');\n\n  // Prepend the chatInput with the file data and a clear separator\n  jsonOut.chatInput = `Attached file(s):\\n${fileDataString}\\n\\n${jsonOut.chatInput}`;\n\n} else {\n  jsonOut = chat;\n}\n\nreturn jsonOut;"
+        "jsCode": "const input = $input.all();\nif (Array.isArray(input[0].json.files)) {\n  // files[] exists, extract uploads and fileData arrays\n  const arrUploads = input[1].json.uploads;\n  const arrFileData = input[2].json.fileData;\n  \n  // merge based on fileName\n  const merged = arrFileData.map(fds => {\n    const match = arrUploads.find(ups => ups.fileName === fds.fileName);\n    const preOut = { ...fds, ...(match || {}) };\n    \n    // remove extraneous keys\n    delete preOut.kind;\n    delete preOut.id;\n    delete preOut.name;\n    \n    return preOut;\n  });\n\n  // replace files[] with enhanced data\n  input[0].json.files = merged;\n}\nreturn input[0];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -894,7 +866,7 @@
       "typeVersion": 1.8,
       "position": [
         -304,
-        96
+        144
       ],
       "id": "9e46f1c7-13a8-41b8-89bf-4f0502968acd",
       "name": "image",
@@ -913,7 +885,7 @@
       "typeVersion": 3,
       "position": [
         -1264,
-        16
+        64
       ],
       "id": "1e8cc26d-3d83-45e7-bfb0-c65858048c6a",
       "name": "extract"
@@ -929,7 +901,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        416
+        464
       ],
       "id": "55b8aad4-ee38-4e04-ba09-f657e42ac4d4",
       "name": "Sticky Note"
@@ -945,7 +917,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        256
+        304
       ],
       "id": "3f59277b-61bb-45c5-946f-61ca331040f3",
       "name": "Sticky Note1"
@@ -961,7 +933,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        576
+        624
       ],
       "id": "8d24eddc-321b-44ca-81f6-0071d08f13c8",
       "name": "Sticky Note2"
@@ -977,7 +949,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        736
+        784
       ],
       "id": "c049f8d7-dc2c-41a8-955f-c24eb590b61d",
       "name": "Sticky Note3"
@@ -993,7 +965,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        896
+        944
       ],
       "id": "81d67abf-489f-400c-838d-6b67391f615b",
       "name": "Sticky Note4"
@@ -1009,7 +981,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        1216
+        1264
       ],
       "id": "7661f2e7-f561-4082-9682-2fa4695be9d7",
       "name": "Sticky Note5"
@@ -1025,7 +997,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        1056
+        1104
       ],
       "id": "d64bd985-86a3-46d7-a611-2e92893f0698",
       "name": "Sticky Note6"
@@ -1041,7 +1013,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        1376
+        1424
       ],
       "id": "f698cda8-f2f3-464c-be9e-e17c8a1abd48",
       "name": "Sticky Note7"
@@ -1057,7 +1029,7 @@
       "typeVersion": 1,
       "position": [
         -128,
-        1536
+        1584
       ],
       "id": "693308e6-d862-4e26-b80a-17ed11495a87",
       "name": "Sticky Note8"
@@ -1080,16 +1052,64 @@
     },
     {
       "parameters": {
-        "jsCode": "const objUploads = {\n  \"uploads\": $input.all().map(el => {\n    // grab the id for the url\n    const itemId = el.json.id;\n    const fileUrl = `https://drive.google.com/file/d/${itemId}/view`;\n\n    return {\n      ...el.json,\n      fileUrl: fileUrl\n    };\n  })\n};\n\nreturn [{ json: objUploads }];"
+        "jsCode": "// Get the uploads and files data\nconst uploads = $input.all().map(el => {\n  const fileUrl = `https://drive.google.com/file/d/${el.json.id}/view`;\n  return { ...el.json, fileUrl };\n});\n\nconst files = $('start').item.json.files;\n\n// Create a map for quick lookup of files by name\nconst filesMap = new Map();\nfiles.forEach(file => {\n  filesMap.set(file.fileName, file);\n});\n\n// Merge the data\nconst objUploads = {\n  \"uploads\": uploads.map(upload => {\n    const fileName = upload.name;\n    const matchingFile = files.find(file => fileName.endsWith(file.fileName));\n    \n    if (matchingFile) {\n      return {\n        ...upload,\n        ...matchingFile,\n        fileUrl: upload.fileUrl\n      };\n    }\n    // Otherwise, return the original upload object\n    return upload;\n  })\n};\n\n// Return the merged data\nreturn [{ json: objUploads }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1088,
+        -1120,
         -144
       ],
       "id": "9cb43991-d363-4dba-899d-bfd88aaad2e7",
       "name": "format"
+    },
+    {
+      "parameters": {
+        "jsCode": "const folio = $('start').item.json.files[$runIndex];\nconst este = $input.item.json;\nlet jsonOut = Object.assign({}, este, folio);\nreturn jsonOut;\n\n\n\n\n\n// Loop over input items and add filename to each one\n/*for (const item of $input.all()) {\n  item.json.fileName = 1;\n}\n\nreturn $input.all();*/"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1456,
+        64
+      ],
+      "id": "cb6fec57-6c22-404e-9c53-51a78c015076",
+      "name": "filedata"
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "fileBinary",
+        "name": "={{ $('start').item.json.sessionId }}-{{ $('split open').item.json.fileName }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1fer_5cMknvjYmTxuxavY3WqmvAm671tA",
+          "mode": "list",
+          "cachedResultName": "chatUploads",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1fer_5cMknvjYmTxuxavY3WqmvAm671tA"
+        },
+        "options": {
+          "simplifyOutput": true
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1312,
+        -144
+      ],
+      "id": "32a0b43c-d7e8-4ab4-8d05-e9d590fb93eb",
+      "name": "uploads",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
+      }
     }
   ],
   "pinData": {
@@ -1142,15 +1162,9 @@
       "updatedAt": "2025-08-21T23:30:26.930Z",
       "id": "TC6GN8ukWr58QCW8",
       "name": "dev"
-    },
-    {
-      "createdAt": "2025-08-21T23:38:12.196Z",
-      "updatedAt": "2025-08-21T23:38:12.196Z",
-      "id": "UZgBu3fbi0GQ3tgi",
-      "name": "working"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-22T02:16:10.000Z",
-  "versionId": "e77f5bf4-8745-4376-b24f-a903b83076e7"
+  "updatedAt": "2025-08-22T23:49:39.000Z",
+  "versionId": "fc645216-922c-4d22-ad9d-60253eb50bdb"
 }
