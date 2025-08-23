@@ -277,7 +277,7 @@
   },
   "createdAt": "2025-08-19T22:58:03.767Z",
   "id": "jBU5ABdRopDAYVIM",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "CZM: file handler 0.1",
   "nodes": [
@@ -870,6 +870,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-21T23:30:37.000Z",
-  "versionId": "9ec32a09-90b5-4340-819f-51b2eca108a3"
+  "updatedAt": "2025-08-22T23:49:00.000Z",
+  "versionId": "2c64c000-03d6-4bc7-a1b7-7572bf97c88a"
 }
