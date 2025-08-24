@@ -83,6 +83,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "docx",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -311,6 +318,17 @@
           }
         ]
       ]
+    },
+    "docx": {
+      "main": [
+        [
+          {
+            "node": "filedata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-22T23:48:36.485Z",
@@ -349,10 +367,10 @@
                 "conditions": [
                   {
                     "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
-                    "rightValue": "image/",
+                    "rightValue": "^image\\/(png|jpeg|gif|webp)$",
                     "operator": {
                       "type": "string",
-                      "operation": "startsWith"
+                      "operation": "regex"
                     },
                     "id": "2db1ea81-6732-4625-921c-13b3a3b2bc5e"
                   }
@@ -374,11 +392,10 @@
                   {
                     "id": "30c7c3fe-e468-47db-93a2-325210d2256e",
                     "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
-                    "rightValue": "text/plain",
+                    "rightValue": "^text\\/(plain|markdown|x\\-markdown)$",
                     "operator": {
                       "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
+                      "operation": "regex"
                     }
                   }
                 ],
@@ -583,6 +600,31 @@
               },
               "renameOutput": true,
               "outputKey": "xlsx"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5043f100-1679-4c60-a6ef-72285d55c432",
+                    "leftValue": "={{ $('start').item.json.files[$runIndex].mimeType }}",
+                    "rightValue": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "docx"
             }
           ]
         },
@@ -891,104 +933,8 @@
     },
     {
       "parameters": {
-        "content": "pdf = fileData.text",
-        "height": 96,
-        "width": 176,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -128,
-        464
-      ],
-      "id": "9d7df2f5-40db-4ab8-a253-df2af68fef60",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "content": "rtf = fileData.???\n\n### failing",
-        "height": 96,
-        "width": 176,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -128,
-        944
-      ],
-      "id": "ae495d96-4381-4b1d-98df-b75ffb7a9b33",
-      "name": "Sticky Note3"
-    },
-    {
-      "parameters": {
-        "content": "csv = fileData.???\n### failing\nsame way as rtf",
-        "height": 96,
-        "width": 176,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -128,
-        1104
-      ],
-      "id": "5b8d3cce-7c33-458b-94f6-161edd000605",
-      "name": "Sticky Note4"
-    },
-    {
-      "parameters": {
-        "content": "ods = fileData.???\n### failing\nsame way as rtf",
-        "height": 96,
-        "width": 176,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -128,
-        1264
-      ],
-      "id": "33d7e32c-014a-4315-9044-a1134bc7740d",
-      "name": "Sticky Note5"
-    },
-    {
-      "parameters": {
-        "content": "xls = fileData.???\n### failing\nsame way as rtf",
-        "height": 96,
-        "width": 176,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -128,
-        1424
-      ],
-      "id": "4d2ed8c8-8726-4cfd-92e9-73e12ceb608e",
-      "name": "Sticky Note7"
-    },
-    {
-      "parameters": {
-        "content": "xlsx = fileData.???\n### failing\nsame way as rtf",
-        "height": 96,
-        "width": 176,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -128,
-        1584
-      ],
-      "id": "ba22af44-0db3-407c-9000-658bc8d0a8d9",
-      "name": "Sticky Note8"
-    },
-    {
-      "parameters": {
-        "content": "# to do\n+ handle data in nodes other than content\n",
-        "height": 96,
+        "content": "# to do\n+ handle svg\n",
+        "height": 288,
         "width": 448,
         "color": 6
       },
@@ -996,7 +942,7 @@
       "typeVersion": 1,
       "position": [
         416,
-        -336
+        -528
       ],
       "id": "56133965-a4ce-46fd-af9d-eeea7a9be90e",
       "name": "Sticky Note9"
@@ -1016,7 +962,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const folio = $('start').item.json.files[$runIndex];\nconst este = $input.item.json;\nlet jsonOut = Object.assign({}, este, folio);\nreturn jsonOut;\n"
+        "jsCode": "const folio = $('start').item.json.files[$runIndex];\nconst inputs = $input.all().map(i => i.json);\n\nlet jsonOut;\n\nif (inputs.length === 1) {\n  jsonOut = { ...inputs[0], ...folio };\n} else {\n  // tabular data\n  jsonOut = {\n    ...folio,\n    rows: inputs,   \n  };\n}\n\nreturn jsonOut;\n\n\n/* orig\nconst folio = $('start').item.json.files[$runIndex];\nconst este = $input.item.json;\nlet jsonOut = Object.assign({}, este, folio);\nreturn jsonOut;\n*/\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1064,41 +1010,20 @@
     },
     {
       "parameters": {
-        "content": "resizer",
-        "height": 192,
-        "width": 160,
-        "color": 6
+        "inputBinaryField": "fileBinary",
+        "destinationOutputField": "content"
       },
-      "type": "n8n-nodes-base.stickyNote",
+      "type": "n8n-nodes-docx-converter.docxToText",
       "typeVersion": 1,
       "position": [
-        368,
-        320
+        -304,
+        1744
       ],
-      "id": "6c9dc01c-b783-413c-913e-627a178e4acf",
-      "name": "Sticky Note1"
+      "id": "88d397ef-08a7-459a-a086-be204bc20c35",
+      "name": "docx"
     }
   ],
-  "pinData": {
-    "start": [
-      {
-        "json": {
-          "sessionId": "80701dfd315441ac8da4f77756a3e47e",
-          "action": "sendMessage",
-          "chatInput": "sfdg",
-          "files": [
-            {
-              "fileName": "file-sample_100kB.rtf",
-              "fileSize": "100605 bytes",
-              "fileExtension": "rtf",
-              "fileType": "text",
-              "mimeType": "text/rtf"
-            }
-          ]
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -1130,6 +1055,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-23T04:46:52.000Z",
-  "versionId": "1395e512-8c88-41c3-a028-edea2ad3e322"
+  "updatedAt": "2025-08-23T18:29:30.000Z",
+  "versionId": "51ed9b09-a396-491d-a705-6687421a6ac0"
 }
