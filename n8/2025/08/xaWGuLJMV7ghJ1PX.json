@@ -142,7 +142,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: convo capture live",
+  "name": "CZM: chat capture live",
   "nodes": [
     {
       "parameters": {
@@ -961,6 +961,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-08-18T23:23:47.000Z",
-  "versionId": "1662528f-1cd5-4c5b-beb9-72087568e8ad"
+  "updatedAt": "2025-08-25T00:28:01.000Z",
+  "versionId": "c5f36f77-bced-4067-bc1e-d18065e26e60"
 }
