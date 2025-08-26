@@ -1,0 +1,86 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-25T22:37:55.352Z",
+  "id": "CoclR9oA6Sg9uCBK",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: concierge",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "142eeb8f-0637-438e-8357-2fa0c5786b12",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "options": {
+          "senderName": ""
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "bf9f46b0-4223-48ad-902f-23fe80580344",
+      "name": "Send a message",
+      "webhookId": "fb801fe2-a3e6-41c1-94b5-d4a1599e134a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tE3vH38XdVP8HQOa",
+          "name": "czm-n8n-gmail"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-25T22:37:55.363Z",
+      "updatedAt": "2025-08-25T22:37:55.363Z",
+      "role": "workflow:owner",
+      "workflowId": "CoclR9oA6Sg9uCBK",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T23:30:26.930Z",
+      "updatedAt": "2025-08-21T23:30:26.930Z",
+      "id": "TC6GN8ukWr58QCW8",
+      "name": "dev"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-25T22:45:53.000Z",
+  "versionId": "4da0bde7-07f2-4d5e-ae7a-d4061adc9a85"
+}
