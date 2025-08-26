@@ -1,0 +1,693 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store1": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-26T00:24:41.524Z",
+  "id": "Czpng4did4ipHoJP",
+  "isArchived": false,
+  "meta": null,
+  "name": "crawl4ai",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7c771e25-04dc-4020-a429-5ce626f94bfa",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        112,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://ai.pydantic.dev/sitemap.xml",
+        "options": {}
+      },
+      "id": "e9220244-868d-4dbc-a1ba-73093abddf5b",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        304,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "70f6bacd-5504-48de-adfd-180e16b9731e",
+      "name": "XML",
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        496,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "urlset.url",
+        "options": {}
+      },
+      "id": "cc166bae-4a87-4f72-8dcb-3eb1149e990a",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        672,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "b994b2e7-acdb-490c-a2bd-34947ee9c110",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        912,
+        784
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0b1126f8-e2d1-44bc-a954-0297e8d2e7f5",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1328,
+        800
+      ],
+      "webhookId": "9af87c5e-b07f-48dc-9ca8-61b471a24cad"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://plankton-app-9pcve.ondigitalocean.app/crawl",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "urls",
+              "value": "={{ $json.loc }}"
+            },
+            {
+              "name": "priority",
+              "value": "10"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5583d484-0a40-4f22-a005-f54462054069",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        800
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XPPv2WR7kPKnZA1q",
+          "name": "crawl4ai-header-auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://plankton-app-9pcve.ondigitalocean.app/task/{{ $json.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "b96e5b71-fa20-4dbb-8337-9b1ea693a989",
+      "name": "HTTP Request2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1552,
+        800
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XPPv2WR7kPKnZA1q",
+          "name": "crawl4ai-header-auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9d90c1ce-590e-40a5-ae8c-d92326032975",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4d4071ba-343f-45d0-99e1-2e18e980432b",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1760,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.result.markdown }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "page",
+                "value": "={{ $json.result.url }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "5fd53ff0-7944-4c87-b198-8d7116c96bc4",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "chunkSize": 5000
+      },
+      "id": "3f13fc5a-cbe5-4c7c-9f9c-ed61f6fad8c3",
+      "name": "Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        944
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c17172d7-f856-406d-8892-f56123f7f1dd",
+      "name": "Embeddings OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        2080,
+        800
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f2bcdb54-e1fe-4670-99aa-6eec973bf5f1",
+              "name": "task_id",
+              "value": "={{ $('HTTP Request1').item.json.task_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1547f3ad-3f42-4a86-9cac-7baeb1e4d020",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2000,
+        1008
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c2d79041-a9c5-4356-8359-d7d551724079",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        768,
+        48
+      ],
+      "webhookId": "0949763f-f3f7-46bf-8676-c050d92e6966"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9a343a6d-e1e4-4e90-ad1a-96f9fc5e9f0e",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        928,
+        272
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "bdead270-aa4e-4973-bfff-21cb9807b69b",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        1072,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "name": "pydantic_ai_docs",
+        "description": "Retrieves data related to Pydantic AI using their documentation."
+      },
+      "id": "6e71957e-180c-4bc9-9f09-c134da2a7b5b",
+      "name": "Vector Store Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8e8e050b-3ddf-47a5-89f5-c51ec3de1ee2",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "6fecc4ce-bbd8-41aa-b2cc-018059b7cf42",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "id": "dcf42ae2-6310-4dd8-a642-351c289f81d5",
+      "name": "Supabase Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        496
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "Mr77IC6Qde7WTTt7",
+          "name": "LPT:products"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8a4ef91e-0006-44cd-950d-d413ae32b076",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1024,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "id": "7b32f688-46bd-4e06-8df0-aa1162a48c5a",
+      "name": "Supabase Vector Store1",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# n8n + Crawl4AI Agent\n\n## Author: [Cole Medin](https://www.youtube.com/@ColeMedin)\n\nThis AI agent demonstrates how to use a Docker deployment of Crawl4AI to leverage this incredible open source web scraping tool directly in n8n.\n\nThe prerequisite for this workflow is that you have Crawl4AI hosted in a Docker container following these [instructions in the their docs](https://docs.crawl4ai.com/core/docker-deploymeny/).\n\n## How to use this workflow\n\n1. Execute the bottom workflow by clicking on \"Test workflow\". This will ingest all the Pydantic AI documentation into the Supabase DB for RAG.\n\n2. Chat with the agent with the \"Chat\" button - it'll be able to answer questions about Pydantic AI using the documentation as its source!\n\n## Extend this workflow!\n\nThis is just a starting point showing you how to use Crawl4AI in n8n! Feel free to take this along with the Crawl4AI documentation to run wild with building RAG AI agents. The possibilities with this setup are endless!",
+        "height": 613.6610941618816,
+        "width": 589.875,
+        "color": 6
+      },
+      "id": "50aa7ce1-0302-40c3-adca-690228197c0e",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## config\nhttps://youtu.be/c5dw_jsGNBk?si=wOZJ5OOt5pipnYMJ&t=1659",
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2304,
+        336
+      ],
+      "id": "cebd78d4-3a70-4425-8f69-80459c83948e",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-26T00:24:41.530Z",
+      "updatedAt": "2025-08-26T00:24:41.530Z",
+      "role": "workflow:owner",
+      "workflowId": "Czpng4did4ipHoJP",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-26T00:41:53.000Z",
+  "versionId": "f5ede6f4-7377-4772-938c-5d76e49088b1"
+}
