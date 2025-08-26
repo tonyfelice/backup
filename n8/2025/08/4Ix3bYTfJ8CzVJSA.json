@@ -1,7 +1,7 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
-    "Call n8n Workflow Tool": {
+    "czmDateTime": {
       "ai_tool": [
         [
           {
@@ -31,15 +31,17 @@
       ],
       "id": "8c760254-c334-418d-b1fb-a2889fc514a1",
       "name": "MCP Server Trigger",
-      "webhookId": "2bdbf183-18ed-491c-8b5a-997f20da2815"
+      "webhookId": "2bdbf183-18ed-491c-8b5a-997f20da2815",
+      "notesInFlow": false
     },
     {
       "parameters": {
+        "description": "this tool provides the date and time",
         "workflowId": {
           "__rl": true,
           "value": "IbyycCYN4zlmL3ID",
           "mode": "list",
-          "cachedResultName": "hello world"
+          "cachedResultName": "testing: stubbed sub (dateTime)"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -53,11 +55,11 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        288,
-        208
+        144,
+        272
       ],
       "id": "95dba5d8-75b4-414f-b14f-c6c5dbfa0395",
-      "name": "Call n8n Workflow Tool"
+      "name": "czmDateTime"
     }
   ],
   "pinData": {},
@@ -78,7 +80,7 @@
   ],
   "staticData": null,
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-08-08T20:55:19.000Z",
-  "versionId": "e73c8427-4a63-4a43-bee9-ed728e265191"
+  "triggerCount": 1,
+  "updatedAt": "2025-08-25T23:01:42.000Z",
+  "versionId": "a7f19016-695d-402a-af68-808787f24282"
 }
