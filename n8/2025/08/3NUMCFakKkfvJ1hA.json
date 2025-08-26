@@ -159,6 +159,7 @@
         "additionalFields": {
           "city": "={{ $json.City }}",
           "companyName": "={{ $json.Company_Name }}",
+          "contactOwner": 63519655,
           "customPropertiesUi": {
             "customPropertiesValues": [
               {
@@ -203,8 +204,9 @@
         "stageId": "1830165189",
         "ticketName": "={{ $('When Executed by Another Workflow').item.json.Email }}",
         "additionalFields": {
-          "associatedContactIds": "={{ $json.vid }}",
-          "description": "={{ $('When Executed by Another Workflow').item.json.Description }}"
+          "associatedContactIds": "={{ [$json.vid] }}",
+          "description": "={{ $('When Executed by Another Workflow').item.json.Description }}",
+          "ticketOwnerId": 63519655
         }
       },
       "type": "n8n-nodes-base.hubspot",
@@ -324,7 +326,13 @@
           "amount": "={{ $('When Executed by Another Workflow').item.json.Budget }}",
           "associatedVids": "={{ $json.vid }}",
           "description": "={{ $('When Executed by Another Workflow').item.json.Description }}",
-          "dealName": "={{ $('When Executed by Another Workflow').item.json.Email }}"
+          "dealName": "={{ $('When Executed by Another Workflow').item.json.Email }}",
+          "dealOwner": {
+            "__rl": true,
+            "value": 63519655,
+            "mode": "list",
+            "cachedResultName": "tf@tonyfelice.net"
+          }
         }
       },
       "type": "n8n-nodes-base.hubspot",
@@ -367,22 +375,6 @@
       ],
       "id": "d79be2db-0816-4669-a771-49331a6ed4c6",
       "name": "output"
-    },
-    {
-      "parameters": {
-        "content": "### Need v 107 update\nReturns Cannot read properties of undefined (reading 'cause')\n\nCreates a ticket, but doesn't assign to contact. ",
-        "height": 288,
-        "width": 352,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        704,
-        -320
-      ],
-      "id": "5139b37e-eb61-4c2a-afb3-13b5ecb09cd8",
-      "name": "Sticky Note"
     }
   ],
   "pinData": {
@@ -433,6 +425,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-18T21:18:16.000Z",
-  "versionId": "957c2692-3747-4cff-aefc-45e04edebe9a"
+  "updatedAt": "2025-08-25T20:57:58.000Z",
+  "versionId": "ca9c72c7-d3e7-4d53-8d94-9dc27391d17f"
 }
