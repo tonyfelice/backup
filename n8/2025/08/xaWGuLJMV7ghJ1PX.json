@@ -142,7 +142,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: chat capture live",
+  "name": "CZM: chat capture nofiles",
   "nodes": [
     {
       "parameters": {
@@ -269,6 +269,36 @@
             {
               "id": "Files",
               "displayName": "Files",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timezone",
+              "displayName": "Timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "referer",
+              "displayName": "referer",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -504,6 +534,36 @@
               "removed": false
             },
             {
+              "id": "Timezone",
+              "displayName": "Timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "referer",
+              "displayName": "referer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
               "id": "Error",
               "displayName": "Error",
               "required": false,
@@ -640,6 +700,36 @@
             {
               "id": "Files",
               "displayName": "Files",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timezone",
+              "displayName": "Timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "referer",
+              "displayName": "referer",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -954,13 +1044,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-17T23:59:40.815Z",
-      "updatedAt": "2025-08-17T23:59:40.815Z",
-      "id": "3xekQCysfg8WeVyP",
-      "name": "production"
+      "createdAt": "2025-08-21T23:30:26.930Z",
+      "updatedAt": "2025-08-21T23:30:26.930Z",
+      "id": "TC6GN8ukWr58QCW8",
+      "name": "dev"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-08-25T00:28:01.000Z",
-  "versionId": "c5f36f77-bced-4067-bc1e-d18065e26e60"
+  "updatedAt": "2025-08-25T19:19:18.000Z",
+  "versionId": "dd3e3d8e-d65e-4ffb-bd5e-a96e92617ba8"
 }
