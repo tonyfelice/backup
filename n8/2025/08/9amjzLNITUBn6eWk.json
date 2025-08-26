@@ -198,7 +198,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nif (numerRegex.test($('get contact').first().json.vid)) {\n  return [{ json: { output: String(\"Success\") } }];\n} else {\n  return [{ json: { output: String(\"Service Unavailable. Please retry.\") } }];\n}"
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nif (numerRegex.test($('get contact').first().json.vid)) {\n  return [{ json: { output: String(\"Success\") } }];\n} else {\n  return [{ json: { output: String(\"Service Unavailable. No function specified.\") } }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -589,6 +589,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-20T00:54:21.000Z",
-  "versionId": "3747d3d3-aeb7-4e7f-a58d-4a4d3fab8e68"
+  "updatedAt": "2025-08-25T19:24:04.000Z",
+  "versionId": "f5644180-35be-47f9-9749-8813b83ea1ca"
 }
