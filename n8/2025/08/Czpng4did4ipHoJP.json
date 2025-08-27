@@ -174,17 +174,6 @@
         ]
       ]
     },
-    "Postgres Chat Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Vector Store Tool": {
       "ai_tool": [
         [
@@ -239,12 +228,25 @@
           }
         ]
       ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-26T00:24:41.524Z",
   "id": "Czpng4did4ipHoJP",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "crawl4ai",
   "nodes": [
     {
@@ -260,7 +262,7 @@
     },
     {
       "parameters": {
-        "url": "https://ai.pydantic.dev/sitemap.xml",
+        "url": "https://liquidyneusa.com/sitemap_products_1.xml?from=6565970575492&to=9997756596356",
         "options": {}
       },
       "id": "e9220244-868d-4dbc-a1ba-73093abddf5b",
@@ -313,7 +315,9 @@
       ]
     },
     {
-      "parameters": {},
+      "parameters": {
+        "amount": 10
+      },
       "id": "0b1126f8-e2d1-44bc-a954-0297e8d2e7f5",
       "name": "Wait",
       "type": "n8n-nodes-base.wait",
@@ -523,18 +527,13 @@
       "position": [
         928,
         272
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "bdead270-aa4e-4973-bfff-21cb9807b69b",
-      "name": "Postgres Chat Memory",
-      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
-      "typeVersion": 1.3,
-      "position": [
-        1072,
-        272
-      ]
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
     },
     {
       "parameters": {
@@ -561,7 +560,13 @@
       "position": [
         1168,
         464
-      ]
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
     },
     {
       "parameters": {
@@ -574,7 +579,13 @@
       "position": [
         1552,
         352
-      ]
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
     },
     {
       "parameters": {
@@ -636,7 +647,13 @@
       "position": [
         1200,
         320
-      ]
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "Mr77IC6Qde7WTTt7",
+          "name": "LPT:products"
+        }
+      }
     },
     {
       "parameters": {
@@ -667,6 +684,17 @@
       ],
       "id": "cebd78d4-3a70-4425-8f69-80459c83948e",
       "name": "Sticky Note1"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1040,
+        256
+      ],
+      "id": "825965bf-16f5-4f55-9d55-ff3384d91ae4",
+      "name": "Simple Memory"
     }
   ],
   "pinData": {},
@@ -688,6 +716,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-26T00:41:53.000Z",
-  "versionId": "f5ede6f4-7377-4772-938c-5d76e49088b1"
+  "updatedAt": "2025-08-26T17:47:42.000Z",
+  "versionId": "985f4976-0dca-4417-b41a-8e5d3f7234ee"
 }
