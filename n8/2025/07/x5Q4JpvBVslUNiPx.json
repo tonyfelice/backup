@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "HTML",
+            "node": "from human",
             "type": "main",
             "index": 0
           }
@@ -35,10 +35,7 @@
     {
       "parameters": {
         "public": true,
-        "mode": "webhook",
-        "options": {
-          "loadPreviousSession": "notSupported"
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
@@ -49,19 +46,6 @@
       "id": "8a927727-b043-4ee0-a944-cb19d4792ef9",
       "name": "When chat message received",
       "webhookId": "97e47d9e-daf0-49d0-ac1d-d954799b7393"
-    },
-    {
-      "parameters": {
-        "html": "Sample chat response to avoid gas fees during testing. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
-      },
-      "type": "n8n-nodes-base.html",
-      "typeVersion": 1.2,
-      "position": [
-        432,
-        0
-      ],
-      "id": "d8694d47-9f11-467b-9ec4-56812518a4e0",
-      "name": "HTML"
     },
     {
       "parameters": {
@@ -76,6 +60,19 @@
       "id": "7516911d-7ea3-4ed6-aed7-bf0d49184d25",
       "name": "Wait",
       "webhookId": "ea53866d-9014-445b-924c-d686dfc51de1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { output: \"Sample chat response to avoid gas fees during testing. Had this been an actual response, you would likely have been treated to an overly enthusiastic response, and a follow up question that would make Captian Obvious blush.\" } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        0
+      ],
+      "id": "4a4b71ee-4577-4dde-a8a9-07a8d06afc2c",
+      "name": "from human"
     }
   ],
   "pinData": {},
@@ -97,6 +94,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-17T01:09:07.000Z",
-  "versionId": "673bbcee-56c1-4d72-8e48-2365f58bb3a9"
+  "updatedAt": "2025-08-29T17:14:18.000Z",
+  "versionId": "3b5467fa-1f75-4569-9fe6-83b3955624bd"
 }
