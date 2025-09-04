@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "If",
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
@@ -24,6 +24,12 @@
       ]
     },
     "If": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Switch": {
       "main": [
         [
           {
@@ -34,7 +40,36 @@
         ],
         [
           {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "short response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "varied",
             "type": "main",
             "index": 0
           }
@@ -107,21 +142,21 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        416,
-        0
+        256,
+        -288
       ],
       "id": "5703c435-4cee-4d4c-909e-366cea38660c",
       "name": "If"
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { output: \"Sample chat response to avoid gas fees during testing. Had this been an actual response, you would likely have been treated to an overly enthusiastic response, and a follow up question that would make Captian Obvious blush. If you need a long response, say 'long'\" } }];"
+        "jsCode": "return [{ json: { output: \"Sample chat response to avoid gas fees during testing. Had this been an actual response, you would likely have been treated to an overly enthusiastic response, and a follow up question that would make Captain Obvious blush. If you need a long response, say 'long'. For a complex response containing code blocks and lists, say 'html'.\" } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         624,
-        112
+        160
       ],
       "id": "4a4b71ee-4577-4dde-a8a9-07a8d06afc2c",
       "name": "short response"
@@ -134,10 +169,139 @@
       "typeVersion": 2,
       "position": [
         624,
-        -112
+        -176
       ],
       "id": "2af219bc-6a4c-4084-921c-c5ba0e8778f2",
       "name": "long response"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "^(l|L)ong$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    },
+                    "id": "61bb5bb9-4bab-4180-869a-0d14074304b2"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "long"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "696d6185-f5f5-42bc-93ca-4d9232ccc864",
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "^(h|H)tml$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "html"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "64cde00d-8ef5-4e3f-b4e9-a82677cf34a8",
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "^((h|H)tml|(l|L)ong)$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "else"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        416,
+        -16
+      ],
+      "id": "dc3710c8-828b-4195-a750-e03503d1704e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { output: $input.first().json.data } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "061062f4-40f2-444c-86f7-54ad07200a3c",
+      "name": "varied"
+    },
+    {
+      "parameters": {
+        "html": "<p>We've got a bunch of boilerplate content here for testing the interface, layout, and styles.</p>\n\n<h1>Here is the Header h1</h1>\n\t<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n<h2>Here is the Header h2</h2>\n\t<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n<h3>Here is the Header h3</h3>\n\t<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n<h4>Here is the Header h4</h4>\n\t<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n<h5>Here is the Header h5</h5>\n\t<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n\t<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\n\n\n<p>here is a simple \"Hello World\" example using HTML, CSS, and JavaScript</p>\n<p><strong>HTML:</strong></p>\n<pre><code class=\"language-html\"><span class=\"hljs-meta\">&lt;!DOCTYPE <span class=\"hljs-keyword\">html</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">html</span> <span class=\"hljs-attr\">lang</span>=<span class=\"hljs-string\">\"en\"</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">head</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">meta</span> <span class=\"hljs-attr\">charset</span>=<span class=\"hljs-string\">\"UTF-8\"</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">meta</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"viewport\"</span> <span class=\"hljs-attr\">content</span>=<span class=\"hljs-string\">\"width=device-width, initial-scale=1.0\"</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">title</span>&gt;</span>Hello World<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">title</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">link</span> <span class=\"hljs-attr\">rel</span>=<span class=\"hljs-string\">\"stylesheet\"</span> <span class=\"hljs-attr\">href</span>=<span class=\"hljs-string\">\"styles.css\"</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">head</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">body</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">h1</span> <span class=\"hljs-attr\">id</span>=<span class=\"hljs-string\">\"greeting\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">h1</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span> <span class=\"hljs-attr\">src</span>=<span class=\"hljs-string\">\"script.js\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">body</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">html</span>&gt;</span>\n</code></pre>\n<p><strong>CSS (styles.css):</strong></p>\n<pre><code class=\"language-css\">body {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    background-color: #f0f0f0;\n}\n\nh1 {\n    color: #333;\n}\n</code></pre>\n<p><strong>JavaScript (script.js):</strong></p>\n<pre><code class=\"language-javascript\"><span class=\"hljs-variable language_\">document</span>.<span class=\"hljs-title function_\">getElementById</span>(<span class=\"hljs-string\">'greeting'</span>).<span class=\"hljs-property\">textContent</span> = <span class=\"hljs-string\">'Hello, World!'</span>;\n</code></pre>\n<p>Here is a sample ordered list</p>\n  <ol>\n    <li>Mercury</li>\n    <li>Venus</li>\n    <li>Earth</li>\n    <li>Mars</li>\n    <li>Jupiter</li>\n    <li>Saturn</li>\n    <li>Uranus</li>\n    <li>Neptune</li>\n  </ol>\n\n<p>Here is a sample unordered list</p>\n<ul>\n<li><atrong>Cesium-131</atrong>: Used in brachytherapy for treating some types of cancer.</li>\n<li><atrong>Cesium-133</atrong>: The only stable and naturally occurring isotope of cesium.</li>\n<li><atrong>Cesium-134</atrong>: A radioactive isotope used in some medical and industrial applications.</li>\n<li><atrong>Cesium-135</atrong>: A long-lived radioactive isotope found in nuclear waste.</li>\n<li><atrong>Cesium-137</atrong>: A radioactive isotope produced from nuclear fission, used for medical and industrial applications.</li>\n</ul>\n\n<p>Here is an hr</p>\n  <hr>\n<p>Here is a link</p>\n  <a href=\"#\">sample link</a>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "be2d6fc1-bb12-40e0-a891-6bffb05af2fc",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        832,
+        0
+      ],
+      "id": "3737236f-d21a-432b-8fed-7dc8780c8dac",
+      "name": "Markdown"
     }
   ],
   "pinData": {},
@@ -159,6 +323,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-03T02:26:33.000Z",
-  "versionId": "66548bde-ac74-4725-95ba-9f9ec0b672fa"
+  "updatedAt": "2025-09-03T20:31:49.000Z",
+  "versionId": "cb8f3e73-cec7-4367-be97-e3b4431c6098"
 }
