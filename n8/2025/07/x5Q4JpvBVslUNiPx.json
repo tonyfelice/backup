@@ -23,12 +23,6 @@
         ]
       ]
     },
-    "If": {
-      "main": [
-        [],
-        []
-      ]
-    },
     "Switch": {
       "main": [
         [
@@ -102,7 +96,7 @@
     },
     {
       "parameters": {
-        "amount": 3
+        "amount": 2
       },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
@@ -113,40 +107,6 @@
       "id": "7516911d-7ea3-4ed6-aed7-bf0d49184d25",
       "name": "Wait",
       "webhookId": "ea53866d-9014-445b-924c-d686dfc51de1"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "767a377e-4e23-4001-a627-d8b7aecd57d7",
-              "leftValue": "={{ $json.chatInput }}",
-              "rightValue": "long",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        256,
-        -288
-      ],
-      "id": "5703c435-4cee-4d4c-909e-366cea38660c",
-      "name": "If"
     },
     {
       "parameters": {
@@ -323,6 +283,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-03T20:31:49.000Z",
-  "versionId": "cb8f3e73-cec7-4367-be97-e3b4431c6098"
+  "updatedAt": "2025-09-04T17:52:47.000Z",
+  "versionId": "0742ce8d-0f8f-4308-973e-cdf2edd66ffd"
 }
