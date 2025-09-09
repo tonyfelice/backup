@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Convo Agent": {
       "main": [
@@ -171,7 +171,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: chat capture live",
+  "name": "CZM: chat capture 2.0",
   "nodes": [
     {
       "parameters": {
@@ -1247,15 +1247,8 @@
     }
   ],
   "staticData": null,
-  "tags": [
-    {
-      "createdAt": "2025-08-17T23:59:40.815Z",
-      "updatedAt": "2025-08-17T23:59:40.815Z",
-      "id": "3xekQCysfg8WeVyP",
-      "name": "production"
-    }
-  ],
+  "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-01T05:11:21.000Z",
-  "versionId": "6a56684c-8209-4db9-960a-4b49e9f18888"
+  "updatedAt": "2025-09-08T18:54:14.000Z",
+  "versionId": "2e8198b6-fd0f-41b2-9952-07b723373444"
 }
