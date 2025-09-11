@@ -1,0 +1,161 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-10T20:51:58.735Z",
+  "id": "qTLkhL3G7FSRMsmz",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {
+          "loadPreviousSession": "notSupported"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -208,
+        0
+      ],
+      "id": "c4e66613-124a-4ba4-846c-2a4ce763a640",
+      "name": "When chat message received",
+      "webhookId": "85f045db-61c2-4b3d-95fc-908cb95054c3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "baf86788-d17a-471e-8910-4fef35adff73",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        160,
+        224
+      ],
+      "id": "51e4b998-9995-4a30-a269-6a6a77ad22ef",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "l2BRSEsuoKcYMydD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        304,
+        224
+      ],
+      "id": "032f74a0-0aa0-46cc-afb3-cbb2f5125698",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"sessionId\": \"{{ typeof $json.metadata === 'undefined' ? $json.sessionId : $json.metadata.sessionId }}\",\n  \"action\": \"{{ $json.action }}\",\n  \"chatInput\": {{ JSON.stringify($json.chatInput) }},\n  \"metadata\": {{ typeof $json.metadata !== 'undefined' ? $json.metadata : {} }}\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "87cbb3de-6666-4300-a2bd-e8b2c5d03218",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-10T20:51:58.741Z",
+      "updatedAt": "2025-09-10T20:51:58.741Z",
+      "role": "workflow:owner",
+      "workflowId": "qTLkhL3G7FSRMsmz",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-10T20:55:36.000Z",
+  "versionId": "280e6852-9862-4f06-98e7-29a32c84c376"
+}
