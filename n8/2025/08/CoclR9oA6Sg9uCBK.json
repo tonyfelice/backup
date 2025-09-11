@@ -22,7 +22,9 @@
   "name": "CZM: assistant",
   "nodes": [
     {
-      "parameters": {},
+      "parameters": {
+        "inputSource": "passthrough"
+      },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
@@ -34,8 +36,13 @@
     },
     {
       "parameters": {
+        "sendTo": "t@czm.ai",
+        "subject": "Just checking in ",
+        "emailType": "text",
+        "message": "hey tony it's just a test",
         "options": {
-          "senderName": ""
+          "appendAttribution": false,
+          "senderName": "Cesium <human@czm.ai>"
         }
       },
       "type": "n8n-nodes-base.gmail",
@@ -81,6 +88,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-08T18:55:05.000Z",
-  "versionId": "f539bd59-adc5-4afe-97e3-b6ac351bc98d"
+  "updatedAt": "2025-09-10T18:02:13.000Z",
+  "versionId": "9d193fc6-0d57-4b49-ab4c-0f3edace67ef"
 }
