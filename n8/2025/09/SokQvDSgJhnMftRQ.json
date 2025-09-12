@@ -1,0 +1,747 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "gatekeeper",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "merge": {
+      "main": [
+        [
+          {
+            "node": "output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get logs": {
+      "main": [
+        [
+          {
+            "node": "group logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "group logs": {
+      "main": [
+        [
+          {
+            "node": "format logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format logs": {
+      "main": [
+        [
+          {
+            "node": "cr(u)Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gatekeeper": {
+      "main": [
+        [
+          {
+            "node": "no email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "get logs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "no function",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "no budget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createTicket": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createDeal": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "cr(u)Contact": {
+      "main": [
+        [
+          {
+            "node": "router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "router": {
+      "main": [
+        [
+          {
+            "node": "createTicket",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "createDeal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "passthru",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "passthru": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "no email": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-09-11T17:43:13.857Z",
+  "id": "SokQvDSgJhnMftRQ",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: contact_manager 2.0",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Function"
+            },
+            {
+              "name": "Email"
+            },
+            {
+              "name": "First_Name"
+            },
+            {
+              "name": "Last_Name"
+            },
+            {
+              "name": "Phone_Number"
+            },
+            {
+              "name": "Description"
+            },
+            {
+              "name": "Message"
+            },
+            {
+              "name": "Budget"
+            },
+            {
+              "name": "Job_Title"
+            },
+            {
+              "name": "Company_Name"
+            },
+            {
+              "name": "Website_URL"
+            },
+            {
+              "name": "City"
+            },
+            {
+              "name": "State_Region"
+            },
+            {
+              "name": "Postal_Code"
+            },
+            {
+              "name": "sessionId"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        64,
+        192
+      ],
+      "id": "71c8f07c-6dd2-4b72-9874-e3ccc7c941b8",
+      "name": "When Executed by Another Workflow",
+      "retryOnFail": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1888,
+        160
+      ],
+      "id": "8e898b5a-2170-4d9b-9c91-7b11458a8a67",
+      "name": "merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('cr(u)Contact').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { output: String(\"Success.\") } }];\n} else {\n  return [{ json: { output: String(\"Error. Our CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2080,
+        176
+      ],
+      "id": "149daca8-4705-440e-aa91-21aee6d89dac",
+      "name": "output"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "n8n_chat_log",
+        "returnAll": true,
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "sessionId",
+              "condition": "eq",
+              "keyValue": "={{ $('When Executed by Another Workflow').item.json.sessionId }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        480,
+        176
+      ],
+      "id": "934a1b3d-105c-4a5d-b97a-f0076ebb5740",
+      "name": "get logs",
+      "credentials": {
+        "supabaseApi": {
+          "id": "UseJTnYu3ytNk9xR",
+          "name": "CZM supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "history",
+        "include": "specifiedFields",
+        "fieldsToInclude": "created_at, chatInput, response, files",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        672,
+        176
+      ],
+      "id": "f1090f29-a321-4ea4-8f7d-8ec8b115b8ac",
+      "name": "group logs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const options = {\n  timeZone: \"America/Denver\",\n  month: \"short\", \n  day: \"2-digit\", \n  hour: \"numeric\", \n  minute: \"2-digit\",\n  hour12: false\n};\nconst formatter = new Intl.DateTimeFormat(\"en-US\", options);\nconst dat = items[0].json['history'];\n\nconst textBlock = dat.map(entry => {\n  const lines = Object.keys(entry).map(key => {\n    let value = \"\";\n    if (key === \"created_at\") {\n      let dat = new Date(entry[key]);\n      value = `${formatter.format(dat)}`;\n    } else if (key === \"files\") {\n      if (entry[key] !== null) {\n        value = `Attachments: ${entry[key]}`;\n      }\n    } else if (key === \"chatInput\") {\n      value = `USER: ${entry[key]}`; // Convert to all caps\n    } else if (key === \"response\") {\n        value = `AI: ${entry[key]}`;\n    } else {\n      value = entry[key] !== null ? entry[key] : 'null'; \n    }\n    return value;\n  });\n  return lines.filter(Boolean).join('\\n'); // Filter out empty strings from \"files\"\n}).join('\\n\\n');\n\nreturn {\"history\": textBlock};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        176
+      ],
+      "id": "52de78fb-a731-468f-9f57-a3d57b062056",
+      "name": "format logs"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d50afcd5-cac2-497f-bf01-f099b94813f5",
+                    "leftValue": "={{ $json.Email }}",
+                    "rightValue": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no email"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$/.test($json.Email) && /^(createContact|updateContact|createTicket|createDeal)$/.test($json.Function) }}",
+                    "rightValue": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "754ba668-a12b-47e7-951b-34a8e58bd2e3"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "pass"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "12863fb3-1acd-4f10-9f5a-86393f773cc7",
+                    "leftValue": "={{ $json.Function }}",
+                    "rightValue": "^(createContact|updateContact|createTicket|createDeal)$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no function"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c2202670-b2ad-4f2c-a178-5fa0a6c36ffc",
+                    "leftValue": "={{ $json.Function == `createDeal` && $json.Budget === null }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no budget"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        272,
+        160
+      ],
+      "id": "bd26b2d2-c55a-4b0e-93e3-a7ccafcc5675",
+      "name": "gatekeeper"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "ticket",
+        "pipelineId": "1153569502",
+        "stageId": "1830165189",
+        "ticketName": "={{ $('When Executed by Another Workflow').item.json.Email }}",
+        "additionalFields": {
+          "associatedContactIds": "={{ [$json.vid] }}",
+          "description": "={{ $('When Executed by Another Workflow').item.json.Description }}",
+          "ticketOwnerId": 63519655
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1552,
+        16
+      ],
+      "id": "556c3dbe-2e7f-4a44-9d28-296b88970d00",
+      "name": "createTicket",
+      "retryOnFail": false,
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "deal",
+        "stage": "1226436293",
+        "additionalFields": {
+          "amount": "={{ $('When Executed by Another Workflow').item.json.Budget }}",
+          "associatedVids": "={{ $json.vid }}",
+          "description": "={{ $('When Executed by Another Workflow').item.json.Description }}",
+          "dealName": "={{ $('When Executed by Another Workflow').item.json.Email }}",
+          "dealOwner": {
+            "__rl": true,
+            "value": 63519655,
+            "mode": "list",
+            "cachedResultName": "tf@tonyfelice.net"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1552,
+        176
+      ],
+      "id": "234a5a00-7ddb-4101-9cf1-4d81af9fb19f",
+      "name": "createDeal",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $('When Executed by Another Workflow').item.json.Email }}",
+        "additionalFields": {
+          "city": "={{ $('When Executed by Another Workflow').item.json.City }}",
+          "companyName": "={{ $('When Executed by Another Workflow').item.json.Company_Name }}",
+          "contactOwner": 63519655,
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "chatsessionid",
+                "value": "={{ $('When Executed by Another Workflow').item.json.sessionId }}"
+              },
+              {
+                "property": "chathistory",
+                "value": "={{ $json.history }}"
+              }
+            ]
+          },
+          "firstName": "={{ $('When Executed by Another Workflow').item.json.First_Name }}",
+          "jobTitle": "={{ $('When Executed by Another Workflow').item.json.Job_Title }}",
+          "lastName": "={{ $('When Executed by Another Workflow').item.json.Last_Name }}",
+          "message": "={{ $('When Executed by Another Workflow').item.json.Description }}",
+          "phoneNumber": "={{ $('When Executed by Another Workflow').item.json.Phone_Number }}",
+          "postalCode": "={{ $('When Executed by Another Workflow').item.json.Postal_Code }}",
+          "stateRegion": "={{ $('When Executed by Another Workflow').item.json.State_Region }}"
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1056,
+        176
+      ],
+      "id": "46f3da6f-c0ee-4edb-9ab5-6fb2f4d879e7",
+      "name": "cr(u)Contact",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": " return [{ json: { output: String(\"ERROR: you must provide a function. Valid functions are: `createContact`, `updateContact`, `createTicket`, `createDeal`. Customer's email is required for all functions. To call createDeal, the customer's budget range is also required.\") } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        336
+      ],
+      "id": "9f858780-ad9a-4636-9e44-20b4772e7a87",
+      "name": "no function"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6774920a-65dd-4a51-a7c9-4fb6a60710b8",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "createTicket",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "createTicket"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "85dabdfc-25be-42f8-9899-979d8613eaf6",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "createDeal",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "createDeal"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b7adfcf7-3c20-4cd2-9606-b0db154ca76e",
+                    "leftValue": "={{ $('When Executed by Another Workflow').item.json.Function }}",
+                    "rightValue": "^(createTicket|createDeal|getContact)$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "other"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1248,
+        160
+      ],
+      "id": "cb04aa4d-efa5-45c9-90c9-9e254312ddb9",
+      "name": "router"
+    },
+    {
+      "parameters": {
+        "jsCode": " return [{ json: { output: String(\"ERROR: To call createDeal, the customer's budget range is also required. To log an opportunity without budget, use the createTicket function.\") } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        496
+      ],
+      "id": "62fcb795-c643-40b9-9437-e6f4802cb2ca",
+      "name": "no budget"
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = { \"vid\" : $input.first().json.vid };\nreturn out;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1552,
+        336
+      ],
+      "id": "f58ee3a3-da3d-495c-96da-6a6855c8766e",
+      "name": "passthru"
+    },
+    {
+      "parameters": {
+        "jsCode": " return [{ json: { output: String(\"ERROR: You **must** provide the **user's email address**  to use this tool.\") } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        16
+      ],
+      "id": "a4d6e6a9-40c7-4e4d-8737-69157a507eef",
+      "name": "no email"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "Function": null,
+          "Email": null,
+          "First_Name": null,
+          "Last_Name": null,
+          "Phone_Number": null,
+          "Description": null,
+          "Message": null,
+          "Budget": null,
+          "Job_Title": null,
+          "Company_Name": null,
+          "Website_URL": null,
+          "City": null,
+          "State_Region": null,
+          "Postal_Code": null,
+          "sessionId": "409a3972-0fd8-4726-8b29-339bdec5d696"
+        }
+      }
+    ]
+  },
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-11T17:43:13.862Z",
+      "updatedAt": "2025-09-11T17:43:13.862Z",
+      "role": "workflow:owner",
+      "workflowId": "SokQvDSgJhnMftRQ",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T23:30:26.930Z",
+      "updatedAt": "2025-08-21T23:30:26.930Z",
+      "id": "TC6GN8ukWr58QCW8",
+      "name": "dev"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-12T01:21:03.000Z",
+  "versionId": "89f43fdc-dc06-4033-9fe9-8e4ccc00f5ac"
+}
