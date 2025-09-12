@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Convo Agent": {
       "main": [
@@ -1265,13 +1265,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-17T23:59:40.815Z",
-      "updatedAt": "2025-08-17T23:59:40.815Z",
-      "id": "3xekQCysfg8WeVyP",
-      "name": "production"
+      "createdAt": "2025-08-21T23:30:26.930Z",
+      "updatedAt": "2025-08-21T23:30:26.930Z",
+      "id": "TC6GN8ukWr58QCW8",
+      "name": "dev"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-09-09T23:30:48.000Z",
-  "versionId": "10eace48-0a6f-4b6d-a9fb-eacc7c2aab6c"
+  "updatedAt": "2025-09-12T02:14:21.000Z",
+  "versionId": "080ad4e8-5aa5-407f-9c5d-37b3f237c09f"
 }
