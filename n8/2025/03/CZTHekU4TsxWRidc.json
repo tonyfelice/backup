@@ -219,7 +219,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: Brainstorm: Use Cases",
+  "name": "CZM: Use Cases Brainstorm",
   "nodes": [
     {
       "parameters": {
@@ -1003,6 +1003,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-08-20T00:53:08.000Z",
-  "versionId": "5da13410-1ea8-4586-9fd2-663108a3c468"
+  "updatedAt": "2025-09-12T02:13:52.000Z",
+  "versionId": "b2340884-90b3-4332-a8d2-deaec2ad57c9"
 }
