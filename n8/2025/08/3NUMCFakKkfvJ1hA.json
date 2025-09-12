@@ -88,7 +88,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: contact_manager live",
+  "name": "CZM: contact_manager 1.0",
   "nodes": [
     {
       "parameters": {
@@ -425,6 +425,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-25T20:57:58.000Z",
-  "versionId": "ca9c72c7-d3e7-4d53-8d94-9dc27391d17f"
+  "updatedAt": "2025-09-11T17:42:56.000Z",
+  "versionId": "7e10b2bb-6a64-42aa-95a6-10c4c092818f"
 }
