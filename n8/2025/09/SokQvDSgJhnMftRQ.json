@@ -61,7 +61,7 @@
       "main": [
         [
           {
-            "node": "no email",
+            "node": "Stop and Error",
             "type": "main",
             "index": 0
           }
@@ -691,6 +691,33 @@
       ],
       "id": "a4d6e6a9-40c7-4e4d-8737-69157a507eef",
       "name": "no email"
+    },
+    {
+      "parameters": {
+        "errorMessage": "ERROR: No email address provided. You **must** provide the **user's email address**  to use this tool."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -160
+      ],
+      "id": "b3c37f27-9210-4de2-a44f-d885a4858ce6",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "errorType": "errorObject",
+        "errorObject": "{ \"ERROR\" : \"**EMAIL ADDRESS REQUIRED**. You **must** provide the **user's email address**  to use this tool.\"}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        656,
+        -160
+      ],
+      "id": "ecd679b8-4c96-4ca5-ac5b-9e1c3693305d",
+      "name": "Stop and Error1"
     }
   ],
   "pinData": {
@@ -742,6 +769,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-12T01:21:03.000Z",
-  "versionId": "89f43fdc-dc06-4033-9fe9-8e4ccc00f5ac"
+  "updatedAt": "2025-09-13T02:56:52.000Z",
+  "versionId": "8821dc4c-cee0-4760-9348-d4396cf69dbc"
 }
