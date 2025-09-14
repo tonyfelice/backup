@@ -776,15 +776,8 @@
     }
   ],
   "staticData": null,
-  "tags": [
-    {
-      "createdAt": "2025-08-17T23:59:40.815Z",
-      "updatedAt": "2025-08-17T23:59:40.815Z",
-      "id": "3xekQCysfg8WeVyP",
-      "name": "production"
-    }
-  ],
+  "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-11T17:41:40.000Z",
-  "versionId": "4b5efac7-278d-42c1-aba5-d674b5fb6a2f"
+  "updatedAt": "2025-09-14T03:37:03.000Z",
+  "versionId": "f9e13171-5dc4-4086-9109-f8534ce20cf0"
 }
