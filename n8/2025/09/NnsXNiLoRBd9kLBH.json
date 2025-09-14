@@ -1263,15 +1263,8 @@
     }
   ],
   "staticData": null,
-  "tags": [
-    {
-      "createdAt": "2025-08-21T23:30:26.930Z",
-      "updatedAt": "2025-08-21T23:30:26.930Z",
-      "id": "TC6GN8ukWr58QCW8",
-      "name": "dev"
-    }
-  ],
+  "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-12T02:14:21.000Z",
-  "versionId": "080ad4e8-5aa5-407f-9c5d-37b3f237c09f"
+  "updatedAt": "2025-09-14T03:36:55.000Z",
+  "versionId": "3d05c1da-6ed1-454d-8ab4-9e0a41a27a7d"
 }
