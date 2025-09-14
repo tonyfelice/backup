@@ -1,0 +1,278 @@
+{
+  "active": false,
+  "connections": {
+    "start": {
+      "main": [
+        [
+          {
+            "node": "search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "search": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "get contact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "createContact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get contact": {
+      "main": [
+        [
+          {
+            "node": "get logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-14T03:39:57.374Z",
+  "id": "4hTSiCXO71wygi9v",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: retrieve contact",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -288,
+        -32
+      ],
+      "id": "10b2ff5e-4699-4287-846f-27dfcb46432c",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "n8n_chat_histories",
+        "returnAll": true,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.properties.chatsessionid.value }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        544,
+        -128
+      ],
+      "id": "20e4c0b3-60b6-4d44-a887-09884ab34ba9",
+      "name": "get logs",
+      "credentials": {
+        "supabaseApi": {
+          "id": "UseJTnYu3ytNk9xR",
+          "name": "CZM supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "operation": "search",
+        "filterGroupsUi": {
+          "filterGroupsValues": [
+            {
+              "filtersUi": {
+                "filterValues": [
+                  {
+                    "propertyName": "email|string",
+                    "value": "tf@feedcats.com"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        -32
+      ],
+      "id": "a89b021c-0850-431d-8ad1-6c69aaf0c353",
+      "name": "search",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.id }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "c436591c-e454-48c6-9429-7e53bf4d6d75"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "id"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a4ce6650-6da4-485f-bb57-99a7a4ac7306",
+                    "leftValue": "={{ $json.id }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notExists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "not found"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        128,
+        -32
+      ],
+      "id": "d8023eca-704a-4652-9fc8-be5538284ad1",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        64
+      ],
+      "id": "710e6043-f9d8-415c-b5d0-358025e05ed2",
+      "name": "createContact",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "operation": "get",
+        "contactId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        -128
+      ],
+      "id": "d915a047-ecfa-4f38-a318-831af4fc1fd4",
+      "name": "get contact",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-14T03:39:57.379Z",
+      "updatedAt": "2025-09-14T03:39:57.379Z",
+      "role": "workflow:owner",
+      "workflowId": "4hTSiCXO71wygi9v",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-14T03:51:47.000Z",
+  "versionId": "89af814a-1b33-4fef-b69a-ec7d78e42428"
+}
