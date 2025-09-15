@@ -51,6 +51,39 @@
           }
         ]
       ]
+    },
+    "get logs": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createContact": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-14T03:39:57.374Z",
@@ -59,7 +92,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: retrieve contact",
+  "name": "CZM: lookup contact 0.1",
   "nodes": [
     {
       "parameters": {
@@ -68,8 +101,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -288,
-        -32
+        -320,
+        -112
       ],
       "id": "10b2ff5e-4699-4287-846f-27dfcb46432c",
       "name": "start"
@@ -127,8 +160,8 @@
       "type": "n8n-nodes-base.hubspot",
       "typeVersion": 2.2,
       "position": [
-        -80,
-        -32
+        -112,
+        -112
       ],
       "id": "a89b021c-0850-431d-8ad1-6c69aaf0c353",
       "name": "search",
@@ -200,8 +233,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        128,
-        -32
+        96,
+        -112
       ],
       "id": "d8023eca-704a-4652-9fc8-be5538284ad1",
       "name": "Switch"
@@ -215,8 +248,8 @@
       "type": "n8n-nodes-base.hubspot",
       "typeVersion": 2.2,
       "position": [
-        336,
-        64
+        544,
+        144
       ],
       "id": "710e6043-f9d8-415c-b5d0-358025e05ed2",
       "name": "createContact",
@@ -252,6 +285,52 @@
           "name": "hs-czm-n8n"
         }
       }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1120,
+        128
+      ],
+      "id": "d179bb1c-5647-4daf-9b0c-572ead4939e8",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e37613a9-4386-4eef-9125-0b588259a248",
+              "name": "properties.firstname.value",
+              "value": "={{ $('get contact').item.json.properties.firstname.value }}",
+              "type": "string"
+            },
+            {
+              "id": "f29ef7e8-19d3-4224-83de-3e7d25894c90",
+              "name": "properties.message.value",
+              "value": "={{ $('get contact').item.json.properties.message.value }}",
+              "type": "string"
+            },
+            {
+              "id": "7a4dd1b2-eacc-420a-b5a3-4305d64d1295",
+              "name": "message",
+              "value": "={{ $json.message }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        752,
+        -128
+      ],
+      "id": "57315627-e5d7-4e96-a612-cba2d2a3a240",
+      "name": "Edit Fields"
     }
   ],
   "pinData": {},
@@ -273,6 +352,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-14T03:51:47.000Z",
-  "versionId": "89af814a-1b33-4fef-b69a-ec7d78e42428"
+  "updatedAt": "2025-09-14T18:56:17.000Z",
+  "versionId": "8456c516-e427-401e-ae85-79e593968689"
 }
