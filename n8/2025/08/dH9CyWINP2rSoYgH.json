@@ -93,7 +93,7 @@
   "id": "dH9CyWINP2rSoYgH",
   "isArchived": false,
   "meta": null,
-  "name": "CZM: suggest availability",
+  "name": "CZM: suggest availability 1.0",
   "nodes": [
     {
       "parameters": {
@@ -299,6 +299,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-20T21:44:47.000Z",
-  "versionId": "00b392fe-8f29-4f84-8276-b29314e3d70e"
+  "updatedAt": "2025-09-14T18:57:00.000Z",
+  "versionId": "60b4f3ff-a05d-42a3-a4d8-3556f9ef7562"
 }
