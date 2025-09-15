@@ -139,7 +139,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: scheduler",
+  "name": "CZM: scheduler 1.0",
   "nodes": [
     {
       "parameters": {
@@ -589,6 +589,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-25T19:24:04.000Z",
-  "versionId": "f5644180-35be-47f9-9749-8813b83ea1ca"
+  "updatedAt": "2025-09-14T18:56:50.000Z",
+  "versionId": "0f8d54d1-d631-4eb0-973a-643fb8b07b79"
 }
