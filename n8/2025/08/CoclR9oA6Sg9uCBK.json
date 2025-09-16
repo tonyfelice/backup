@@ -1,11 +1,33 @@
 {
   "active": false,
   "connections": {
-    "When Executed by Another Workflow": {
+    "format": {
       "main": [
         [
           {
-            "node": "Send a message",
+            "node": "deliver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "basic email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "basic email": {
+      "main": [
+        [
+          {
+            "node": "format",
             "type": "main",
             "index": 0
           }
@@ -19,47 +41,74 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: assistant",
+  "name": "CZM: cesium signed email",
   "nodes": [
     {
       "parameters": {
-        "inputSource": "passthrough"
+        "jsCode": "const html = $json.html;\nconst jsonMessage = JSON.stringify(html);\nreturn {\n  jsonMessage: jsonMessage\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "95ec29aa-4729-44f9-988a-206dc7ab8b1c",
+      "name": "format"
+    },
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"recipient\": \"\",\n  \"subject\": \"\",\n  \"headline\": \"\",\n  \"body\": \"\"\n}"
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        0,
+        -160,
         0
       ],
       "id": "142eeb8f-0637-438e-8357-2fa0c5786b12",
-      "name": "When Executed by Another Workflow"
+      "name": "start"
     },
     {
       "parameters": {
-        "sendTo": "t@czm.ai",
-        "subject": "Just checking in ",
-        "emailType": "text",
-        "message": "hey tony it's just a test",
+        "sendTo": "={{ $('start').item.json.recipient }}",
+        "subject": "={{ $('start').item.json.subject }}",
+        "message": "={{ JSON.parse($json.jsonMessage) }}",
         "options": {
           "appendAttribution": false,
-          "senderName": "Cesium <human@czm.ai>"
+          "senderName": "Cesium ",
+          "replyTo": "human@czm.ai"
         }
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        208,
+        416,
         0
       ],
       "id": "bf9f46b0-4223-48ad-902f-23fe80580344",
-      "name": "Send a message",
+      "name": "deliver",
       "webhookId": "fb801fe2-a3e6-41c1-94b5-d4a1599e134a",
       "credentials": {
         "gmailOAuth2": {
           "id": "tE3vH38XdVP8HQOa",
-          "name": "czm-n8n-gmail"
+          "name": "t@czm-n8n-gmail"
         }
       }
+    },
+    {
+      "parameters": {
+        "html": "<!-- \n  {\n    \"recipient\": \"tf@tonyfelice.net\",\n    \"subject\": \"Take the Next Step\",\n    \"headline\": \"Welcome\",\n    \"body\": \"We're glad you stopped by!<br><br>Next, we'll be gathering all of the details for your project, so that we can put together a contract and timeline. It shouldn't take too long.<br><br>Once you've got some quiet time, and you're in front of your computer, <a href='https://czm.ai/discovery'>take the next step</a>.<br><br>Cheers,<br>T\"\n  }\n -->\n\n\n<style>\n  @media (prefers-color-scheme: dark) {\n    .darkmode-hidden {\n      display: none !important;\n    }\n    .darkmode {\n      display: block !important;\n    }\n    body,.eml{\n      font-family: 'DM Sans', Arial, sans-serif;\n      background:#00001b;\n      color:white;\n    }\n    h1,h2,h3,h4,h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    p,a{\n      font-family: 'DM Sans', Arial, sans-serif;\n      color:#b1b1bc!important;\n    }\n  }\n</style>\n<body>\n  <div class=\"eml\" style= \"font-family: 'DM Sans', Arial, sans-serif;\">\n    <h3 style=\"color: #222236; margin: 0; padding: 0; font-family: 'DM Sans', Arial, sans-serif; font-size: 22px; font-weight: 500; \">\n      {{ $json.headline }}</h3>\n    <p style=\"margin-bottom:40px;\" >{{ $json.body }}</p>\n    <table style=\"border-collapse: collapse;width:100%;\">\n      <tr>\n        <td style=\"width:100%;background-repeat: no-repeat;background-size: contain;background-position: center center;\">\n          <table style=\"border-collapse: collapse;\">\n            <tr>\n              <td style=\"padding-right: 15px; vertical-align: middle;\">\n                <a href=\"https://czm.ai/?utm_source=signature&utm_medium=email&utm_campaign=transactional\">\n                  <img src=\"https://241973156.fs1.hubspotusercontent-na2.net/hubfs/241973156/logos/cesium-ai-automation-logo-_trans-full-color-dualmode.png\"\n                     alt=\"Cesium // The AI Automation Agency\"\n                     width=\"150\"\n                     style=\"display: block; max-width: 150px; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;\">\n                </a>\n              </td>\n            </tr>\n            <tr>\n              <td style=\"vertical-align: middle;\">\n                <h5 style=\"color: #939598; margin: 0; padding: 0; padding-left: 65px;  padding-top: 5px;  font-family: 'DM Sans', Arial, sans-serif; font-size: 17px; font-weight: 500; \">\n                  Tony Felice\n                </h5>\n                <p style=\"margin: 10px 0 0 68px; padding: 0 0 5px 10px; border-left:2px dotted #939598;\">\n                  <span style=\"display:block;line-height:8px; color: #939598; margin: 0; padding: 0 0 5px 0px; letter-spacing:.07em; font-family: 'DM Sans', Arial, sans-serif; font-weight: 400; font-size: 16px; font-variant-caps: all-petite-caps;\">\n                    HUMAN\n                  </span>\n                  <span style=\"display:block;line-height:24px; color: #939598;margin: 0; padding: 0 0 0 0px; letter-spacing:.05em;font-family: 'DM Sans', Arial, sans-serif; font-weight: 500; font-size: 14px; \">\n                    <a href=\"tel:+17207222152\" style=\"color: #939598; text-decoration: none;\">720.722.2152</a>\n                  </span>\n                  <span style=\"display:block;line-height:16px; color: #939598;margin: 0; margin-bottom: -6px; padding: 0 0 0 0px; font-family: 'DM Sans', Arial, sans-serif; font-weight: 600; font-size: 14px; \">\n                    <a href=\"mailto:human@czm.ai\" style=\"color: #939598; text-decoration: none;\">human@czm.ai</a>\n                  </span>\n                </p>\n              </td>\n            </tr>\n          </table>\n        </td>\n      </tr>\n    </table>\n  </div>\n</body>\n\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        0
+      ],
+      "id": "26984b25-b684-4a54-92a1-51b5164dbee3",
+      "name": "basic email"
     }
   ],
   "pinData": {},
@@ -81,13 +130,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-21T23:30:26.930Z",
-      "updatedAt": "2025-08-21T23:30:26.930Z",
-      "id": "TC6GN8ukWr58QCW8",
-      "name": "dev"
+      "createdAt": "2025-08-20T00:54:13.241Z",
+      "updatedAt": "2025-08-20T00:54:13.241Z",
+      "id": "BhMyF8l07FgXl3Oi",
+      "name": "pre-prod"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-10T18:02:13.000Z",
-  "versionId": "9d193fc6-0d57-4b49-ab4c-0f3edace67ef"
+  "updatedAt": "2025-09-16T01:14:31.000Z",
+  "versionId": "9913fef0-b8bf-44a7-bac4-c6708fcd64af"
 }
