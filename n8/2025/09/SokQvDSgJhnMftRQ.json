@@ -170,7 +170,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: contact_manager 2.0",
+  "name": "CZM: contact_manager 2.1",
   "nodes": [
     {
       "parameters": {
@@ -250,7 +250,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('cr(u)Contact').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { output: String(\"Success.\") } }];\n} else {\n  return [{ json: { output: String(\"Error. Our CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('cr(u)Contact').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { output: String(\"Success.\"), vid: String(vid), isNew: $('cr(u)Contact').first().json.isNew } }];\n} else {\n  return [{ json: { output: String(\"Error. Our CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -704,45 +704,9 @@
       ],
       "id": "b3c37f27-9210-4de2-a44f-d885a4858ce6",
       "name": "Stop and Error"
-    },
-    {
-      "parameters": {
-        "errorType": "errorObject",
-        "errorObject": "{ \"ERROR\" : \"**EMAIL ADDRESS REQUIRED**. You **must** provide the **user's email address**  to use this tool.\"}"
-      },
-      "type": "n8n-nodes-base.stopAndError",
-      "typeVersion": 1,
-      "position": [
-        656,
-        -160
-      ],
-      "id": "ecd679b8-4c96-4ca5-ac5b-9e1c3693305d",
-      "name": "Stop and Error1"
     }
   ],
-  "pinData": {
-    "When Executed by Another Workflow": [
-      {
-        "json": {
-          "Function": null,
-          "Email": null,
-          "First_Name": null,
-          "Last_Name": null,
-          "Phone_Number": null,
-          "Description": null,
-          "Message": null,
-          "Budget": null,
-          "Job_Title": null,
-          "Company_Name": null,
-          "Website_URL": null,
-          "City": null,
-          "State_Region": null,
-          "Postal_Code": null,
-          "sessionId": "409a3972-0fd8-4726-8b29-339bdec5d696"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -769,6 +733,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-14T03:37:30.000Z",
-  "versionId": "fab8d924-9b1e-4f7f-8004-d6ae51d812e7"
+  "updatedAt": "2025-09-16T00:54:39.000Z",
+  "versionId": "1db25fd9-1d8a-42ce-982c-9e055c3a0e9b"
 }
