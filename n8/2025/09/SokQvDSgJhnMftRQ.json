@@ -61,7 +61,7 @@
       "main": [
         [
           {
-            "node": "Stop and Error",
+            "node": "!email",
             "type": "main",
             "index": 0
           }
@@ -118,6 +118,11 @@
             "node": "router",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "new person?",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -159,6 +164,40 @@
       ]
     },
     "no email": {
+      "main": [
+        []
+      ]
+    },
+    "welcome email": {
+      "main": [
+        [
+          {
+            "node": "silent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new person?": {
+      "main": [
+        [
+          {
+            "node": "welcome email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "silent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "silent": {
       "main": [
         []
       ]
@@ -242,7 +281,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1888,
+        1920,
         160
       ],
       "id": "8e898b5a-2170-4d9b-9c91-7b11458a8a67",
@@ -255,7 +294,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2080,
+        2112,
         176
       ],
       "id": "149daca8-4705-440e-aa91-21aee6d89dac",
@@ -453,7 +492,7 @@
       "type": "n8n-nodes-base.hubspot",
       "typeVersion": 2.1,
       "position": [
-        1552,
+        1584,
         16
       ],
       "id": "556c3dbe-2e7f-4a44-9d28-296b88970d00",
@@ -488,7 +527,7 @@
       "type": "n8n-nodes-base.hubspot",
       "typeVersion": 2.1,
       "position": [
-        1552,
+        1584,
         176
       ],
       "id": "234a5a00-7ddb-4101-9cf1-4d81af9fb19f",
@@ -673,7 +712,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1552,
+        1584,
         336
       ],
       "id": "f58ee3a3-da3d-495c-96da-6a6855c8766e",
@@ -694,6 +733,79 @@
     },
     {
       "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "CoclR9oA6Sg9uCBK",
+          "mode": "list",
+          "cachedResultName": "CZM: cesium signed email"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "recipient": "={{ $('cr(u)Contact').item.json.properties.email.value }}",
+            "subject": "=Nice to meet you",
+            "body": "=Thanks for reaching out{{ $('cr(u)Contact').item.json.properties.firstname.value === null ? \". \" : \", \" + $('cr(u)Contact').item.json.properties.firstname.value + \". \" }} I look forward to connecting with you in person.<br><br>Cheers,<br>T",
+            "headline": "="
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "recipient",
+              "displayName": "recipient",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "headline",
+              "displayName": "headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1584,
+        624
+      ],
+      "id": "0d425486-a8b7-44a8-9438-de1df6f87c46",
+      "name": "welcome email"
+    },
+    {
+      "parameters": {
         "errorMessage": "ERROR: No email address provided. You **must** provide the **user's email address**  to use this tool."
       },
       "type": "n8n-nodes-base.stopAndError",
@@ -703,10 +815,113 @@
         -160
       ],
       "id": "b3c37f27-9210-4de2-a44f-d885a4858ce6",
-      "name": "Stop and Error"
+      "name": "!email"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "85dabdfc-25be-42f8-9899-979d8613eaf6",
+                    "leftValue": "={{ $json.isNew }}",
+                    "rightValue": "createDeal",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "welcome"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b7adfcf7-3c20-4cd2-9606-b0db154ca76e",
+                    "leftValue": "={{ $json.isNew }}",
+                    "rightValue": "^(createTicket|createDeal|getContact)$",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "false",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "existing"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1248,
+        352
+      ],
+      "id": "d1eb9c77-e42d-41fe-adc1-cf7f6feb4d60",
+      "name": "new person?"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        624
+      ],
+      "id": "f2ecb00c-6b99-42c5-be05-84a773211f7c",
+      "name": "silent"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "Function": "createContact",
+          "Email": "tf@tonyfelice.net",
+          "First_Name": "Tony",
+          "Last_Name": "",
+          "Phone_Number": "",
+          "Description": "",
+          "Message": "",
+          "Budget": "",
+          "Job_Title": "",
+          "Company_Name": "",
+          "Website_URL": "",
+          "City": "",
+          "State_Region": "",
+          "Postal_Code": "",
+          "sessionId": "86b2451104414bbd85b0fbfb51d3ae3d"
+        }
+      }
+    ]
+  },
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -733,6 +948,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-16T00:54:39.000Z",
-  "versionId": "1db25fd9-1d8a-42ce-982c-9e055c3a0e9b"
+  "updatedAt": "2025-09-16T20:11:04.000Z",
+  "versionId": "0470f9fb-e248-433d-91b1-8c416c93dcea"
 }
