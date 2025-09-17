@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "OpenAI Chat Model": {
       "ai_languageModel": [
@@ -331,26 +331,9 @@
         ]
       ]
     },
-    "Reranker Cohere": {
-      "ai_reranker": [
-        [
-          {
-            "node": "Postgres PGVector Store",
-            "type": "ai_reranker",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Postgres PGVector Store": {
       "ai_tool": [
-        [
-          {
-            "node": "RAG AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Postgres PGVector Store1": {
@@ -511,7 +494,9 @@
   "createdAt": "2025-09-04T00:28:03.797Z",
   "id": "GVow2NCIaiAPUiDc",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Agentic RAG Template",
   "nodes": [
     {
@@ -526,7 +511,13 @@
       "position": [
         -736,
         368
-      ]
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
     },
     {
       "parameters": {
@@ -568,7 +559,13 @@
       "position": [
         800,
         1104
-      ]
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
     },
     {
       "parameters": {
@@ -598,8 +595,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1744,
-        544
+        -2160,
+        608
       ]
     },
     {
@@ -626,7 +623,13 @@
         -656,
         832
       ],
-      "executeOnce": true
+      "executeOnce": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -640,10 +643,10 @@
         "triggerOn": "specificFolder",
         "folderToWatch": {
           "__rl": true,
-          "value": "1yfaYWtBKooyiiJbM3hQRda1v6aK0akdo",
+          "value": "1pGqU8taFOItxQz6K9fOKR1KTLzs_w3hD",
           "mode": "list",
-          "cachedResultName": "Neon n8n",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1yfaYWtBKooyiiJbM3hQRda1v6aK0akdo"
+          "cachedResultName": "czm-rag",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1pGqU8taFOItxQz6K9fOKR1KTLzs_w3hD"
         },
         "event": "fileCreated",
         "options": {}
@@ -655,7 +658,13 @@
       "position": [
         -1680,
         672
-      ]
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -669,10 +678,10 @@
         "triggerOn": "specificFolder",
         "folderToWatch": {
           "__rl": true,
-          "value": "1yfaYWtBKooyiiJbM3hQRda1v6aK0akdo",
+          "value": "1pGqU8taFOItxQz6K9fOKR1KTLzs_w3hD",
           "mode": "list",
-          "cachedResultName": "Neon n8n",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1yfaYWtBKooyiiJbM3hQRda1v6aK0akdo"
+          "cachedResultName": "czm-rag",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1pGqU8taFOItxQz6K9fOKR1KTLzs_w3hD"
         },
         "event": "fileUpdated",
         "options": {}
@@ -684,7 +693,13 @@
       "position": [
         -1680,
         832
-      ]
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -711,7 +726,13 @@
         -608,
         368
       ],
-      "notesInFlow": false
+      "notesInFlow": false,
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -757,8 +778,8 @@
     {
       "parameters": {
         "content": "## RAG AI Agent with Chat Interface",
-        "height": 464.8027193303974,
-        "width": 1035.6381264595484
+        "height": 433,
+        "width": 1036
       },
       "id": "ca3500d8-e94c-4334-8f76-7ff17d31c57f",
       "name": "Sticky Note2",
@@ -842,7 +863,13 @@
         -1008,
         352
       ],
-      "webhookId": "bf4dd093-bb02-472c-9454-7ab9af97bd1d"
+      "webhookId": "bf4dd093-bb02-472c-9454-7ab9af97bd1d",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XPPv2WR7kPKnZA1q",
+          "name": "crawl4ai-header-auth"
+        }
+      }
     },
     {
       "parameters": {
@@ -898,7 +925,7 @@
         "promptType": "define",
         "text": "={{ $json.chatInput }}",
         "options": {
-          "systemMessage": "You are a personal assistant who helps answer questions from a corpus of documents. The documents are either text based (Txt, docs, extracted PDFs, etc.) or tabular data (CSVs or Excel documents).\n\nYou are given tools to perform RAG in the 'documents' table, look up the documents available in your knowledge base in the 'document_metadata' table, extract all the text from a given document, and query the tabular files with SQL in the 'document_rows' table.\n\nAlways start by performing RAG unless the question requires a SQL query for tabular data (fetching a sum, finding a max, something a RAG lookup would be unreliable for). If RAG doesn't help, then look at the documents that are available to you, find a few that you think would contain the answer, and then analyze those.\n\nAlways tell the user if you didn't find the answer. Don't make something up just to please them."
+          "systemMessage": "=You are a personal assistant who helps answer questions from a corpus of documents. The documents are either text based (Txt, docs, extracted PDFs, etc.) or tabular data (CSVs or Excel documents).\n\nYou are given tools to perform RAG in the 'documents' table, look up the documents available in your knowledge base in the 'document_metadata' table, extract all the text from a given document, and query the tabular files with SQL in the 'document_rows' table.\n\nAlways start by performing RAG unless the question requires a SQL query for tabular data (fetching a sum, finding a max, something a RAG lookup would be unreliable for). If RAG doesn't help, then look at the documents that are available to you, find a few that you think would contain the answer, and then analyze those.\n\nAlways tell the user if you didn't find the answer. Don't make something up just to please them."
         }
       },
       "id": "a1beaef2-b2e7-49c1-98fd-32a96e5dc751",
@@ -907,7 +934,7 @@
       "typeVersion": 1.6,
       "position": [
         -528,
-        144
+        208
       ]
     },
     {
@@ -1105,7 +1132,13 @@
         320
       ],
       "id": "31add56b-769e-42eb-90a4-1352f59fe77a",
-      "name": "Create Document Metadata Table"
+      "name": "Create Document Metadata Table",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1120,7 +1153,13 @@
         320
       ],
       "id": "f91ef6d8-fce4-43e0-bb9c-d93f3647b7a5",
-      "name": "Create Document Rows Table (for Tabular Data)"
+      "name": "Create Document Rows Table (for Tabular Data)",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1148,7 +1187,13 @@
         368
       ],
       "id": "2b690dae-017b-4db2-808a-ccc7cde798e4",
-      "name": "List Documents"
+      "name": "List Documents",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1167,7 +1212,13 @@
         368
       ],
       "id": "9dd9ca5a-d7a1-4ab1-b14b-ddc8d9d0660a",
-      "name": "Get File Contents"
+      "name": "Get File Contents",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1184,7 +1235,13 @@
         368
       ],
       "id": "17fd681a-44fc-44b4-9c71-b30ff9dbcf65",
-      "name": "Query Document Rows"
+      "name": "Query Document Rows",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1197,7 +1254,13 @@
         352
       ],
       "id": "7c4d0b2d-8fc5-4989-945b-19ac0c1135f1",
-      "name": "Embeddings OpenAI2"
+      "name": "Embeddings OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
     },
     {
       "parameters": {
@@ -1301,7 +1364,13 @@
       ],
       "id": "bf4f6437-dac7-413c-9451-a96f2bbeafde",
       "name": "Insert Document Metadata",
-      "executeOnce": true
+      "executeOnce": true,
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1367,7 +1436,13 @@
         816
       ],
       "id": "7dae7961-78da-4f21-aaea-b65575439fd1",
-      "name": "Insert Table Rows"
+      "name": "Insert Table Rows",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1455,7 +1530,13 @@
         656
       ],
       "id": "c80f33a3-7ddb-4463-aeef-1cd87d8749e3",
-      "name": "Update Schema for Document Metadata"
+      "name": "Update Schema for Document Metadata",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1475,19 +1556,6 @@
     },
     {
       "parameters": {
-        "topN": 4
-      },
-      "type": "@n8n/n8n-nodes-langchain.rerankerCohere",
-      "typeVersion": 1,
-      "position": [
-        320,
-        352
-      ],
-      "id": "33e9f7c3-a3af-4c6b-9868-50a37310eab8",
-      "name": "Reranker Cohere"
-    },
-    {
-      "parameters": {
         "mode": "retrieve-as-tool",
         "toolDescription": "Use RAG to look up information in the knowledgebase.",
         "tableName": "documents_pg",
@@ -1502,7 +1570,13 @@
         144
       ],
       "id": "4e5c056e-987e-4bc4-9d83-91e1cd342a0b",
-      "name": "Postgres PGVector Store"
+      "name": "Postgres PGVector Store",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1517,7 +1591,13 @@
         848
       ],
       "id": "69784212-afd0-452c-a284-1e04e66f38f8",
-      "name": "Postgres PGVector Store1"
+      "name": "Postgres PGVector Store1",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1534,7 +1614,13 @@
         688
       ],
       "id": "31c78bd0-fccf-4f29-865c-a23bfd5de734",
-      "name": "Delete Old Data Rows"
+      "name": "Delete Old Data Rows",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1551,7 +1637,13 @@
         848
       ],
       "id": "771791d9-3db7-4b11-a0ad-ca28ec2ca01e",
-      "name": "Delete Old Doc Rows"
+      "name": "Delete Old Doc Rows",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1584,7 +1676,13 @@
       "position": [
         -1440,
         1552
-      ]
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1636,6 +1734,12 @@
         -848,
         1552
       ],
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      },
       "continueOnFail": true
     },
     {
@@ -1701,7 +1805,13 @@
       "position": [
         -32,
         1552
-      ]
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1738,7 +1848,13 @@
         1552
       ],
       "id": "958d7e35-41bf-4c19-993b-962305977027",
-      "name": "Delete Old Data Rows1"
+      "name": "Delete Old Data Rows1",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1755,7 +1871,13 @@
         1552
       ],
       "id": "8ed64c25-e2bd-4440-96ae-585424733f19",
-      "name": "Delete Old Doc Rows1"
+      "name": "Delete Old Doc Rows1",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
     },
     {
       "parameters": {
@@ -1811,9 +1933,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1",
+          "value": "gpt-4.1-mini",
           "mode": "list",
-          "cachedResultName": "gpt-4.1"
+          "cachedResultName": "gpt-4.1-mini"
         },
         "options": {}
       },
@@ -1824,7 +1946,13 @@
         1264
       ],
       "id": "00a05743-ddc2-4aea-8a98-6d9461745954",
-      "name": "OpenAI Chat Model1"
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1843,9 +1971,19 @@
       "projectId": "7oc82U5FbxHgMZLy"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Check Every 15 Minutes": {
+      "recurrenceRules": []
+    },
+    "node:File Created": {
+      "lastTimeChecked": "2025-09-17T07:30:11Z"
+    },
+    "node:File Updated": {
+      "lastTimeChecked": "2025-09-17T07:30:40Z"
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-09-04T00:32:56.000Z",
-  "versionId": "7260f568-3c8f-4dba-8373-43618d7f5585"
+  "triggerCount": 5,
+  "updatedAt": "2025-09-16T22:27:26.000Z",
+  "versionId": "12b0ab4a-9c4f-4fa1-902f-4d708034d000"
 }
