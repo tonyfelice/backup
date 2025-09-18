@@ -1,61 +1,56 @@
 {
   "active": false,
   "connections": {
-    "OpenAI Chat Model": {
+    "start": {
+      "main": [
+        [
+          {
+            "node": "cesium-info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "model": {
       "ai_languageModel": [
         [
           {
-            "node": "RAG AI Agent",
+            "node": "cesium-info",
             "type": "ai_languageModel",
             "index": 0
           }
         ]
       ]
     },
-    "Postgres Chat Memory": {
-      "ai_memory": [
-        []
-      ]
-    },
-    "List Documents": {
+    "list sources": {
       "ai_tool": [
         [
           {
-            "node": "RAG AI Agent",
+            "node": "cesium-info",
             "type": "ai_tool",
             "index": 0
           }
         ]
       ]
     },
-    "Get File Contents": {
+    "get docs": {
       "ai_tool": [
         [
           {
-            "node": "RAG AI Agent",
+            "node": "cesium-info",
             "type": "ai_tool",
             "index": 0
           }
         ]
       ]
     },
-    "Query Document Rows": {
+    "get rows": {
       "ai_tool": [
         [
           {
-            "node": "RAG AI Agent",
+            "node": "cesium-info",
             "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "start": {
-      "main": [
-        [
-          {
-            "node": "RAG AI Agent",
-            "type": "main",
             "index": 0
           }
         ]
@@ -70,7 +65,8 @@
   "nodes": [
     {
       "parameters": {
-        "inputSource": "passthrough"
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"query\": \"description of the information requested\"\n}"
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
@@ -83,15 +79,32 @@
     },
     {
       "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=# SCENARIO\n\nYou are the executive assistant to the founder of Cesium, a full-service digital agency.\n\nYou will be asked to help answer questions from a corpus of documents. The documents are either text based (Txt, docs, extracted PDFs, etc.) or tabular data (CSVs or Excel documents).\n\nYou are given tools to perform RAG in the 'documents' table, look up the documents available in your knowledge base in the 'document_metadata' table, extract all the text from a given document, and query the tabular files with SQL in the 'document_rows' table.\n\nAlways start by performing RAG unless the question requires a SQL query for tabular data (fetching a sum, finding a max, something a RAG lookup would be unreliable for). If RAG doesn't help, then look at the documents that are available to you, find a few that you think would contain the answer, and then analyze those.\n\nAlways tell the user if you didn't find the answer. Don't make something up just to please them.\n\n## IMPORTANT\n+ When referring to Cesium, **always use first-person plural** pronouns `we`, `our`, `ours`.\n  - 👤 Customer: \"What is Cesium?\"\n  - ✅ Good: \"We are a full-service digital agency.\"\n  - ❌ Bad:  \"Cesium is a full-service digital agency.\"\n\n+ ***NEVER*** emit third-person plurals `they`, `them`, `their`, or `theirs`.\n  - 👤 Customer: \"What is the link to Cesium's privacy policy?\"\n  - ✅ Good: \"Our privacy policy is available at https://czm.ai/policies/privacy-policy\"\n  - ❌ Bad:  \"Their privacy policy is available at https://czm.ai/policies/privacy-policy\""
+        }
+      },
+      "id": "cfe680ea-cfb7-4ac4-9287-e41c6ff78135",
+      "name": "cesium-info",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        432,
+        0
+      ]
+    },
+    {
+      "parameters": {
         "model": "gpt-4.1-mini",
         "options": {}
       },
       "id": "399c8964-1974-443d-97f7-82bfee88775a",
-      "name": "OpenAI Chat Model",
+      "name": "model",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
       "position": [
-        144,
+        288,
         272
       ],
       "credentials": {
@@ -100,41 +113,6 @@
           "name": "czm-openai"
         }
       }
-    },
-    {
-      "parameters": {},
-      "id": "4adb34fa-ea4a-4214-9aef-e025b6a2e170",
-      "name": "Postgres Chat Memory",
-      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
-      "typeVersion": 1,
-      "position": [
-        288,
-        272
-      ],
-      "notesInFlow": false,
-      "credentials": {
-        "postgres": {
-          "id": "guTwPkmtJ3Y9kRpY",
-          "name": "hosted supabase czm"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.chatInput }}",
-        "options": {
-          "systemMessage": "=You are a personal assistant who helps answer questions from a corpus of documents. The documents are either text based (Txt, docs, extracted PDFs, etc.) or tabular data (CSVs or Excel documents).\n\nYou are given tools to perform RAG in the 'documents' table, look up the documents available in your knowledge base in the 'document_metadata' table, extract all the text from a given document, and query the tabular files with SQL in the 'document_rows' table.\n\nAlways start by performing RAG unless the question requires a SQL query for tabular data (fetching a sum, finding a max, something a RAG lookup would be unreliable for). If RAG doesn't help, then look at the documents that are available to you, find a few that you think would contain the answer, and then analyze those.\n\nAlways tell the user if you didn't find the answer. Don't make something up just to please them."
-        }
-      },
-      "id": "cfe680ea-cfb7-4ac4-9287-e41c6ff78135",
-      "name": "RAG AI Agent",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        432,
-        0
-      ]
     },
     {
       "parameters": {
@@ -162,7 +140,7 @@
         272
       ],
       "id": "9d74c4f9-d7e8-406f-8d8e-07a6c79ea503",
-      "name": "List Documents",
+      "name": "list sources",
       "credentials": {
         "postgres": {
           "id": "guTwPkmtJ3Y9kRpY",
@@ -187,7 +165,7 @@
         272
       ],
       "id": "1e2707da-52f1-4c1c-9355-679d62a039e5",
-      "name": "Get File Contents",
+      "name": "get docs",
       "credentials": {
         "postgres": {
           "id": "guTwPkmtJ3Y9kRpY",
@@ -206,11 +184,11 @@
       "type": "n8n-nodes-base.postgresTool",
       "typeVersion": 2.5,
       "position": [
-        736,
+        720,
         272
       ],
       "id": "5def4b9b-9489-42f0-95da-97e7b27b78d4",
-      "name": "Query Document Rows",
+      "name": "get rows",
       "credentials": {
         "postgres": {
           "id": "guTwPkmtJ3Y9kRpY",
@@ -219,7 +197,15 @@
       }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "query": "What is cesium's position on privacy?"
+        }
+      }
+    ]
+  },
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -236,8 +222,15 @@
     }
   ],
   "staticData": null,
-  "tags": [],
+  "tags": [
+    {
+      "createdAt": "2025-08-17T23:59:40.815Z",
+      "updatedAt": "2025-08-17T23:59:40.815Z",
+      "id": "3xekQCysfg8WeVyP",
+      "name": "production"
+    }
+  ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-16T22:38:37.000Z",
-  "versionId": "fd74bb0d-a799-4403-b22d-f0bbe0b919e8"
+  "updatedAt": "2025-09-17T19:51:02.000Z",
+  "versionId": "ec623309-58da-4dea-af43-939e8f94204a"
 }
