@@ -424,17 +424,6 @@
         ]
       ]
     },
-    "Check Every 15 Minutes": {
-      "main": [
-        [
-          {
-            "node": "Get Trashed Files via API",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Delete Old Data Rows1": {
       "main": [
         [
@@ -484,6 +473,17 @@
         [
           {
             "node": "Postgres PGVector Store1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "periodic": {
+      "main": [
+        [
+          {
+            "node": "Get Trashed Files via API",
             "type": "main",
             "index": 0
           }
@@ -1815,26 +1815,6 @@
     },
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "minutes",
-              "minutesInterval": 15
-            }
-          ]
-        }
-      },
-      "id": "d47749c3-bf4e-40a8-9065-a11c0b8d666c",
-      "name": "Check Every 15 Minutes",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -1648,
-        1552
-      ]
-    },
-    {
-      "parameters": {
         "operation": "executeQuery",
         "query": "DO $$\nBEGIN\n    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'documents_pg') THEN\n        EXECUTE 'DELETE FROM documents_pg WHERE metadata->>''file_id'' LIKE ''%' || $1 || '%''';\n    END IF;\nEND\n$$;",
         "options": {
@@ -1953,6 +1933,26 @@
           "name": "czm-openai"
         }
       }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "triggerAtMinute": 55
+            }
+          ]
+        }
+      },
+      "id": "d47749c3-bf4e-40a8-9065-a11c0b8d666c",
+      "name": "periodic",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1648,
+        1552
+      ]
     }
   ],
   "pinData": {},
@@ -1976,14 +1976,17 @@
       "recurrenceRules": []
     },
     "node:File Created": {
-      "lastTimeChecked": "2025-09-17T07:30:11Z"
+      "lastTimeChecked": "2025-09-18T06:54:19Z"
     },
     "node:File Updated": {
-      "lastTimeChecked": "2025-09-17T07:30:40Z"
+      "lastTimeChecked": "2025-09-18T06:54:17Z"
+    },
+    "node:periodic": {
+      "recurrenceRules": []
     }
   },
   "tags": [],
   "triggerCount": 5,
-  "updatedAt": "2025-09-16T22:27:26.000Z",
-  "versionId": "12b0ab4a-9c4f-4fa1-902f-4d708034d000"
+  "updatedAt": "2025-09-17T19:50:49.000Z",
+  "versionId": "8a75ff4c-83cc-484a-84cd-03347ae3331e"
 }
