@@ -258,7 +258,7 @@
       "credentials": {
         "gmailOAuth2": {
           "id": "tE3vH38XdVP8HQOa",
-          "name": "czm-n8n-gmail"
+          "name": "t@czm-n8n-gmail"
         }
       }
     },
@@ -799,15 +799,8 @@
     }
   ],
   "staticData": null,
-  "tags": [
-    {
-      "createdAt": "2025-08-17T23:59:40.815Z",
-      "updatedAt": "2025-08-17T23:59:40.815Z",
-      "id": "3xekQCysfg8WeVyP",
-      "name": "production"
-    }
-  ],
+  "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-13T13:28:39.000Z",
-  "versionId": "58e23aa0-f8c1-4668-b132-5217e034ab1f"
+  "updatedAt": "2025-09-17T23:07:54.000Z",
+  "versionId": "93a013d3-4d8d-474d-b7bd-6fa4a45e1c89"
 }
