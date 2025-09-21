@@ -41,7 +41,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: cesium signed email",
+  "name": "CZM: signed email 1.0",
   "nodes": [
     {
       "parameters": {
@@ -138,6 +138,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-16T20:11:38.000Z",
-  "versionId": "35ee6e7c-7755-4a42-a49a-746690157285"
+  "updatedAt": "2025-09-21T01:56:11.000Z",
+  "versionId": "0431ea8e-5637-48c7-b948-a76306433e8c"
 }
