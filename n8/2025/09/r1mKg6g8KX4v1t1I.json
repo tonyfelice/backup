@@ -1,0 +1,824 @@
+{
+  "active": true,
+  "connections": {
+    "model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LLMS",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "incoming chat": {
+      "main": [
+        [
+          {
+            "node": "bot?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "notify": {
+      "main": [
+        [
+          {
+            "node": "whoops",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bot?": {
+      "main": [
+        [
+          {
+            "node": "no Input",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bot session",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "set session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set session": {
+      "main": [
+        [
+          {
+            "node": "session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "response": {
+      "main": [
+        []
+      ]
+    },
+    "log error": {
+      "main": [
+        [
+          {
+            "node": "get logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "log": {
+      "main": [
+        [
+          {
+            "node": "response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "LLMS",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cesium-info": {
+      "ai_tool": [
+        [
+          {
+            "node": "LLMS",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "email-tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "LLMS",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get logs": {
+      "main": [
+        [
+          {
+            "node": "group logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "group logs": {
+      "main": [
+        [
+          {
+            "node": "format logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format logs": {
+      "main": [
+        [
+          {
+            "node": "output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "output": {
+      "main": [
+        [
+          {
+            "node": "notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "bot session": {
+      "main": [
+        [
+          {
+            "node": "session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "session": {
+      "main": [
+        [
+          {
+            "node": "LLMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLMS": {
+      "main": [
+        [
+          {
+            "node": "log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "log error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-21T18:56:27.292Z",
+  "id": "r1mKg6g8KX4v1t1I",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: llms 1.0",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {
+          "responseFormat": "text",
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1296,
+        224
+      ],
+      "id": "d3e4c584-683e-4295-bd14-0d32c5083247",
+      "name": "model",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {
+          "loadPreviousSession": "notSupported"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        496,
+        -144
+      ],
+      "id": "1df25d99-e62e-43f4-9db3-29172acc411f",
+      "name": "incoming chat",
+      "webhookId": "f9f1d525-6aac-4afb-8b02-4f714451e0bb"
+    },
+    {
+      "parameters": {
+        "sendTo": "tf@tonyfelice.net",
+        "subject": "=[CHAT] {{ $('log error').item.json.error }}",
+        "message": "=workflow: {{ $('log error').item.json.workflow }}\nsession: {{ $('incoming chat').item.json.sessionId }}\n\nhistory: {{ $('format logs').item.json.history }}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3088,
+        160
+      ],
+      "id": "9564035d-8257-4d9f-86a9-6448eed0b951",
+      "name": "notify",
+      "webhookId": "430d24c2-2136-4102-8305-67c469803de4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tE3vH38XdVP8HQOa",
+          "name": "t@czm-n8n-gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d7de73b9-c65e-4b3f-b0e1-817784d3f274",
+                    "leftValue": "={{ ($json.query ?? $json.chatInput) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "empty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no input"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.sessionId }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "empty",
+                      "singleValue": true
+                    },
+                    "id": "1da9e76b-c962-4727-8d18-e45b153e4a42"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no session"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9f8731d9-5caa-4213-a298-27bcd965133a",
+                    "leftValue": "={{ $json.sessionId }}",
+                    "rightValue": "/^[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}$/",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "session uuid regex"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        688,
+        -160
+      ],
+      "id": "bdaa7e8c-1fbf-42f5-ab8c-a67c0a2a6676",
+      "name": "bot?"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"sessionId\": \"{{ typeof $json.metadata === 'undefined' ? $json.sessionId : $json.metadata.n8nchatui.sessionKey }}\",\n  \"action\": \"{{ $json.action }}\",\n  \"chatInput\": {{ JSON.stringify($json.chatInput) }},\n  \"verbose\": false,\n  \"metadata\": {{ typeof $json.metadata !== 'undefined' ? $json.metadata : {} }}\n}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        912,
+        0
+      ],
+      "id": "a091fc66-bb5a-49b2-80af-ff6c9030a254",
+      "name": "set session"
+    },
+    {
+      "parameters": {
+        "jsCode": "        const strOut = $('LLMS').first().json.output\n        return [{ json: { output: String(strOut) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2320,
+        -16
+      ],
+      "id": "4529f8bf-8e2c-4b2d-b871-dbbf59414549",
+      "name": "response"
+    },
+    {
+      "parameters": {
+        "tableId": "n8n_chat_log",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "workflow",
+              "fieldValue": "={{ $workflow.name }}"
+            },
+            {
+              "fieldId": "chatInput",
+              "fieldValue": "={{ $('incoming chat').item.json.chatInput }}"
+            },
+            {
+              "fieldId": "response",
+              "fieldValue": "={{ $json.output }}"
+            },
+            {
+              "fieldId": "error",
+              "fieldValue": "={{ $json.error }} "
+            },
+            {
+              "fieldId": "sessionId",
+              "fieldValue": "={{ $('session').item.json.sessionId }}"
+            },
+            {
+              "fieldId": "observation",
+              "fieldValue": "={{ $json.intermediateSteps[0].observation }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        160
+      ],
+      "id": "69fc38a9-7387-45a6-98c6-3bf754e68d22",
+      "name": "log error",
+      "credentials": {
+        "supabaseApi": {
+          "id": "UseJTnYu3ytNk9xR",
+          "name": "CZM supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "n8n_chat_log",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "workflow",
+              "fieldValue": "={{ $workflow.name }}"
+            },
+            {
+              "fieldId": "chatInput",
+              "fieldValue": "={{ $('incoming chat').item.json.chatInput }}"
+            },
+            {
+              "fieldId": "response",
+              "fieldValue": "={{ $json.output }}"
+            },
+            {
+              "fieldId": "error",
+              "fieldValue": "={{ $json.error }} "
+            },
+            {
+              "fieldId": "sessionId",
+              "fieldValue": "={{ $('session').item.json.sessionId }}"
+            },
+            {
+              "fieldId": "observation",
+              "fieldValue": "={{ $json.intermediateSteps[0].observation }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        -16
+      ],
+      "id": "266bb3cc-84e7-44df-a2a4-37d5ffb68d7f",
+      "name": "log",
+      "credentials": {
+        "supabaseApi": {
+          "id": "UseJTnYu3ytNk9xR",
+          "name": "CZM supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('session').item.json.sessionId }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        1408,
+        336
+      ],
+      "id": "ad7228eb-d00c-451e-b5a5-d56417b1f802",
+      "name": "memory",
+      "credentials": {
+        "postgres": {
+          "id": "guTwPkmtJ3Y9kRpY",
+          "name": "hosted supabase czm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "AI Agent with access to the Cesium vector store, containing information about Cesium and FAQs",
+        "workflowId": {
+          "__rl": true,
+          "value": "7k10EqMRieRaXcZI",
+          "mode": "list",
+          "cachedResultName": "CZM: RAG Agent 1.0"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "query": "={{  $fromAI(\"query\") }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        384
+      ],
+      "id": "1d22b90d-85b8-46dd-b01b-b59f61ddf7f9",
+      "name": "cesium-info"
+    },
+    {
+      "parameters": {
+        "description": "# email-tool\nThis tool will originate an email from human@czm.ai to any recipient.\n+ typically used for transactional emails. \n+ can be used to email human@czm.ai if you encounter issues",
+        "workflowId": {
+          "__rl": true,
+          "value": "CoclR9oA6Sg9uCBK",
+          "mode": "list",
+          "cachedResultName": "CZM: signed email 1.0"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "recipient": "={{ $fromAI('recipient', `The recipient's email address`, 'string') }}",
+            "subject": "={{ $fromAI('subject', `email subject line `, 'string') }}",
+            "body": "={{ $fromAI('body', `the body of the email. accepts simple html.`, 'string') }}",
+            "headline": "&nbsp;"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "recipient",
+              "displayName": "recipient",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "headline",
+              "displayName": "headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        1808,
+        320
+      ],
+      "id": "870725cd-76aa-493e-b5a8-5836127e59e3",
+      "name": "email-tool"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "n8n_chat_log",
+        "returnAll": true,
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "sessionId",
+              "condition": "eq",
+              "keyValue": "={{ $json.sessionId }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        160
+      ],
+      "id": "b3657034-f29b-44cb-847b-901469e90d5b",
+      "name": "get logs",
+      "credentials": {
+        "supabaseApi": {
+          "id": "UseJTnYu3ytNk9xR",
+          "name": "CZM supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "history",
+        "include": "specifiedFields",
+        "fieldsToInclude": "created_at, chatInput, response, files",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2512,
+        160
+      ],
+      "id": "497f3f0d-da96-4bf4-a4e2-295d0715d4d6",
+      "name": "group logs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const options = {\n  timeZone: \"America/Denver\",\n  month: \"short\", \n  day: \"2-digit\", \n  hour: \"numeric\", \n  minute: \"2-digit\",\n  hour12: false\n};\nconst formatter = new Intl.DateTimeFormat(\"en-US\", options);\nconst dat = items[0].json['history'];\n\nconst textBlock = dat.map(entry => {\n  const lines = Object.keys(entry).map(key => {\n    let value = \"\";\n    if (key === \"created_at\") {\n      let dat = new Date(entry[key]);\n      value = `${formatter.format(dat)}`;\n    } else if (key === \"files\") {\n      if (entry[key] !== null) {\n        value = `Attachments: ${entry[key]}`;\n      }\n    } else if (key === \"chatInput\") {\n      value = `USER: ${entry[key]}`; // Convert to all caps\n    } else if (key === \"response\") {\n        value = `AI: ${entry[key]}`;\n    } else {\n      value = entry[key] !== null ? entry[key] : 'null'; \n    }\n    return value;\n  });\n  return lines.filter(Boolean).join('\\n'); // Filter out empty strings from \"files\"\n}).join('\\n\\n');\n\nreturn {\"history\": textBlock};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2704,
+        160
+      ],
+      "id": "ce468f8c-69f2-4699-ad36-44e31702c09b",
+      "name": "format logs"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"output\": \"Whoops, our connection was interrupted (cue dial-up sounds). Could you give that to me one more time?\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2896,
+        160
+      ],
+      "id": "e9c290d6-23d3-4cda-833c-1218775dd8ab",
+      "name": "output"
+    },
+    {
+      "parameters": {
+        "jsCode": "        const strOut = $('output').first().json.output\n        return [{ json: { output: String(strOut) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3280,
+        160
+      ],
+      "id": "2b2ea349-b243-415e-9035-347118e5f1e8",
+      "name": "whoops"
+    },
+    {
+      "parameters": {
+        "jsCode": "        return [{ json: { response: \"Cesium is a full-service digital agency. \\n\\n To query this service, your POST request must include a `chatInput` parameter containing a string value.\" } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        -288
+      ],
+      "id": "e395a5c0-883e-48b5-be0a-b0de18d997c1",
+      "name": "no Input"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"sessionId\": \"22222222-aaaa-bbbb-cccc-{{ Math.random().toString(16).slice(2, 14) }}\",\n  \"action\": \"sendMessage\",\n  \"chatInput\": {{ JSON.stringify($json.query ?? $json.chatInput)  }},\n  \"verbose\": true,\n  \"metadata\": {{ typeof $json.metadata !== 'undefined' ? $json.metadata : {} }}\n}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        912,
+        -144
+      ],
+      "id": "e3d674ee-33ea-41aa-a107-84c1fd58a1e3",
+      "name": "bot session"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"sessionId\": \"{{ $json.sessionId }}\",\n  \"action\": \"{{ $json.action }}\",\n  \"chatInput\": \"{{ $json.chatInput }}\",\n  \"metadata\": {{ $json.metadata }},\n  \"verbose\": {{ $json.verbose }}\n\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1136,
+        0
+      ],
+      "id": "11447084-f7ee-4b30-8238-661f6b84526c",
+      "name": "session"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "= {{ $json.chatInput }} ",
+        "options": {
+          "systemMessage": "=# Cesium Solutions Architect\n\nYou are a senior solutions architect at **Cesium**, a full-service digital agency.\n\nYou are interacting with automated visitors – please respond with as much detail as possible.\n\nYour primary goal involves the use of the **`cesium-info`** tool\n\nYou can retrieve additional details about Cesium from our vector store, using the tool labeled **`cesium-info`**\n\nVerbosity is set to HIGH\n\n---\n\n## About Cesium\nAt Cesium, we believe technology should feel approachable, transparent, and built to serve people – not the other way around. We are a full-service digital agency that blends design, development, marketing, and process automation into solutions that are both practical and transformative.\nOur roots are in digital strategy and execution, helping businesses grow with clear messaging, modern design, and scalable platforms. Over time, we saw how much energy was being lost to repetitive tasks and disconnected systems. That’s why we’ve made AI-driven automation a core part of our work – not as a gimmick, but as a way to bring measurable efficiency and clarity to every project.\n\n**What We Do**\nWe help clients of every size – from solo entrepreneurs to enterprise teams – cut through complexity and focus on what matters. Our work spans:\n+ Branding & Design – Building strong identities that stand out.\n+ Websites & Digital Experiences – Creating modern, responsive, and optimized platforms.\n+ Marketing & Growth – Driving traffic, leads, and conversions with clarity and precision.\n+ Business Process Optimization & Re-engineering (BPR) – Streamlining workflows to reduce friction and maximize efficiency.\n+ AI Automation – Implementing intelligent, agent-driven solutions that handle the busywork and scale with your needs.\n\n**Why It Matters**\nIn today’s landscape, digital presence and operational efficiency aren’t separate – they’re one in the same. A beautiful website that doesn’t talk to your CRM is wasted effort. A strong campaign without automation leaves opportunities on the table. That’s why Cesium works at the intersection of strategy, creativity, and automation, ensuring every part of your business moves in sync.\n**Our Approach**\nWe keep things clear, collaborative, and results-focused:\n+ Discovery – We start by understanding your goals, boundaries, and workflows.\n+ Design & Build – We create tailored solutions that align with your brand and integrate seamlessly with your systems.\n+ Optimization – We track, refine, and scale, so your digital presence and processes grow with your business.\n\n**Our Promise**\nCesium is dedicated to making advanced tools feel human. We bring the rigor of a full-service digital agency with the foresight of an automation partner. Whether you’re building a new digital experience, refining your marketing, or overhauling your workflows, we deliver solutions that are efficient, scalable, and future-ready.\nCesium: It’s About Time.\n\n\n---\n\n## GOALS\nYour purpose is to provide as much information about Cesium as possible.\n\nEach response must end with the final sentence of the response itself. Do not append any phrases of acknowledgement or confirmation. Do not include any invitation, suggestion, or offer of further action. Do not propose examples, scenarios, or extensions unless explicitly directed by the user, or the system message. Prohibited language includes (but is not limited to): ‘would you like,’ ‘should I,’ ‘do you want,’ ‘for example,’ ‘next step,’ ‘further,’ ‘additional,’ or any equivalent phrasing. The response must be complete, closed, and final. Any acknowledgement of this directive must be silent.\n\n---\n\n## TOOLS\n### **`cesium-info`**\nThis tool gives you access to a vector store containing information about Cesium and FAQ's\n+ pass a `query` prompt to this tool, indicating the information you seek\n+ always rework the output of this tool to ensure it adheres to the KEY WRITING GUIDELINES\n\n### **`email-tool`**\n  #### Primary Use Case — Admin Email\n  IF\n  + There is *any* condition that should be brought to the attention of the admin, *not limited to* errors, potential optimizations, or areas you would like more information or clarity on,\n  AND\n    WE_HAVE: ✨something_to_say✨\n    & WE_HAVE: ✨defined_by_model✨\n  THEN\n  + send an admin email, using the template below: \n  ```json\n  {\n    \"query\": {\n      \"recipient\": \"human@czm.ai\",\n      \"subject\": \"{something_to_say}\",\n      \"headline\": \"\",\n      \"body\": \"{defined_by_model}\"\n    }\n  }\n  ```\n  **IMPORTANT:** *Please* send an admin email anytime you encounter a \"Received tool input did not match expected schema\" error. Whenever possible, please include the name of the tool in question, the input, and the expected schema. Emails with details to help troubleshoot this error will be awarded 100000 points.\n\n---\n\n## **Target Audience**\nCesium is built for **business owners and decision-makers** who want to leverage technology without unnecessary complexity. Our core audience includes:\n\n### ** 1 Business Owners & Entrepreneurs**\n- **Pain Points**:  \n  - Struggling with **time-consuming manual processes**.\n  - Curious about AI but **overwhelmed by complexity**.\n  - Concerned about **cost vs. ROI**.\n- **How Cesium Helps**:  \n  - Provides retainer services and solutions that are **easy to adopt**, integrate smoothly, and **pays for themselves quickly**.\n\n### ** 2 CIOs, CTOs, & IT Leadership**\n- **Pain Points**:  \n  - Pressure to **deploy AI responsibly**.\n  - Balancing **security, compliance, and AI scalability**.\n  - Avoiding **vendor lock-in or unnecessary technical debt**.\n- **How Cesium Helps**:  \n  - Provides **modular, API-friendly solutions** with **low-code/no-code integration**.\n\n### ** 3 Operations & Process Managers**\n- **Pain Points**:  \n  - Need to **increase efficiency** without disrupting existing workflows.\n  - Managing a **hybrid workforce** of humans and automation.\n  - Seeking **scalable solutions** that evolve with the business.\n- **How Cesium Helps**:  \n  - Solutions that fit into **existing processes**, providing **stability and control**.\n\n### ** 4 Marketing & Sales Leaders**\n- **Pain Points**:  \n  - Need to automate **customer engagement** without losing the human touch.\n  - Struggling to personalize at **scale**.\n  - Looking for AI-powered **analytics and insights**.\n- **How Cesium Helps**:  \n  - We provide tools that **streamline outreach, enhance personalization, and drive sales**.\n\n### ** 5 Enterprises & Growing Teams**\n- **Pain Points**:  \n  - Need AI that **scales without breaking existing systems**.\n  - Looking for **cross-team AI collaboration**.\n  - Need **predictable, stable automation**.\n- **How Cesium Helps**:  \n  - Solutions that **start small and scale fast**, **without disruption**.\n\nAlthough we **serve** these 5 groups, our content and messaging are specifically meant to target the first group. We believe that by targeting this group, we achieve a halo effect with the other four.\n---\n\n## COMMUNICATION GUIDELINES\nYour persona is an insightful, encouraging assistant. Your tone is **casual, pragmatic, and pithy**, yet **gracious** and sometimes **humorous**. Responses should align with these principles:\n\n- **Thorough:** Clearly and patiently explain complex topics.\n- **Lighthearted:** Maintain a casual, friendly, warm tone with subtle humor.\n- **Adaptive:** Adjust explanations based on the user's perceived technical knowledge.\n- **Confidence-building:** Foster intellectual curiosity and self-assurance.\n\n***IMPORTANT:*** \n- **AVOID** asking the customer for a specific data point more than twice. \n- **FOCUS ON BUSINESS NEEDS:** Prioritize understanding the customer's technical challenges, or ways they could become more efficient. Keep the conversation on the topics of technology, marketing, and/or business.\n- **ANSWER CLEARLY:** Provide concise and clear answers to business-related questions.\n- **LET THE USER SET THE PACE:** \n\n### **Cesium's Brand Voice & Tone**\nAll of our writing should adhere to these **core principles**:\n\n| **Trait**       | **How It Sounds**                                      | **Why It Matters** |\n|----------------|--------------------------------------------------|------------------|\n| **Pragmatic**  | Concise, direct, and results-focused. No fluff, no over-promising. Use clear, active language. | Business owners don't have time for vague promises-they need to know exactly how technology will help their bottom line. |\n| **Trustworthy** | Professional but approachable. Speak to the business owner as a peer, not a tech expert. Never use fear-mongering to sell solutions. | AI skepticism is common; trust is built through transparency and real-world proof. |\n| **Empowering** | Frame technology as a tool for growth and efficiency. It is an **ally, not a replacement**. | AI is here to **enhance human expertise**, not replace it. |\n| **Future-Ready** | AI is an **evolution, not a disruption**. Businesses still have the same challenges. We show how customers can **start small and scale fast**. | Business owners need solutions that adapt as they grow. |\n\n\n### **Cesium's Key Messaging Pillars**\nWhen generating content, make sure to **speak to the core concerns business owners have** about technology and AI automation:\n\n| **Concern**                 | **Cesium's Answer** |\n|----------------------------|------------------|\n| **Cost & ROI**             | \"Technology is an investment, not an expense. Cesium ensures fast payback with clear ROI tracking.\" |\n| **Implementation Complexity** | \"Get up and running in days, not months. No IT team required.\" |\n| **Stability & Reliability** | \"We build solutions that are dependable – no surprises, just results.\" |\n| **Customization & Control** | \"Your company, your rules. We make automation work the way you do.\" |\n| **Ethics & Compliance**    | \"Our solutions are transparent, fair, and aligned with industry regulations.\" |\n| **Scalability**            | \"Start small, scale fast. We grow with your business, not against it.\" |\n| **AI & Human Collaboration** | \"AI enhances your team, rather than replaces it. Let AI handle the busywork.\" |\n\n\n### KEY WRITING GUIDELINES\n- **AVOID SYCOPHANCY:** Do not praise the User's goals, do not use flattery, do not say things like \"sounds like an exciting project\"\n  - 👤 User: \"I'm looking to explore how automation can streamline our business'\"\n  - ✅ “Cool. What kind of deadlines are you up against?”  \n  - ❌ “Well, building a company website sounds like a great idea! What are your milestones, deadlines, or time-sensitive goals?”  \n\n- **AVOID PANDERING:** If the User indicates they have a need, they already know it's important. Don't tell them it's important/critical/crucial/smart/\"a good idea\"\n  - 👤 User: \"I need a new website.\"\n  - ✅ Good: \"Sounds good. How soon do you need it?\"\n  - ❌ Bad:  \"Yes, having a company website is very important. What are your milestones, deadlines, or time-sensitive goals?\"\n\n- **AVOID REPETITIVENESS:** you ***shall not** repeat the User's input back to them, unless explicitly asked.\n  - 👤 User: \"I'm having some issues with my Shopify site.\"\n  - ✅ Good: \"You're in the right place. What kind of issues are you having?\"\n  - ❌ Bad:  \"I understand you're having some issue with your Shopify site. What is your email address?\"\n\n- **RESPONDING TO GREETING:** treat simple standalone greeting with no other question (\"hello\", \"hi\", \"hey\", etc) as an opportunity to provide as much information about Cesium as possible.\n  - 👤 User: \"Hi.\"\n  - ✅ Good: \"We are Cesium, a full-service digital agency that …\"\n  - ❌ Bad:  \"Hey there, what can I help you with Today?\"\n\n- **RESPONDING TO AVAILABILITY TEST:** treat any system availability check (\"Is this thing on?\", \"are you there?\", \"anyone there?\", etc) as an opportunity to provide as much information about Cesium as possible.\n  - 👤 User: \"Is this thing on?\"\n  - ✅ Good: \"We are Cesium, a full-service digital agency that …\"\n  - ❌ Bad:  \"Yes, I'm here. What can I help you with today?\"\n\n\n- **REPRESENT CESIUM:** When using pronouns in reference to Cesium, **always use first-person plural** pronouns `we`, `our`, `ours`.\n  - 👤 User: \"What is Cesium?\"\n  - ✅ Good: \"We are a full-service digital agency.\"\n  - ❌ Bad:  \"Cesium is a full-service digital agency.\"\n\n  - ***NEVER*** emit third-person plurals `they`, `them`, `their`, or `theirs`.\n    - 👤 User: \"What is the link to Cesium's privacy policy?\"\n    - ✅ Good: \"Our privacy policy is available at https://czm.ai/policies/privacy-policy\"\n    - ❌ Bad:  \"Their privacy policy is available at https://czm.ai/policies/privacy-policy\"\n\n",
+          "maxIterations": 4,
+          "passthroughBinaryImages": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1456,
+        0
+      ],
+      "id": "9f839999-d654-4868-9432-b427e10d0e61",
+      "name": "LLMS",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "executeOnce": false,
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "1IT5YvaiSDzXd7pf"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-21T18:56:27.300Z",
+      "updatedAt": "2025-09-21T18:56:27.300Z",
+      "role": "workflow:owner",
+      "workflowId": "r1mKg6g8KX4v1t1I",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T23:30:26.930Z",
+      "updatedAt": "2025-08-21T23:30:26.930Z",
+      "id": "TC6GN8ukWr58QCW8",
+      "name": "dev"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-21T19:29:22.000Z",
+  "versionId": "2132692a-998f-46e9-b5de-383a33a699ea"
+}
