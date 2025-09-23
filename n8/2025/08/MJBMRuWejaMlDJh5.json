@@ -860,11 +860,11 @@
     {
       "parameters": {
         "operation": "toBinary",
-        "sourceProperty": "data",
+        "sourceProperty": "binaryKey",
         "binaryPropertyName": "fileBinary",
         "options": {
           "fileName": "={{ $json.fileName }}",
-          "mimeType": "={{ $json.mimeTYpe }}"
+          "mimeType": "={{ $json.mimeType }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1023,7 +1023,27 @@
       "name": "docx"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "sessionId": "5b1a99da-ade3-4ffa-a86d-e10fa2529705",
+          "action": "sendMessage",
+          "chatInput": "image?",
+          "files": [
+            {
+              "fileName": "cesium-ai-automation-logo-_-two-color-dark.png",
+              "fileSize": "7.14 kB",
+              "fileType": "image",
+              "mimeType": "image/png",
+              "fileExtension": "png",
+              "binaryKey": "data0"
+            }
+          ]
+        }
+      }
+    ]
+  },
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -1049,6 +1069,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-08-25T19:19:49.000Z",
-  "versionId": "59a8748e-4b6c-4c12-90c9-c91b63c8ae83"
+  "updatedAt": "2025-09-22T20:23:47.000Z",
+  "versionId": "0a63706d-705d-4d6c-87af-571df469f28f"
 }
