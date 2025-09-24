@@ -1,0 +1,808 @@
+{
+  "active": false,
+  "connections": {
+    "merge": {
+      "main": [
+        [
+          {
+            "node": "output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get logs": {
+      "main": [
+        [
+          {
+            "node": "group logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "group logs": {
+      "main": [
+        [
+          {
+            "node": "format logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format logs": {
+      "main": [
+        [
+          {
+            "node": "updateRecord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gatekeeper": {
+      "main": [
+        [
+          {
+            "node": "!email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "no function",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "no budget",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "create",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createTicket": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createDeal": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "router": {
+      "main": [
+        [
+          {
+            "node": "createTicket",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "createDeal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "passthru",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "passthru": {
+      "main": [
+        [
+          {
+            "node": "merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "no email": {
+      "main": [
+        []
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "gatekeeper",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "updateRecord": {
+      "main": [
+        [
+          {
+            "node": "router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create": {
+      "main": [
+        [
+          {
+            "node": "get logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-23T23:46:18.790Z",
+  "id": "Twzj13uHohXuHW70",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: CRM_manager 3.0",
+  "nodes": [
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2016,
+        160
+      ],
+      "id": "b9a007a9-58c6-49bf-a7d6-e32cc2378dff",
+      "name": "merge",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('create').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { output: String(\"Success.\"), vid: String(vid), isNew: $('create').first().json.isNew } }];\n} else {\n  return [{ json: { output: String(\"Error! The CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2208,
+        176
+      ],
+      "id": "74ae192d-0c0b-4e77-90fc-5d74afe10a10",
+      "name": "output"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "n8n_chat_log",
+        "returnAll": true,
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "sessionId",
+              "condition": "eq",
+              "keyValue": "={{ $('start').first().json.sessionId }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        576,
+        176
+      ],
+      "id": "b9c3e615-4e62-498a-a86a-8f22c1fd97ee",
+      "name": "get logs",
+      "retryOnFail": true,
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "UseJTnYu3ytNk9xR",
+          "name": "CZM supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "history",
+        "include": "specifiedFields",
+        "fieldsToInclude": "created_at, chatInput, response, files",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        768,
+        176
+      ],
+      "id": "a8cf222e-b18f-4dd9-bad9-cdcf66e63975",
+      "name": "group logs",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const options = {\n  timeZone: \"America/Denver\",\n  month: \"short\", \n  day: \"2-digit\", \n  hour: \"numeric\", \n  minute: \"2-digit\",\n  hour12: false\n};\nconst formatter = new Intl.DateTimeFormat(\"en-US\", options);\nconst dat = items[0].json['history'];\n\nconst textBlock = dat.map(entry => {\n  const lines = Object.keys(entry).map(key => {\n    let value = \"\";\n    if (key === \"created_at\") {\n      let dat = new Date(entry[key]);\n      value = `${formatter.format(dat)}`;\n    } else if (key === \"files\") {\n      if (entry[key] !== null) {\n        value = `Attachments: ${entry[key]}`;\n      }\n    } else if (key === \"chatInput\") {\n      value = `USER: ${entry[key]}`; // Convert to all caps\n    } else if (key === \"response\") {\n        value = `AI: ${entry[key]}`;\n    } else {\n      value = entry[key] !== null ? entry[key] : 'null'; \n    }\n    return value;\n  });\n  return lines.filter(Boolean).join('\\n'); // Filter out empty strings from \"files\"\n}).join('\\n\\n');\n\nreturn {\"history\": textBlock};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        176
+      ],
+      "id": "9e009dd9-0366-42bf-b6a3-477831e5a6e3",
+      "name": "format logs",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d50afcd5-cac2-497f-bf01-f099b94813f5",
+                    "leftValue": "={{ $json.Email }}",
+                    "rightValue": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no email"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "12863fb3-1acd-4f10-9f5a-86393f773cc7",
+                    "leftValue": "={{ $json.Function }}",
+                    "rightValue": "^((create|update|get)(Customer|Contact|Project|Ticket|Deal|Record))$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no function"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c2202670-b2ad-4f2c-a178-5fa0a6c36ffc",
+                    "leftValue": "={{ $json.Function == `createDeal` && $json.Budget === null }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no budget"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$/.test($json.Email) && /^((create|update|get)(Customer|Contact|Project|Ticket|Deal|Record))$/.test($json.Function) }}",
+                    "rightValue": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "754ba668-a12b-47e7-951b-34a8e58bd2e3"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "pass"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        160,
+        96
+      ],
+      "id": "aeae6ff9-6213-4643-bd06-e98f5090e7e8",
+      "name": "gatekeeper"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "ticket",
+        "pipelineId": "1153569502",
+        "stageId": "1830165189",
+        "ticketName": "={{ $('start').first().json.Email }}",
+        "additionalFields": {
+          "associatedContactIds": "={{ [$json.vid] }}",
+          "description": "={{ $('start').first().json.Summary }}",
+          "ticketOwnerId": 63519655
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1680,
+        16
+      ],
+      "id": "c5127bb3-8cc1-4ac9-9540-bdca86fd012e",
+      "name": "createTicket",
+      "retryOnFail": false,
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "deal",
+        "stage": "1226436293",
+        "additionalFields": {
+          "amount": "={{ $('start').first().json.Budget }}",
+          "associatedVids": "={{ $('create').first().json.vid }}",
+          "description": "={{ $('start').first().json.Summary }}",
+          "dealName": "={{ $('start').first().json.Email }}",
+          "dealOwner": {
+            "__rl": true,
+            "value": 63519655,
+            "mode": "list",
+            "cachedResultName": "tf@tonyfelice.net"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1680,
+        176
+      ],
+      "id": "e72eb4ac-e3f7-4416-b539-83c8e7068c71",
+      "name": "createDeal",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": " return [{ json: { output: String(\"ERROR: you must provide a function. Valid functions are: `createContact`, `updateContact`, `createTicket`, `createDeal`. Customer's email is required for all functions. To call createDeal, the customer's budget range is also required.\") } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        -112
+      ],
+      "id": "2f1a5144-a2df-4300-b4bc-b14afcaf0721",
+      "name": "no function"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6774920a-65dd-4a51-a7c9-4fb6a60710b8",
+                    "leftValue": "={{ $('gatekeeper').first().json.Function }}",
+                    "rightValue": "(createTicket|createProject)",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "createTicket"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "85dabdfc-25be-42f8-9899-979d8613eaf6",
+                    "leftValue": "={{ $('gatekeeper').first().json.Function }}",
+                    "rightValue": "createDeal",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "createDeal"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b7adfcf7-3c20-4cd2-9606-b0db154ca76e",
+                    "leftValue": "={{ $('gatekeeper').first().json.Function }}",
+                    "rightValue": "^(createTicket|createDeal|createProject)$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notRegex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "other"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1344,
+        160
+      ],
+      "id": "3aa77149-f989-4c54-ba64-8826609bfd61",
+      "name": "router"
+    },
+    {
+      "parameters": {
+        "jsCode": " return [{ json: { output: String(\"ERROR: To call createDeal, the customer's budget range is also required. To log an opportunity without budget, use the createTicket function.\") } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        32
+      ],
+      "id": "6c2f9b96-ad83-4df4-a409-a5cc1206e107",
+      "name": "no budget"
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = { \"vid\" : $input.first().json.vid };\nreturn out;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        336
+      ],
+      "id": "4bcc492a-d4f9-47a4-9636-4c7577e5c5e4",
+      "name": "passthru"
+    },
+    {
+      "parameters": {
+        "jsCode": " return [{ json: { output: String(\"ERROR: You **must** provide the **user's email address**  to use this tool.\") } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        -400
+      ],
+      "id": "aa5dd69f-a54b-4428-9607-2aecc1f61791",
+      "name": "no email"
+    },
+    {
+      "parameters": {
+        "errorMessage": "ERROR: No email address provided. You **must** provide the **user's email address**  to use this tool."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -256
+      ],
+      "id": "23743c34-52f0-4543-8f98-d75308db0869",
+      "name": "!email"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Function"
+            },
+            {
+              "name": "Email"
+            },
+            {
+              "name": "First_Name"
+            },
+            {
+              "name": "Last_Name"
+            },
+            {
+              "name": "Phone_Number"
+            },
+            {
+              "name": "Summary"
+            },
+            {
+              "name": "Budget"
+            },
+            {
+              "name": "Job_Title"
+            },
+            {
+              "name": "Company_Name"
+            },
+            {
+              "name": "Website_URL"
+            },
+            {
+              "name": "City"
+            },
+            {
+              "name": "State_Region"
+            },
+            {
+              "name": "Postal_Code"
+            },
+            {
+              "name": "sessionId"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -48,
+        128
+      ],
+      "id": "60ec7582-879e-4b9f-8549-e57fc875983e",
+      "name": "start",
+      "retryOnFail": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $('start').first().json.Email }}",
+        "additionalFields": {
+          "contactOwner": 63519655,
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "chatsessionid",
+                "value": "={{ $('start').first().json.sessionId }}"
+              },
+              {
+                "property": "chathistory",
+                "value": "={{ $json.history }}"
+              }
+            ]
+          }
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        1152,
+        176
+      ],
+      "id": "82719a5e-e1a2-40c1-a8e5-632f7c85a11a",
+      "name": "updateRecord",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $('start').first().json.Email }}",
+        "additionalFields": {
+          "city": "={{ $('start').first().json.City }}",
+          "companyName": "={{ $('start').first().json.Company_Name }}",
+          "contactOwner": 63519655,
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "chatsessionid",
+                "value": "={{ $('start').first().json.sessionId }}"
+              }
+            ]
+          },
+          "firstName": "={{ $('start').first().json.First_Name }}",
+          "jobTitle": "={{ $('start').first().json.Job_Title }}",
+          "lastName": "={{ $('start').first().json.Last_Name }}",
+          "message": "={{ $('start').first().json.Summary }}",
+          "phoneNumber": "={{ $('start').first().json.Phone_Number }}",
+          "postalCode": "={{ $('start').first().json.Postal_Code }}",
+          "stateRegion": "={{ $('start').first().json.State_Region }}"
+        },
+        "options": {
+          "resolveData": false
+        }
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        384,
+        176
+      ],
+      "id": "b314f9da-b547-430d-b738-b49823aec0a2",
+      "name": "create",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "Function": "createProject",
+          "Email": "tony@tonyfelice.net",
+          "First_Name": "Tony",
+          "Last_Name": "",
+          "Phone_Number": "",
+          "Summary": "Simple mobile app for human-in-the-loop with n8n workflows, aiming to replace or augment send-and-wait nodes for faster user interaction and notifications on workflow failures.",
+          "Budget": 5000,
+          "Job_Title": "",
+          "Company_Name": "",
+          "Website_URL": "",
+          "City": "",
+          "State_Region": "",
+          "Postal_Code": "",
+          "sessionId": "c7c9570b38d649c18dfab47a57867757"
+        }
+      }
+    ]
+  },
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-23T23:46:18.800Z",
+      "updatedAt": "2025-09-23T23:46:18.800Z",
+      "role": "workflow:owner",
+      "workflowId": "Twzj13uHohXuHW70",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T23:30:26.930Z",
+      "updatedAt": "2025-08-21T23:30:26.930Z",
+      "id": "TC6GN8ukWr58QCW8",
+      "name": "dev"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-24T02:42:40.000Z",
+  "versionId": "3935e0b8-53ea-46f6-9dff-961da9a849be"
+}
