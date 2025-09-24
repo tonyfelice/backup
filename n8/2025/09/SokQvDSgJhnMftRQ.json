@@ -355,7 +355,7 @@
                   {
                     "id": "12863fb3-1acd-4f10-9f5a-86393f773cc7",
                     "leftValue": "={{ $json.Function }}",
-                    "rightValue": "^(createContact|createCustomer|updateRecord|updateContact|createTicket|createDeal)$",
+                    "rightValue": "^(getContact|getCustomer|createContact|createCustomer|updateRecord|updateContact|createTicket|createDeal)$",
                     "operator": {
                       "type": "string",
                       "operation": "notRegex"
@@ -402,7 +402,7 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$/.test($json.Email) && /^(createContact|createCustomer|updateRecord|updateContact|createTicket|createDeal)$/.test($json.Function) }}",
+                    "leftValue": "={{ /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$/.test($json.Email) && /^(getContact|getCustomer|createContact|createCustomer|updateRecord|updateContact|createTicket|createDeal)$/.test($json.Function) }}",
                     "rightValue": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
                     "operator": {
                       "type": "boolean",
@@ -573,7 +573,7 @@
                   {
                     "id": "b7adfcf7-3c20-4cd2-9606-b0db154ca76e",
                     "leftValue": "={{ $('gatekeeper').first().json.Function }}",
-                    "rightValue": "^(createTicket|createDeal|getContact)$",
+                    "rightValue": "^(createTicket|createDeal)$",
                     "operator": {
                       "type": "string",
                       "operation": "notRegex"
@@ -1010,6 +1010,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-20T22:10:26.000Z",
-  "versionId": "e151d9b4-95e5-410c-ba3e-5e77c0629327"
+  "updatedAt": "2025-09-23T22:02:39.000Z",
+  "versionId": "ca2e6598-7a12-4840-818f-98c6bf25e47e"
 }
