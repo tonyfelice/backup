@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "basic email",
+            "node": "get vid",
             "type": "main",
             "index": 0
           }
@@ -28,6 +28,17 @@
         [
           {
             "node": "format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get vid": {
+      "main": [
+        [
+          {
+            "node": "basic email",
             "type": "main",
             "index": 0
           }
@@ -64,7 +75,7 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -160,
+        -352,
         0
       ],
       "id": "142eeb8f-0637-438e-8357-2fa0c5786b12",
@@ -100,7 +111,7 @@
     },
     {
       "parameters": {
-        "html": "<style>\n  @media (prefers-color-scheme: light) {\n    .darkmode-hidden {\n      display: none !important;\n    }\n    .darkmode {\n      display: block !important;\n    }\n    body,.eml{\n      font-family: 'DM Sans', Arial, sans-serif;\n      background:#00001b;\n      color:white;\n    }\n    h1,h2,h3,h4,h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    p,a{\n      font-family: 'DM Sans', Arial, sans-serif;\n      color:#b1b1bc!important;\n    }\n  }\n</style>\n<body>\n  <div class=\"eml\" style= \"font-family: 'DM Sans', Arial, sans-serif;\">\n    <h3 style=\"color: #222236; margin: 0; padding: 0; font-family: 'DM Sans', Arial, sans-serif; font-size: 22px; font-weight: 500; \">\n      {{ $json.headline }}</h3>\n    <p style=\"margin-bottom:40px;\" >{{ $json.body }}</p>\n    <table style=\"border-collapse: collapse;width:100%;\">\n      <tr>\n        <td style=\"width:100%;background-repeat: no-repeat;background-size: contain;background-position: center center;\">\n          <table style=\"border-collapse: collapse;\">\n            <tr>\n              <td style=\"vertical-align: middle;\">\n                <h5 style=\"color: #939598; margin: 0; padding: 0; padding-left: 10px;  padding-top: 5px;  font-family: 'DM Sans', Arial, sans-serif; font-size: 17px; font-weight: 500; \">\n                  Tony Felice\n                </h5>\n                <p style=\"margin: 10px 0 10px 33px; padding: 0 0 5px 10px; border-left:2px dotted #939598;\">\n                  <span style=\"display:block;line-height:8px; color: #939598; margin: 0; padding: 0 0 5px 0px; letter-spacing:.07em; font-family: 'DM Sans', Arial, sans-serif; font-weight: 400; font-size: 16px; font-variant-caps: all-petite-caps;\">\n                    HUMAN\n                  </span>\n                  <span style=\"display:block;line-height:24px; color: #939598;margin: 0; padding: 0 0 0 0px; letter-spacing:.05em;font-family: 'DM Sans', Arial, sans-serif; font-weight: 500; font-size: 14px; \">\n                    <a href=\"tel:+17207222152\" style=\"color: #939598; text-decoration: none;\">720.722.2152</a>\n                  </span>\n                  <span style=\"display:block;line-height:16px; color: #939598;margin: 0; margin-bottom: -6px; padding: 0 0 0 0px; font-family: 'DM Sans', Arial, sans-serif; font-weight: 600; font-size: 14px; \">\n                    <a href=\"mailto:human@czm.ai\" style=\"color: #939598; text-decoration: none;\">human@czm.ai</a>\n                  </span>\n                </p>\n              </td>\n            </tr><tr>\n              <td style=\"padding-right: 15px; vertical-align: middle;\">\n                <a href=\"https://czm.ai/?utm_source=signature&utm_medium=email&utm_campaign=transactional\">\n                  <img src=\"https://241973156.fs1.hubspotusercontent-na2.net/hubfs/241973156/logos/cesium-ai-automation-logo-_trans-full-color-dualmode.png\"\n                     alt=\"Cesium // The AI Automation Agency\"\n                     width=\"170\"\n                     style=\"display: block; max-width: 170px; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;\">\n                </a>\n              </td>\n            </tr>\n            \n          </table>\n        </td>\n      </tr>\n    </table>\n  </div>\n</body>"
+        "html": "<style>\n  @media (prefers-color-scheme: light) {\n    .darkmode-hidden {\n      display: none !important;\n    }\n    .darkmode {\n      display: block !important;\n    }\n    body,.eml{\n      font-family: 'DM Sans', Arial, sans-serif;\n      background:#00001b;\n      color:white;\n    }\n    h1,h2,h3,h4,h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    p,a{\n      font-family: 'DM Sans', Arial, sans-serif;\n      color:#b1b1bc!important;\n    }\n  }\n</style>\n<body>\n  <div class=\"eml\" style= \"font-family: 'DM Sans', Arial, sans-serif;\">\n    <h3 style=\"color: #222236; margin: 0; padding: 0; font-family: 'DM Sans', Arial, sans-serif; font-size: 22px; font-weight: 500; \">\n      {{ $('start').first().json.headline || \"&nbsp;\" }}</h3>\n    <p style=\"margin-bottom:40px;\" >{{ $('start').first().json.body }}</p>\n    <table style=\"border-collapse: collapse;width:100%;\">\n      <tr>\n        <td style=\"width:100%;background-repeat: no-repeat;background-size: contain;background-position: center center;\">\n          <table style=\"border-collapse: collapse;\">\n            <tr>\n              <td style=\"vertical-align: middle;\">\n                <h5 style=\"color: #939598; margin: 0; padding: 0; padding-left: 10px;  padding-top: 5px;  font-family: 'DM Sans', Arial, sans-serif; font-size: 17px; font-weight: 500; \">\n                  Tony Felice\n                </h5>\n                <p style=\"margin: 10px 0 10px 33px; padding: 0 0 5px 10px; border-left:2px dotted #939598;\">\n                  <span style=\"display:block;line-height:8px; color: #939598; margin: 0; padding: 0 0 5px 0px; letter-spacing:.07em; font-family: 'DM Sans', Arial, sans-serif; font-weight: 400; font-size: 16px; font-variant-caps: all-petite-caps;\">\n                    HUMAN\n                  </span>\n                  <span style=\"display:block;line-height:24px; color: #939598;margin: 0; padding: 0 0 0 0px; letter-spacing:.05em;font-family: 'DM Sans', Arial, sans-serif; font-weight: 500; font-size: 14px; \">\n                    <a href=\"tel:+17207222152\" style=\"color: #939598; text-decoration: none;\">720.722.2152</a>\n                  </span>\n                  <span style=\"display:block;line-height:16px; color: #939598;margin: 0; margin-bottom: -6px; padding: 0 0 0 0px; font-family: 'DM Sans', Arial, sans-serif; font-weight: 600; font-size: 14px; \">\n                    <a href=\"mailto:human@czm.ai\" style=\"color: #939598; text-decoration: none;\">human@czm.ai</a>\n                  </span>\n                </p>\n              </td>\n            </tr><tr>\n              <td style=\"padding-right: 15px; vertical-align: middle;\">\n                <a href=\"https://czm.ai/?utm_source=signature&utm_medium=email&utm_campaign=transactional\">\n                  <img src=\"https://241973156.fs1.hubspotusercontent-na2.net/hubfs/241973156/logos/cesium-ai-automation-logo-_trans-full-color-dualmode.png\"\n                     alt=\"Cesium // The AI Automation Agency\"\n                     width=\"170\"\n                     style=\"display: block; max-width: 170px; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;\">\n                </a>\n              </td>\n            </tr>\n            \n          </table>\n        </td>\n      </tr>\n    </table>\n  </div>\n</body>"
       },
       "type": "n8n-nodes-base.html",
       "typeVersion": 1.2,
@@ -110,9 +121,43 @@
       ],
       "id": "26984b25-b684-4a54-92a1-51b5164dbee3",
       "name": "basic email"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.recipient }}",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        -160,
+        0
+      ],
+      "id": "d2dd7f11-ba7f-4a72-9bae-11143637633f",
+      "name": "get vid",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "recipient": "tf@tonyfelice.net",
+          "subject": null,
+          "headline": null,
+          "body": null
+        }
+      }
+    ]
+  },
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -138,6 +183,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-21T01:56:11.000Z",
-  "versionId": "0431ea8e-5637-48c7-b948-a76306433e8c"
+  "updatedAt": "2025-09-23T22:24:52.000Z",
+  "versionId": "9481e291-da52-46e2-b750-0d1fb3c84c5c"
 }
