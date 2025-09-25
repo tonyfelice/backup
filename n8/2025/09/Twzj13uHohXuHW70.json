@@ -49,7 +49,7 @@
       "main": [
         [
           {
-            "node": "!email",
+            "node": "no email",
             "type": "main",
             "index": 0
           }
@@ -181,7 +181,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: CRM_manager 3.0",
+  "name": "CZM: CRM_manager 3.1",
   "nodes": [
     {
       "parameters": {
@@ -199,7 +199,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('create').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { output: String(\"Success.\"), vid: String(vid), isNew: $('create').first().json.isNew } }];\n} else {\n  return [{ json: { output: String(\"Error! The CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('create').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { \n    output: String(\"Success.\")\n    , vid: String(vid)\n    , isNew: $('create').first().json.isNew\n    , firstname: ($('create').first().json.properties.firstname || null) } }];\n} else {\n  return [{ json: { output: String(\"Error! The CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -316,7 +316,7 @@
                   {
                     "id": "12863fb3-1acd-4f10-9f5a-86393f773cc7",
                     "leftValue": "={{ $json.Function }}",
-                    "rightValue": "^((create|update|get)(Customer|Contact|Project|Ticket|Deal|Record))$",
+                    "rightValue": "^((create|update|get|resend)(Link|Customer|Contact|Project|Ticket|Deal|Record))$",
                     "operator": {
                       "type": "string",
                       "operation": "notRegex"
@@ -363,7 +363,7 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$/.test($json.Email) && /^((create|update|get)(Customer|Contact|Project|Ticket|Deal|Record))$/.test($json.Function) }}",
+                    "leftValue": "={{ /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$/.test($json.Email) && /^((create|update|get|resend)(Link|Customer|Contact|Project|Ticket|Deal|Record))$/.test($json.Function) }}",
                     "rightValue": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
                     "operator": {
                       "type": "boolean",
@@ -587,29 +587,16 @@
     },
     {
       "parameters": {
-        "jsCode": " return [{ json: { output: String(\"ERROR: You **must** provide the **user's email address**  to use this tool.\") } }];"
+        "jsCode": " return [{ json: { output: String(\"ERROR: 'Email' parameter not provided.\") } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         384,
-        -400
+        -256
       ],
       "id": "aa5dd69f-a54b-4428-9607-2aecc1f61791",
       "name": "no email"
-    },
-    {
-      "parameters": {
-        "errorMessage": "ERROR: No email address provided. You **must** provide the **user's email address**  to use this tool."
-      },
-      "type": "n8n-nodes-base.stopAndError",
-      "typeVersion": 1,
-      "position": [
-        384,
-        -256
-      ],
-      "id": "23743c34-52f0-4543-8f98-d75308db0869",
-      "name": "!email"
     },
     {
       "parameters": {
@@ -753,26 +740,39 @@
         }
       },
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "errorMessage": "ERROR: No email address provided. You **must** provide the **user's email address**  to use this tool."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -256
+      ],
+      "id": "23743c34-52f0-4543-8f98-d75308db0869",
+      "name": "!email"
     }
   ],
   "pinData": {
     "start": [
       {
         "json": {
-          "Function": "createProject",
-          "Email": "tony@tonyfelice.net",
-          "First_Name": "Tony",
+          "Function": "createCustomer",
+          "Email": "t@tonyfelice.net",
+          "First_Name": "",
           "Last_Name": "",
           "Phone_Number": "",
-          "Summary": "Simple mobile app for human-in-the-loop with n8n workflows, aiming to replace or augment send-and-wait nodes for faster user interaction and notifications on workflow failures.",
-          "Budget": 5000,
+          "Summary": "User requested to speak with someone.",
+          "Budget": "",
           "Job_Title": "",
           "Company_Name": "",
           "Website_URL": "",
           "City": "",
           "State_Region": "",
           "Postal_Code": "",
-          "sessionId": "c7c9570b38d649c18dfab47a57867757"
+          "sessionId": "a5af2aa98a1342649f7511d2e366d217"
         }
       }
     ]
@@ -796,13 +796,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-21T23:30:26.930Z",
-      "updatedAt": "2025-08-21T23:30:26.930Z",
-      "id": "TC6GN8ukWr58QCW8",
-      "name": "dev"
+      "createdAt": "2025-08-17T23:59:40.815Z",
+      "updatedAt": "2025-08-17T23:59:40.815Z",
+      "id": "3xekQCysfg8WeVyP",
+      "name": "production"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-24T02:42:40.000Z",
-  "versionId": "3935e0b8-53ea-46f6-9dff-961da9a849be"
+  "updatedAt": "2025-09-24T22:44:05.000Z",
+  "versionId": "228de962-2778-4a83-a7ec-ca08d936d77d"
 }
