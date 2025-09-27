@@ -5,47 +5,7 @@
       "main": [
         [
           {
-            "node": "search",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "search": {
-      "main": [
-        [
-          {
-            "node": "Switch",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch": {
-      "main": [
-        [
-          {
-            "node": "get contact",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "createContact",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "get contact": {
-      "main": [
-        [
-          {
-            "node": "get logs",
+            "node": "type",
             "type": "main",
             "index": 0
           }
@@ -56,29 +16,167 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "logs?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "createContact": {
+    "existing?": {
       "main": [
         [
           {
-            "node": "Merge",
+            "node": "sort",
             "type": "main",
-            "index": 1
+            "index": 0
           }
         ]
       ]
     },
-    "Edit Fields": {
+    "type": {
       "main": [
         [
           {
-            "node": "Merge",
+            "node": "existing?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "getContactByVid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sort": {
+      "main": [
+        [
+          {
+            "node": "format",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "hs record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gemini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "group logs": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getContactByVid": {
+      "main": [
+        [
+          {
+            "node": "valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "valid?": {
+      "main": [
+        [
+          {
+            "node": "hs record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "bad vid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "hs record": {
+      "main": [
+        [
+          {
+            "node": "get logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "summarize": {
+      "main": [
+        [
+          {
+            "node": "history",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format": {
+      "main": [
+        [
+          {
+            "node": "no history",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "logs?": {
+      "main": [
+        [
+          {
+            "node": "no history",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "group logs",
             "type": "main",
             "index": 0
           }
@@ -92,17 +190,18 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: lookup contact 0.1",
+  "name": "CZM: contact history 2.0",
   "nodes": [
     {
       "parameters": {
-        "inputSource": "passthrough"
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"vid\": \"a string containing a number\"\n  ,\"sessionId\": \"a string containing a uuid\"\n  ,\"email\": \"user@casesensitive.com\"\n}"
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -320,
-        -112
+        -528,
+        -128
       ],
       "id": "10b2ff5e-4699-4287-846f-27dfcb46432c",
       "name": "start"
@@ -110,14 +209,14 @@
     {
       "parameters": {
         "operation": "getAll",
-        "tableId": "n8n_chat_histories",
+        "tableId": "n8n_chat_log",
         "returnAll": true,
         "filters": {
           "conditions": [
             {
-              "keyName": "session_id",
+              "keyName": "sessionId",
               "condition": "eq",
-              "keyValue": "={{ $json.properties.chatsessionid.value }}"
+              "keyValue": "={{ $json.record[0].properties.chatsessionid.value }}"
             }
           ]
         }
@@ -125,11 +224,12 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        544,
+        784,
         -128
       ],
       "id": "20e4c0b3-60b6-4d44-a887-09884ab34ba9",
       "name": "get logs",
+      "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
           "id": "UseJTnYu3ytNk9xR",
@@ -140,31 +240,29 @@
     {
       "parameters": {
         "authentication": "appToken",
-        "operation": "search",
-        "filterGroupsUi": {
-          "filterGroupsValues": [
-            {
-              "filtersUi": {
-                "filterValues": [
-                  {
-                    "propertyName": "email|string",
-                    "value": "tf@feedcats.com"
-                  }
-                ]
+        "email": "={{ $json.email }}",
+        "additionalFields": {
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "chatsessionid",
+                "value": "={{ $json.sessionId }}"
               }
-            }
-          ]
+            ]
+          }
         },
-        "additionalFields": {}
+        "options": {
+          "resolveData": false
+        }
       },
       "type": "n8n-nodes-base.hubspot",
       "typeVersion": 2.2,
       "position": [
-        -112,
-        -112
+        16,
+        -384
       ],
-      "id": "a89b021c-0850-431d-8ad1-6c69aaf0c353",
-      "name": "search",
+      "id": "710e6043-f9d8-415c-b5d0-358025e05ed2",
+      "name": "existing?",
       "credentials": {
         "hubspotAppToken": {
           "id": "A3jVCBPswcrKdgIE",
@@ -186,11 +284,36 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.id }}",
+                    "id": "a4ce6650-6da4-485f-bb57-99a7a4ac7306",
+                    "leftValue": "={{ /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test($json.email) }}",
                     "rightValue": "",
                     "operator": {
-                      "type": "string",
-                      "operation": "exists",
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "email"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ Number.isFinite(Number($json.vid === null ? NaN : $json.vid)) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
                       "singleValue": true
                     },
                     "id": "c436591c-e454-48c6-9429-7e53bf4d6d75"
@@ -199,7 +322,49 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "id"
+              "outputKey": "vid"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -336,
+        -128
+      ],
+      "id": "0fb0d39d-014f-44ae-94b1-13f673e9b15e",
+      "name": "type"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.isNew }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "c436591c-e454-48c6-9429-7e53bf4d6d75"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "NEW"
             },
             {
               "conditions": {
@@ -212,11 +377,11 @@
                 "conditions": [
                   {
                     "id": "a4ce6650-6da4-485f-bb57-99a7a4ac7306",
-                    "leftValue": "={{ $json.id }}",
+                    "leftValue": "={{ $json.isNew }}",
                     "rightValue": "",
                     "operator": {
-                      "type": "string",
-                      "operation": "notExists",
+                      "type": "boolean",
+                      "operation": "false",
                       "singleValue": true
                     }
                   }
@@ -224,7 +389,7 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "not found"
+              "outputKey": "EXISTING"
             }
           ]
         },
@@ -233,32 +398,11 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        96,
-        -112
+        208,
+        -384
       ],
       "id": "d8023eca-704a-4652-9fc8-be5538284ad1",
-      "name": "Switch"
-    },
-    {
-      "parameters": {
-        "authentication": "appToken",
-        "additionalFields": {},
-        "options": {}
-      },
-      "type": "n8n-nodes-base.hubspot",
-      "typeVersion": 2.2,
-      "position": [
-        544,
-        144
-      ],
-      "id": "710e6043-f9d8-415c-b5d0-358025e05ed2",
-      "name": "createContact",
-      "credentials": {
-        "hubspotAppToken": {
-          "id": "A3jVCBPswcrKdgIE",
-          "name": "hs-czm-n8n"
-        }
-      }
+      "name": "sort"
     },
     {
       "parameters": {
@@ -266,7 +410,7 @@
         "operation": "get",
         "contactId": {
           "__rl": true,
-          "value": "={{ $json.id }}",
+          "value": "={{ $json.vid }}",
           "mode": "id"
         },
         "additionalFields": {}
@@ -274,63 +418,324 @@
       "type": "n8n-nodes-base.hubspot",
       "typeVersion": 2.2,
       "position": [
-        336,
-        -128
+        16,
+        -112
       ],
-      "id": "d915a047-ecfa-4f38-a318-831af4fc1fd4",
-      "name": "get contact",
+      "id": "b385d5cd-a15c-4fa5-9889-fc3b778bb462",
+      "name": "getContactByVid",
       "credentials": {
         "hubspotAppToken": {
           "id": "A3jVCBPswcrKdgIE",
           "name": "hs-czm-n8n"
         }
-      }
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        1120,
-        128
-      ],
-      "id": "d179bb1c-5647-4daf-9b0c-572ead4939e8",
-      "name": "Merge"
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
+        "text": "={{ JSON.stringify($json.history) }}",
+        "attributes": {
+          "attributes": [
             {
-              "id": "e37613a9-4386-4eef-9125-0b588259a248",
-              "name": "properties.firstname.value",
-              "value": "={{ $('get contact').item.json.properties.firstname.value }}",
-              "type": "string"
+              "name": "summary",
+              "description": "summary of the entire chat history"
             },
             {
-              "id": "f29ef7e8-19d3-4224-83de-3e7d25894c90",
-              "name": "properties.message.value",
-              "value": "={{ $('get contact').item.json.properties.message.value }}",
-              "type": "string"
+              "name": "requestType",
+              "description": "the type of request, positioned in the context of a full-service digital agency (strategy, design, development, campaign, maintenance, etc)"
             },
             {
-              "id": "7a4dd1b2-eacc-420a-b5a3-4305d64d1295",
-              "name": "message",
-              "value": "={{ $json.message }}",
-              "type": "object"
+              "name": "urgency",
+              "description": "how important does this seem to the user? Scale of 1-10"
+            },
+            {
+              "name": "confidence",
+              "description": "does the user seem to have the ability and willingness to follow through? Scale of 1-10"
+            },
+            {
+              "name": "value",
+              "description": "how valuable of a project does this seem to be?   Scale of 1-10 (assume 4 hours is rated 1, 100+ is rated 7, 500+ hours is rated 9)"
+            },
+            {
+              "name": "lastUpdateSummary",
+              "description": "what was the last client-side project-related information the user shared? Disregard questions from the user, contact information, friendly banter, and chit-chat."
+            },
+            {
+              "name": "lastUpdateDateTime",
+              "description": "When was the most recent conversation? Output in America/Denver Time"
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        1392,
+        -112
+      ],
+      "id": "efcd4ca6-8c8a-4208-b18d-9b7468f7f6a6",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1392,
+        96
+      ],
+      "id": "44b0495e-c5f3-49ac-9f79-4555c703ca7f",
+      "name": "gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "l2BRSEsuoKcYMydD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "history",
+        "include": "specifiedFields",
+        "fieldsToInclude": "created_at, chatInput, response, files",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        -112
+      ],
+      "id": "0341c739-ff6e-40e9-a5cd-40421539f7a8",
+      "name": "group logs",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ Number.isFinite(Number($json.vid === null ? NaN : $json.vid)) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "c436591c-e454-48c6-9429-7e53bf4d6d75"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "vid"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a4ce6650-6da4-485f-bb57-99a7a4ac7306",
+                    "leftValue": "={{ $json.error || null }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "404"
             }
           ]
         },
         "options": {}
       },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        208,
+        -112
+      ],
+      "id": "ad35cecb-c144-4f5e-9ef9-52580944da28",
+      "name": "valid?"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "record",
+        "include": "specifiedFields",
+        "fieldsToInclude": "vid, properties",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        592,
+        -128
+      ],
+      "id": "4bcc1833-6de1-46a6-ab98-b8913e50903d",
+      "name": "hs record",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"output\": {\n    \"firstname\": {{ JSON.stringify($('hs record').item.json.record[0].properties.firstname.value) }}\n    ,\"Email\": {{ JSON.stringify($('hs record').item.json.record[0].properties.email.value) }}\n    ,\"vid\": {{ $('hs record').item.json.record[0].vid }}\n    ,\"chatHistory\": {{ JSON.stringify($json.output.summary) }}\n    ,\"requestType\": {{ JSON.stringify($json.output.requestType) }}\n    ,\"urgency\": {{ $json.output.urgency }}\n    ,\"confidence\": {{ $json.output.confidence }}\n    ,\"value\": {{ $json.output.value }}\n    ,\"lastUpdateSummary\": {{ JSON.stringify($json.output.lastUpdateSummary) }}\n    ,\"lastUpdateDateTime\": {{ JSON.stringify($json.output.lastUpdateDateTime) }}\n  }\n} ",
+        "options": {}
+      },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        752,
+        1712,
+        -112
+      ],
+      "id": "3ed6e733-25a2-40ff-b9f3-b642b6015b2d",
+      "name": "summarize"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"output\": {\n    \"firstname\": null\n    ,\"Email\": \"{{ $('existing?').item.json.properties.email.value }}\"\n    ,\"vid\": {{ $('existing?').item.json.vid }}\n    ,\"chatHistory\": \"No history for this email address. Is there another address they may have used?\"\n    ,\"requestType\": null\n    ,\"urgency\": null\n    ,\"confidence\": null\n    ,\"value\": null\n  }\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        -400
+      ],
+      "id": "9030af81-e365-4498-8b03-b8601511a9e0",
+      "name": "format"
+    },
+    {
+      "parameters": {
+        "jsCode": "const strOut = \"ERROR: No history for this address. Try a different email address.\";\nreturn [{ json: { output: String(strOut) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1312,
+        -400
+      ],
+      "id": "03ab5da9-a674-4853-81f9-fcbb2df07f95",
+      "name": "no history"
+    },
+    {
+      "parameters": {
+        "jsCode": "const objOut = $('summarize').first().json.output;\nreturn [{ json: { output: objOut } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1904,
+        -112
+      ],
+      "id": "ea2a2b18-4de1-4006-b856-f3c6b86d91fc",
+      "name": "history"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ Object.keys($json).length === 0 }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "c436591c-e454-48c6-9429-7e53bf4d6d75"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no logs"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a4ce6650-6da4-485f-bb57-99a7a4ac7306",
+                    "leftValue": "={{ Object.keys($json).length === 0 }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "false",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "logs"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        992,
         -128
       ],
-      "id": "57315627-e5d7-4e96-a612-cba2d2a3a240",
-      "name": "Edit Fields"
+      "id": "80c0ba8f-39d9-41a6-a847-b0438dcdd284",
+      "name": "logs?"
+    },
+    {
+      "parameters": {
+        "jsCode": "const strOut = \"ERROR: Record not found; invalid vid value. Try a different email address.\";\nreturn [{ json: { output: String(strOut) } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        144
+      ],
+      "id": "a60971ed-eb66-46a2-a468-6ae5b578f30e",
+      "name": "bad vid"
     }
   ],
   "pinData": {},
@@ -359,6 +764,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-21T01:54:13.000Z",
-  "versionId": "d0954bb7-72eb-40bf-bd1e-8f360ad8f6ed"
+  "updatedAt": "2025-09-27T03:15:29.000Z",
+  "versionId": "c9033f86-0424-4950-9537-803c489a62bb"
 }
