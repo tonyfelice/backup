@@ -74,7 +74,7 @@
       "ai_languageModel": [
         [
           {
-            "node": "Information Extractor",
+            "node": "summarize",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -82,17 +82,6 @@
       ]
     },
     "group logs": {
-      "main": [
-        [
-          {
-            "node": "Information Extractor",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Information Extractor": {
       "main": [
         [
           {
@@ -143,17 +132,6 @@
         ]
       ]
     },
-    "summarize": {
-      "main": [
-        [
-          {
-            "node": "history",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "format": {
       "main": [
         [
@@ -182,6 +160,17 @@
           }
         ]
       ]
+    },
+    "summarize": {
+      "main": [
+        [
+          {
+            "node": "history",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-09-14T03:39:57.374Z",
@@ -195,7 +184,7 @@
     {
       "parameters": {
         "inputSource": "jsonExample",
-        "jsonExample": "{\n  \"vid\": \"a string containing a number\"\n  ,\"sessionId\": \"a string containing a uuid\"\n  ,\"email\": \"user@casesensitive.com\"\n}"
+        "jsonExample": "{\n  \"vid\": \"a string containing a number\"\n  ,\"sessionId\": \"a string containing a uuid\"\n  ,\"email\": \"user@casesensitive.com\"\n  ,\"caller\": \"name of the workflow making the request\"\n}"
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
@@ -433,54 +422,6 @@
     },
     {
       "parameters": {
-        "text": "={{ JSON.stringify($json.history) }}",
-        "attributes": {
-          "attributes": [
-            {
-              "name": "summary",
-              "description": "summary of the entire chat history"
-            },
-            {
-              "name": "requestType",
-              "description": "the type of request, positioned in the context of a full-service digital agency (strategy, design, development, campaign, maintenance, etc)"
-            },
-            {
-              "name": "urgency",
-              "description": "how important does this seem to the user? Scale of 1-10"
-            },
-            {
-              "name": "confidence",
-              "description": "does the user seem to have the ability and willingness to follow through? Scale of 1-10"
-            },
-            {
-              "name": "value",
-              "description": "how valuable of a project does this seem to be?   Scale of 1-10 (assume 4 hours is rated 1, 100+ is rated 7, 500+ hours is rated 9)"
-            },
-            {
-              "name": "lastUpdateSummary",
-              "description": "what was the last client-side project-related information the user shared? Disregard questions from the user, contact information, friendly banter, and chit-chat."
-            },
-            {
-              "name": "lastUpdateDateTime",
-              "description": "When was the most recent conversation? Output in America/Denver Time"
-            }
-          ]
-        },
-        "options": {
-          "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
-      "typeVersion": 1.2,
-      "position": [
-        1392,
-        -112
-      ],
-      "id": "efcd4ca6-8c8a-4208-b18d-9b7468f7f6a6",
-      "name": "Information Extractor"
-    },
-    {
-      "parameters": {
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
@@ -503,7 +444,7 @@
         "aggregate": "aggregateAllItemData",
         "destinationFieldName": "history",
         "include": "specifiedFields",
-        "fieldsToInclude": "created_at, chatInput, response, files",
+        "fieldsToInclude": "created_at, chatInput, response, files, workflow",
         "options": {}
       },
       "type": "n8n-nodes-base.aggregate",
@@ -604,21 +545,6 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n  \"output\": {\n    \"firstname\": {{ JSON.stringify($('hs record').item.json.record[0].properties.firstname.value) }}\n    ,\"Email\": {{ JSON.stringify($('hs record').item.json.record[0].properties.email.value) }}\n    ,\"vid\": {{ $('hs record').item.json.record[0].vid }}\n    ,\"chatHistory\": {{ JSON.stringify($json.output.summary) }}\n    ,\"requestType\": {{ JSON.stringify($json.output.requestType) }}\n    ,\"urgency\": {{ $json.output.urgency }}\n    ,\"confidence\": {{ $json.output.confidence }}\n    ,\"value\": {{ $json.output.value }}\n    ,\"lastUpdateSummary\": {{ JSON.stringify($json.output.lastUpdateSummary) }}\n    ,\"lastUpdateDateTime\": {{ JSON.stringify($json.output.lastUpdateDateTime) }}\n  }\n} ",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        1712,
-        -112
-      ],
-      "id": "3ed6e733-25a2-40ff-b9f3-b642b6015b2d",
-      "name": "summarize"
-    },
-    {
-      "parameters": {
-        "mode": "raw",
         "jsonOutput": "={\n  \"output\": {\n    \"firstname\": null\n    ,\"Email\": \"{{ $('existing?').item.json.properties.email.value }}\"\n    ,\"vid\": {{ $('existing?').item.json.vid }}\n    ,\"chatHistory\": \"No history for this email address. Is there another address they may have used?\"\n    ,\"requestType\": null\n    ,\"urgency\": null\n    ,\"confidence\": null\n    ,\"value\": null\n  }\n} ",
         "options": {}
       },
@@ -646,12 +572,12 @@
     },
     {
       "parameters": {
-        "jsCode": "const objOut = $('summarize').first().json.output;\nreturn [{ json: { output: objOut } }];"
+        "jsCode": "const objOut = $('summarize').first().json.output;\nconst regex = /^\\\"?CZM:\\s([a-zA-Z0-9\\s]+)\\s[0-9]+\\.[0-9]\\\"?/;\nconst workflowsValue = objOut.workflows;\nconst lastWorkflow = objOut.lastWorkflow;\nconst agentMap = {\n  \"capture\": \"Nīla\",\n  \"discovery\": \"Celeste\",\n  \"accounts\": \"Cassandra\"\n};\nlet workflowsArray;\nif (typeof workflowsValue === 'string') {\n  try {\n    workflowsArray = JSON.parse(workflowsValue);\n  } catch (e) {\n    workflowsArray = [workflowsValue];\n  }\n} else if (Array.isArray(workflowsValue)) {\n  workflowsArray = workflowsValue;\n} else {\n  workflowsArray = [workflowsValue].filter(v => typeof v === 'string');\n}\nobjOut.workflows = workflowsArray;\nobjOut.spokenWith = workflowsArray.map(item =>\n  item.replace(regex, (match, capturedName) => agentMap[capturedName.trim()] || match)\n);\nobjOut.lastSpokeWith = objOut.lastWorkflow.replace(regex, (match, capturedName) => agentMap[capturedName.trim()] || match);\nobjOut.needsIntroduction = workflowsArray.some(item => item !== $('start').first().json.caller);\n\nreturn [{ json: { output: objOut } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1904,
+        1712,
         -112
       ],
       "id": "ea2a2b18-4de1-4006-b856-f3c6b86d91fc",
@@ -736,6 +662,75 @@
       ],
       "id": "a60971ed-eb66-46a2-a468-6ae5b578f30e",
       "name": "bad vid"
+    },
+    {
+      "parameters": {
+        "text": "={{ JSON.stringify($json.history) }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "summary",
+              "description": "summary of the entire chat history"
+            },
+            {
+              "name": "requestType",
+              "description": "the type of request, positioned in the context of a full-service digital agency (strategy, design, development, campaign, maintenance, etc)"
+            },
+            {
+              "name": "urgency",
+              "description": "how important does this seem to the user? Scale of 1-10"
+            },
+            {
+              "name": "confidence",
+              "description": "does the user seem to have the ability and willingness to follow through? Scale of 1-10"
+            },
+            {
+              "name": "value",
+              "description": "how valuable of a project does this seem to be?   Scale of 1-10 (assume 4 hours is rated 1, 100+ is rated 7, 500+ hours is rated 9)"
+            },
+            {
+              "name": "lastUpdateSummary",
+              "description": "what was the last client-side project-related information the user shared? Disregard questions from the user, contact information, friendly banter, and chit-chat."
+            },
+            {
+              "name": "lastUpdateDateTime",
+              "description": "When was the most recent conversation? Output in America/Denver Time"
+            },
+            {
+              "name": "workflows",
+              "description": "=JSON array of distinct workflow values found in the logs"
+            },
+            {
+              "name": "firstname",
+              "description": "={{  $('hs record').first().json.record[0].properties.firstname.value }}"
+            },
+            {
+              "name": "email",
+              "description": "={{ $('hs record').first().json.record[0].properties.email.value }}"
+            },
+            {
+              "name": "vid",
+              "type": "number",
+              "description": "={{ $('hs record').first().json.record[0].vid }}"
+            },
+            {
+              "name": "lastWorkflow",
+              "description": "workflow value from the most recent interaction"
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        1392,
+        -112
+      ],
+      "id": "efcd4ca6-8c8a-4208-b18d-9b7468f7f6a6",
+      "name": "summarize"
     }
   ],
   "pinData": {},
@@ -764,6 +759,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-27T03:15:29.000Z",
-  "versionId": "c9033f86-0424-4950-9537-803c489a62bb"
+  "updatedAt": "2025-09-28T00:37:52.000Z",
+  "versionId": "9e630d05-e98f-449a-a52a-c9776e44fe8b"
 }
