@@ -1,0 +1,785 @@
+{
+  "active": false,
+  "connections": {
+    "4.1 nano": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM-tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "customerEmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "resendLink": {
+      "ai_tool": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "partnerEmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adminEmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "subscriberEmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "CRM Manager",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-28T00:34:07.860Z",
+  "id": "2AmzbJoTTNOHmXK9",
+  "isArchived": false,
+  "meta": null,
+  "name": "CRM_Manager 4.0",
+  "nodes": [
+    {
+      "parameters": {
+        "description": "# CRM-tool\n+ Used to store information in our CRM.\n+ Function is always required\n+ Email is always required.\n+ If this tool responds with an ERROR, note that the error message will provide remedy\n\n",
+        "workflowId": {
+          "__rl": true,
+          "value": "Twzj13uHohXuHW70",
+          "mode": "list",
+          "cachedResultName": "CZM: CRM_manager 3.1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $fromAI('Email') }}",
+            "City": "={{ $fromAI('City') }}",
+            "Function": "={{ $fromAI('Function') }}",
+            "Budget": "={{ $fromAI('Budget') }}",
+            "First_Name": "={{ $fromAI('First_Name') }}",
+            "Last_Name": "={{ $fromAI('Last_Name') }}",
+            "Phone_Number": "={{ $fromAI('Phone_Number') }}",
+            "Website_URL": "={{ $fromAI('Website_URL') }}",
+            "Company_Name": "={{ $fromAI('Company_Name') }}",
+            "Job_Title": "={{ $fromAI('Job_Title') }}",
+            "State_Region": "={{ $fromAI('State_Region') }}",
+            "Postal_Code": "={{ $fromAI('Postal_Code') }}",
+            "sessionId": "={{ $('start').item.json.sessionId }}",
+            "Summary": "={{ $fromAI('Summary') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Function",
+              "displayName": "Function",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "First_Name",
+              "displayName": "First_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Last_Name",
+              "displayName": "Last_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Phone_Number",
+              "displayName": "Phone_Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Job_Title",
+              "displayName": "Job_Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Company_Name",
+              "displayName": "Company_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Website_URL",
+              "displayName": "Website_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "State_Region",
+              "displayName": "State_Region",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Postal_Code",
+              "displayName": "Postal_Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        176,
+        288
+      ],
+      "id": "3f752873-5275-4dd7-8d40-89612e081a0e",
+      "name": "CRM-tool"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-nano"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        288
+      ],
+      "id": "91220f34-5776-43c0-bb43-b4baf6f4585a",
+      "name": "4.1 nano",
+      "credentials": {
+        "openAiApi": {
+          "id": "X3Nhu6EWyz9LN2fj",
+          "name": "czm-openai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "=sends email from human@czm.ai to recipient",
+        "workflowId": {
+          "__rl": true,
+          "value": "GlNTC2UQlsr2JxH3",
+          "mode": "list",
+          "cachedResultName": "CZM: signed email 1.1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "recipient": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('recipient', `The recipient's email address`, 'string') }}",
+            "subject": "=Ready to take the next step?",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', ``, 'string') }}",
+            "headline": "&nbsp;",
+            "vid": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "recipient",
+              "displayName": "recipient",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "headline",
+              "displayName": "headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "vid",
+              "displayName": "vid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        288
+      ],
+      "id": "692d2661-f4be-43f6-8614-78b6710d3f72",
+      "name": "customerEmail"
+    },
+    {
+      "parameters": {
+        "description": "=sends email from human@czm.ai to recipient",
+        "workflowId": {
+          "__rl": true,
+          "value": "GlNTC2UQlsr2JxH3",
+          "mode": "list",
+          "cachedResultName": "CZM: signed email 1.1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "recipient": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('recipient', `The recipient's email address`, 'string') }}",
+            "subject": "=Here's to the next step!",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', `use correct template`, 'string') }}",
+            "headline": "&nbsp;",
+            "vid": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "recipient",
+              "displayName": "recipient",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "headline",
+              "displayName": "headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "vid",
+              "displayName": "vid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        288
+      ],
+      "id": "195a374a-3bb6-4177-b6ad-4e534a7ba3b0",
+      "name": "resendLink"
+    },
+    {
+      "parameters": {
+        "description": "=sends email from human@czm.ai to recipient",
+        "workflowId": {
+          "__rl": true,
+          "value": "GlNTC2UQlsr2JxH3",
+          "mode": "list",
+          "cachedResultName": "CZM: signed email 1.1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "recipient": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('recipient', `The recipient's email address`, 'string') }}",
+            "subject": "=I like your style",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', `use correct template`, 'string') }}",
+            "headline": "&nbsp;",
+            "vid": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "recipient",
+              "displayName": "recipient",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "headline",
+              "displayName": "headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "vid",
+              "displayName": "vid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        736,
+        288
+      ],
+      "id": "676f905f-66d3-47b0-9dc9-1b918bc86ca3",
+      "name": "partnerEmail"
+    },
+    {
+      "parameters": {
+        "description": "=sends email from human@czm.ai to recipient",
+        "workflowId": {
+          "__rl": true,
+          "value": "GlNTC2UQlsr2JxH3",
+          "mode": "list",
+          "cachedResultName": "CZM: signed email 1.1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "recipient": "=human@czm.ai",
+            "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('subject', ``, 'string') }}",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', `message for the admin`, 'string') }}",
+            "headline": "&nbsp;",
+            "vid": "={{ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "recipient",
+              "displayName": "recipient",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "headline",
+              "displayName": "headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "vid",
+              "displayName": "vid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        864,
+        288
+      ],
+      "id": "4e6620a2-c759-4680-a97c-f614a5255227",
+      "name": "adminEmail"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=# Contact Manager \n\n## Role\nYou are a workflow agent with laser-focused attention to detail.\nYour job is to:\n1. Take inbound queries.\n2. Call the correct **`CRM-tool`** function.\n3. If successful, follow Step 2, Decision Tree for Email Tool Use\n4. Return the final JSON response.\n\n---\n\n## INBOUND QUERY Format\n```json\n{\n  \"query\": {\n    \"Function\": \"(createCustomer|getCustomer|updateRecord|createProject|resendLink)\",\n    \"Email\": \"(user@email.com)\",\n    \"Summary\": \"(description of User's need, challenge, or inquiry)\",\n    \"opportunityType\": \"(Customer|Partner|Welcome|Subscriber)\",\n    \"Budget\": null,\n    \"First_Name\": \"\",\n    \"Last_Name\": \"\",\n    \"Message\": \"\",\n    \"Phone_Number\": \"\",\n    \"Website_URL\": \"\",\n    \"Company_Name\": \"\",\n    \"Job_Title\": \"\",\n    \"City\": \"\",\n    \"State_Region\": \"\",\n    \"Postal_Code\": \"\"\n  }\n}\n```\n\n---\n\n## Processing Flow\n\n### STEP 1 — **`CRM-tool`**\n  - Always call **`CRM-tool`** using the INBOUND QUERY fields.\n  - If not given Email or valid Function, the CRM will fail.\n\n### STEP 2 — Decision Tree for Email Tool Use\n\n  IF **`CRM-tool`** returns \"Success\":\n\n  - Case A: opportunityType = Customer\n    - IF Function != resendLink → Use the **`customerEmail`** tool\n    - IF Function == resendLink → Use the **`resendLink`** tool\n    - **CASE A only applies to opportunityType = Customer**\n\n  - Case B: opportunityType = Partner\n    - ALWAYS →  Use the **`partnerEmail`** tool\n    - **CASE B only applies to opportunityType = Partner**\n\n  - Case C: opportunityType = Subscriber\n    - ALWAYS →  Use the **`subscriberEmail`** tool\n    - **CASE C only applies to opportunityType = Subscriber**\n\n  - Case D: Any other condition → Use the **`adminEmail`** tool\n\n  !!! IMPORTANT !!! It is CRITICAL that we select the correct Case based on opportunityType\n\n  IF **`CRM-tool`** returns \"Error\":\n  - Use the **`adminEmail`** tool\n  - Respond with CRM failure in final JSON.\n\n### STEP 3 — Final JSON Output\n  Always respond to INBOUND QUERY with valid JSON:\n```json\n{\n  \"result\": \"(string from **`CRM-tool`**)\",\n  \"vid\": \"(string from **`CRM-tool`**)\",\n  \"isNew\": (boolean from **`CRM-tool`**),\n  \"emailSent\": (true if email-tool returns labelIds[0]='SENT', else false),\n  \"emailType\": \"(name of email tool used)\"\n}\n```\n\n\n## EMAIL TOOLS\n### **`customerEmail`** \n+ RULES:\n  - this tool is only for use with opportunityType = Customer\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We're ready to move forward.<br><br>Next, we'll be gathering all of the details for your project, to assemble a contract and timeline. It shouldn't take too long, usually about a half hour.<br><br> Once you've got some quiet time, and you're in front of your computer, <a href='https://czm.ai/discovery?sid={{ $('start').first().json.query.sessionId }}&vid={vid}'>take the next step</a>.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n### **`resendLink`** \n+ RULES:\n  - this tool is only for use with opportunityType = Customer\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We're ready to move forward.<br><br>Next, we'll be gathering all of the details for your project, to assemble a contract and timeline. It shouldn't take too long, usually about a half hour.<br><br> Once you've got some quiet time, and you're in front of your computer, <a href='https://czm.ai/discovery?sid={{ $('start').first().json.query.sessionId }}&vid={vid}'>take the next step</a>.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n### **`subscriberEmail`** \n+ RULES:\n  - this tool is only for use with opportunityType = Subscriber\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We'll be in touch shortly.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n### **`partnerEmail`** \n+ RULES:\n  - this tool is only for use with opportunityType = Partner\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. <br><br>We'll discuss with the team and get back to you very shortly.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n#### **`adminEmail`** \n+ RULES:\n  - if possible, replace {vid} with vid value returned from **`CRM-tool`**, otherwise 0\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"subject\": \"{defined_by_model}\",\n    \"body\": \"{defined_by_model}\",\n    \"vid\": {vid}\n  }\n}\n```\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "daafe705-c609-4783-b941-520811cb93af",
+      "name": "CRM Manager"
+    },
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\"query\": {\n  \"Function\": \"string\",\n  \"Email\": \"string\",\n  \"Summary\": \"string\",\n  \"opportunityType\": \"string\",\n  \"Budget\": 1234567890,\n  \"First_Name\": \"string\",\n  \"Last_Name\": \"string\",\n  \"Phone_Number\": \"string\",\n  \"Website_URL\": \"string\",\n  \"Company_Name\": \"string\",\n  \"Job_Title\": \"string\",\n  \"City\": \"string\",\n  \"State_Region\": \"string\",\n  \"Postal_Code\": \"string\",\n  \"sessionId\": \"string\"\n}\n}"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        0
+      ],
+      "id": "254be5d1-64dd-41de-a9eb-43aa00d1a559",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "description": "=sends email from human@czm.ai to recipient",
+        "workflowId": {
+          "__rl": true,
+          "value": "GlNTC2UQlsr2JxH3",
+          "mode": "list",
+          "cachedResultName": "CZM: signed email 1.1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "recipient": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('recipient', `The recipient's email address`, 'string') }}",
+            "subject": "=Message Received",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', `use correct template`, 'string') }}",
+            "headline": "&nbsp;",
+            "vid": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "recipient",
+              "displayName": "recipient",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "headline",
+              "displayName": "headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "vid",
+              "displayName": "vid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        288
+      ],
+      "id": "8c775278-cb91-4afa-ab5f-4fae476ac2d4",
+      "name": "subscriberEmail"
+    }
+  ],
+  "pinData": {
+    "start": [
+      {
+        "json": {
+          "query": {
+            "Function": "createCustomer",
+            "Email": "t@nicehifi.com",
+            "Summary": "Potential customer requesting contact for unspecified business need.",
+            "opportunityType": "Subscriber",
+            "Budget": null,
+            "First_Name": "",
+            "Last_Name": "",
+            "Message": "",
+            "Phone_Number": "",
+            "Website_URL": "",
+            "Company_Name": "",
+            "Job_Title": "",
+            "City": "",
+            "State_Region": "",
+            "Postal_Code": "",
+            "sessionId": "2bbbfb4d1613483b8c58bde3f0edc2ca"
+          }
+        }
+      }
+    ]
+  },
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-28T00:34:07.866Z",
+      "updatedAt": "2025-09-28T00:34:07.866Z",
+      "role": "workflow:owner",
+      "workflowId": "2AmzbJoTTNOHmXK9",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-28T03:18:40.000Z",
+  "versionId": "33fe2627-4f50-4745-b4fd-99e3cef8f3c9"
+}
