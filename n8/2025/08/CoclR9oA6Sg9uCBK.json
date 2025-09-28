@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "get vid",
+            "node": "store",
             "type": "main",
             "index": 0
           }
@@ -34,7 +34,7 @@
         ]
       ]
     },
-    "get vid": {
+    "store": {
       "main": [
         [
           {
@@ -136,7 +136,7 @@
         0
       ],
       "id": "d2dd7f11-ba7f-4a72-9bae-11143637633f",
-      "name": "get vid",
+      "name": "store",
       "credentials": {
         "hubspotAppToken": {
           "id": "A3jVCBPswcrKdgIE",
@@ -146,18 +146,7 @@
       "onError": "continueRegularOutput"
     }
   ],
-  "pinData": {
-    "start": [
-      {
-        "json": {
-          "recipient": "tf@tonyfelice.net",
-          "subject": null,
-          "headline": null,
-          "body": null
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -176,13 +165,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-20T00:54:13.241Z",
-      "updatedAt": "2025-08-20T00:54:13.241Z",
-      "id": "BhMyF8l07FgXl3Oi",
-      "name": "pre-prod"
+      "createdAt": "2025-08-17T23:59:40.815Z",
+      "updatedAt": "2025-08-17T23:59:40.815Z",
+      "id": "3xekQCysfg8WeVyP",
+      "name": "production"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-23T22:24:52.000Z",
-  "versionId": "9481e291-da52-46e2-b750-0d1fb3c84c5c"
+  "updatedAt": "2025-09-27T23:43:32.000Z",
+  "versionId": "88eb2920-9cbe-4d4d-950c-5dc68e0b549e"
 }
