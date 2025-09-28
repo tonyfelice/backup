@@ -1,0 +1,177 @@
+{
+  "active": false,
+  "connections": {
+    "format": {
+      "main": [
+        [
+          {
+            "node": "deliver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "start": {
+      "main": [
+        [
+          {
+            "node": "store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "basic email": {
+      "main": [
+        [
+          {
+            "node": "format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "store": {
+      "main": [
+        [
+          {
+            "node": "basic email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-27T23:39:36.348Z",
+  "id": "GlNTC2UQlsr2JxH3",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "CZM: signed email 1.1",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const html = $json.html;\nconst jsonMessage = JSON.stringify(html);\nreturn {\n  jsonMessage: jsonMessage\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "545b02f6-f0d3-4e82-80e2-5ac3c6d33c87",
+      "name": "format"
+    },
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"recipient\": \"string\",\n  \"subject\": \"string\",\n  \"headline\": \"string\",\n  \"body\": \"string\",\n  \"vid\": 1234567890\n}"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -352,
+        0
+      ],
+      "id": "85cb79fe-823c-444a-9ae2-edf658fb5275",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('start').item.json.recipient }}",
+        "subject": "={{ $('start').item.json.subject }}",
+        "message": "={{ JSON.parse($json.jsonMessage) }}",
+        "options": {
+          "appendAttribution": false,
+          "bccList": "svc@czm.ai",
+          "senderName": "Cesium ",
+          "replyTo": "human@czm.ai"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "edf651fa-64f0-4874-b38e-382c8fef91aa",
+      "name": "deliver",
+      "webhookId": "167cda83-e418-467d-a721-bdea95a31196",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tE3vH38XdVP8HQOa",
+          "name": "t@czm-n8n-gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "html": "<style>\n  @media (prefers-color-scheme: light) {\n    .darkmode-hidden {\n      display: none !important;\n    }\n    .darkmode {\n      display: block !important;\n    }\n    body,.eml{\n      font-family: 'DM Sans', Arial, sans-serif;\n      background:#00001b;\n      color:white;\n    }\n    h1,h2,h3,h4,h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    h5{\n      color:#b1b1bc!important;\n      font-family: 'DM Sans', Arial, sans-serif; \n      font-weight: 500;\n    }\n    p,a{\n      font-family: 'DM Sans', Arial, sans-serif;\n      color:#b1b1bc!important;\n    }\n  }\n</style>\n<body>\n  <div class=\"eml\" style= \"font-family: 'DM Sans', Arial, sans-serif;\">\n    <h3 style=\"color: #222236; margin: 0; padding: 0; font-family: 'DM Sans', Arial, sans-serif; font-size: 22px; font-weight: 500; \">\n      {{ $('start').first().json.headline || \"&nbsp;\" }}</h3>\n    <p style=\"margin-bottom:40px;\" >{{ $('start').first().json.body }}</p>\n    <table style=\"border-collapse: collapse;width:100%;\">\n      <tr>\n        <td style=\"width:100%;background-repeat: no-repeat;background-size: contain;background-position: center center;\">\n          <table style=\"border-collapse: collapse;\">\n            <tr>\n              <td style=\"vertical-align: middle;\">\n                <h5 style=\"color: #939598; margin: 0; padding: 0; padding-left: 10px;  padding-top: 5px;  font-family: 'DM Sans', Arial, sans-serif; font-size: 17px; font-weight: 500; \">\n                  Tony Felice\n                </h5>\n                <p style=\"margin: 10px 0 10px 33px; padding: 0 0 5px 10px; border-left:2px dotted #939598;\">\n                  <span style=\"display:block;line-height:8px; color: #939598; margin: 0; padding: 0 0 5px 0px; letter-spacing:.07em; font-family: 'DM Sans', Arial, sans-serif; font-weight: 400; font-size: 16px; font-variant-caps: all-petite-caps;\">\n                    HUMAN\n                  </span>\n                  <span style=\"display:block;line-height:24px; color: #939598;margin: 0; padding: 0 0 0 0px; letter-spacing:.05em;font-family: 'DM Sans', Arial, sans-serif; font-weight: 500; font-size: 14px; \">\n                    <a href=\"tel:+17207222152\" style=\"color: #939598; text-decoration: none;\">720.722.2152</a>\n                  </span>\n                  <span style=\"display:block;line-height:16px; color: #939598;margin: 0; margin-bottom: -6px; padding: 0 0 0 0px; font-family: 'DM Sans', Arial, sans-serif; font-weight: 600; font-size: 14px; \">\n                    <a href=\"mailto:human@czm.ai\" style=\"color: #939598; text-decoration: none;\">human@czm.ai</a>\n                  </span>\n                </p>\n              </td>\n            </tr><tr>\n              <td style=\"padding-right: 15px; vertical-align: middle;\">\n                <a href=\"https://czm.ai/?utm_source=signature&utm_medium=email&utm_campaign=transactional\">\n                  <img src=\"https://241973156.fs1.hubspotusercontent-na2.net/hubfs/241973156/logos/cesium-ai-automation-logo-_trans-full-color-dualmode.png\"\n                     alt=\"Cesium // The AI Automation Agency\"\n                     width=\"170\"\n                     style=\"display: block; max-width: 170px; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;\">\n                </a>\n              </td>\n            </tr>\n            \n          </table>\n        </td>\n      </tr>\n    </table>\n  </div>\n</body>"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        0
+      ],
+      "id": "60f10da4-ceeb-49a4-a649-54774304ca1d",
+      "name": "basic email"
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "email": "={{ $json.recipient }}",
+        "additionalFields": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        -160,
+        0
+      ],
+      "id": "3f894d4c-977f-411e-8906-a3abd50f1a35",
+      "name": "store",
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "A3jVCBPswcrKdgIE",
+          "name": "hs-czm-n8n"
+        }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-09-27T23:39:36.353Z",
+      "updatedAt": "2025-09-27T23:39:36.353Z",
+      "role": "workflow:owner",
+      "workflowId": "GlNTC2UQlsr2JxH3",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-17T23:59:40.815Z",
+      "updatedAt": "2025-08-17T23:59:40.815Z",
+      "id": "3xekQCysfg8WeVyP",
+      "name": "production"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-27T23:42:19.000Z",
+  "versionId": "0f3a1ce2-d827-43c9-ac6a-fec84f1bf0c8"
+}
