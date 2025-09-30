@@ -398,7 +398,7 @@
           "value": {
             "recipient": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('recipient', `The recipient's email address`, 'string') }}",
             "subject": "=Here's to the next step!",
-            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', `use correct template`, 'string') }}",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', ``, 'string') }}",
             "headline": "&nbsp;",
             "vid": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
           },
@@ -478,7 +478,7 @@
           "value": {
             "recipient": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('recipient', `The recipient's email address`, 'string') }}",
             "subject": "=I like your style",
-            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', `use correct template`, 'string') }}",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', ``, 'string') }}",
             "headline": "&nbsp;",
             "vid": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
           },
@@ -627,7 +627,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.query }}",
+        "text": "={{ $json.output }}",
         "options": {
           "systemMessage": "=# Contact Manager \n\n## Role\nYou are a workflow agent with laser-focused attention to detail.\nYour job is to:\n1. Take inbound queries.\n2. Call the correct **`CRM-tool`** function.\n3. If successful, follow Step 2, Decision Tree for Email Tool Use\n4. Return the final JSON response.\n\n---\n\n## INBOUND QUERY Format\n```json\n{\n  \"query\": {\n    \"Function\": \"(createCustomer|getCustomer|updateRecord|createProject|resendLink)\",\n    \"Email\": \"(user@email.com)\",\n    \"Summary\": \"(description of User's need, challenge, or inquiry)\",\n    \"opportunityType\": \"(Customer|Partner|Welcome|Subscriber)\",\n    \"Budget\": null,\n    \"First_Name\": \"\",\n    \"Last_Name\": \"\",\n    \"Message\": \"\",\n    \"Phone_Number\": \"\",\n    \"Website_URL\": \"\",\n    \"Company_Name\": \"\",\n    \"Job_Title\": \"\",\n    \"City\": \"\",\n    \"State_Region\": \"\",\n    \"Postal_Code\": \"\"\n  }\n}\n```\n\n---\n\n## Processing Flow\n\n### STEP 1 — **`CRM-tool`**\n  - Always call **`CRM-tool`** using the INBOUND QUERY fields.\n  - If not given Email or valid Function, the CRM will fail.\n\n### STEP 2 — Decision Tree for Email Tool Use\n\n  IF **`CRM-tool`** returns \"Success\":\n\n  - Case A: opportunityType = Customer\n    - IF Function != resendLink → Use the **`customerEmail`** tool\n    - IF Function == resendLink → Use the **`resendLink`** tool\n    - **CASE A only applies to opportunityType = Customer**\n\n  - Case B: opportunityType = Partner\n    - ALWAYS →  Use the **`partnerEmail`** tool\n    - **CASE B only applies to opportunityType = Partner**\n\n  - Case C: opportunityType = Subscriber\n    - ALWAYS →  Use the **`subscriberEmail`** tool\n    - **CASE C only applies to opportunityType = Subscriber**\n\n  - Case D: Any other condition → Use the **`adminEmail`** tool\n\n  !!! IMPORTANT !!! It is CRITICAL that we select the correct Case based on opportunityType\n\n  IF **`CRM-tool`** returns \"Error\":\n  - Use the **`adminEmail`** tool\n  - Respond with CRM failure in final JSON.\n\n### STEP 3 — Final JSON Output\n  Always respond to INBOUND QUERY with valid JSON:\n```json\n{\n  \"result\": \"(string from **`CRM-tool`**)\",\n  \"vid\": \"(string from **`CRM-tool`**)\",\n  \"isNew\": (boolean from **`CRM-tool`**),\n  \"emailSent\": (true if email-tool returns labelIds[0]='SENT', else false),\n  \"emailType\": \"(name of email tool used)\"\n}\n```\n\n\n## EMAIL TOOLS\n### **`customerEmail`** \n+ RULES:\n  - this tool is only for use with opportunityType = Customer\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We're ready to move forward.<br><br>Next, we'll be gathering all of the details for your project, to assemble a contract and timeline. It shouldn't take too long, usually about a half hour.<br><br> Once you've got some quiet time, and you're in front of your computer, <a href='https://czm.ai/discovery?sid={{ $('start').first().json.query.sessionId }}&vid={vid}'>take the next step</a>.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n### **`resendLink`** \n+ RULES:\n  - this tool is only for use with opportunityType = Customer\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We're ready to move forward.<br><br>Next, we'll be gathering all of the details for your project, to assemble a contract and timeline. It shouldn't take too long, usually about a half hour.<br><br> Once you've got some quiet time, and you're in front of your computer, <a href='https://czm.ai/discovery?sid={{ $('start').first().json.query.sessionId }}&vid={vid}'>take the next step</a>.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n### **`subscriberEmail`** \n+ RULES:\n  - this tool is only for use with opportunityType = Subscriber\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We'll be in touch shortly.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n### **`partnerEmail`** \n+ RULES:\n  - this tool is only for use with opportunityType = Partner\n  - replace {vid} with vid value returned from **`CRM-tool`**\n  - replace {firstname} with firstname value returned from **`CRM-tool`**\n  - process and remove any logical operators such as {#if condition}{/if}\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"recipient\": \"{{ $('start').first().json.query.Email }}\",\n    \"vid\": {vid},\n    \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. <br><br>We'll discuss with the team and get back to you very shortly.<br><br>Cheers,<br>T\"\n  }\n}\n```\n\n#### **`adminEmail`** \n+ RULES:\n  - if possible, replace {vid} with vid value returned from **`CRM-tool`**, otherwise 0\n+ apply these rules to the following request template:\n```json\n{\n  \"query\": {\n    \"subject\": \"{defined_by_model}\",\n    \"body\": \"{defined_by_model}\",\n    \"vid\": {vid}\n  }\n}\n```\n\n"
         }
@@ -644,7 +644,7 @@
     {
       "parameters": {
         "inputSource": "jsonExample",
-        "jsonExample": "{\"query\": {\n  \"Function\": \"string\",\n  \"Email\": \"string\",\n  \"Summary\": \"string\",\n  \"opportunityType\": \"string\",\n  \"Budget\": 1234567890,\n  \"First_Name\": \"string\",\n  \"Last_Name\": \"string\",\n  \"Phone_Number\": \"string\",\n  \"Website_URL\": \"string\",\n  \"Company_Name\": \"string\",\n  \"Job_Title\": \"string\",\n  \"City\": \"string\",\n  \"State_Region\": \"string\",\n  \"Postal_Code\": \"string\",\n  \"sessionId\": \"string\"\n}\n}"
+        "jsonExample": "{\"output\": {\n  \"Function\": \"string\",\n  \"Email\": \"string\",\n  \"Summary\": \"string\",\n  \"opportunityType\": \"string\",\n  \"Budget\": 1234567890,\n  \"First_Name\": \"string\",\n  \"Last_Name\": \"string\",\n  \"Phone_Number\": \"string\",\n  \"Website_URL\": \"string\",\n  \"Company_Name\": \"string\",\n  \"Job_Title\": \"string\",\n  \"City\": \"string\",\n  \"State_Region\": \"string\",\n  \"Postal_Code\": \"string\",\n  \"sessionId\": \"string\"\n}\n}"
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
@@ -669,7 +669,7 @@
           "value": {
             "recipient": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('recipient', `The recipient's email address`, 'string') }}",
             "subject": "=Message Received",
-            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', `use correct template`, 'string') }}",
+            "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('body', ``, 'string') }}",
             "headline": "&nbsp;",
             "vid": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('vid', \"vid value from **`CRM-tool`**\", 'number') }}"
           },
@@ -740,15 +740,14 @@
     "start": [
       {
         "json": {
-          "query": {
+          "output": {
             "Function": "createCustomer",
-            "Email": "t@nicehifi.com",
-            "Summary": "Potential customer requesting contact for unspecified business need.",
-            "opportunityType": "Subscriber",
-            "Budget": null,
-            "First_Name": "",
+            "Email": "tf@xmgear.com",
+            "Summary": "summary",
+            "opportunityType": "Partner",
+            "Budget": "",
+            "First_Name": "Tony",
             "Last_Name": "",
-            "Message": "",
             "Phone_Number": "",
             "Website_URL": "",
             "Company_Name": "",
@@ -756,7 +755,7 @@
             "City": "",
             "State_Region": "",
             "Postal_Code": "",
-            "sessionId": "2bbbfb4d1613483b8c58bde3f0edc2ca"
+            "sessionId": "7f8a056f-2ae1-46d9-a4b3-2121f071b2a4"
           }
         }
       }
@@ -780,6 +779,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-28T03:18:40.000Z",
-  "versionId": "33fe2627-4f50-4745-b4fd-99e3cef8f3c9"
+  "updatedAt": "2025-09-29T16:58:02.000Z",
+  "versionId": "bec131f1-42be-4caa-af15-c025e68f1e98"
 }
