@@ -199,7 +199,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('create').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { \n    output: String(\"Success.\")\n    , vid: String(vid)\n    , isNew: $('create').first().json.isNew\n    , firstname: ($('create').first().json.properties.firstname || null) } }];\n} else {\n  return [{ json: { output: String(\"Error! The CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
+        "jsCode": "// verify that VID exists, and is numeric, great success test for all cases.\nconst numerRegex = /^[0-9]{4,}$/;\nconst vid = $('create').first().json.vid;\nif (numerRegex.test(vid)) {\n  return [{ json: { \n    output: String(\"Success.\")\n    , vid: String(vid)\n    , isNew: $('create').first().json.isNew\n    , firstname: ($('create').first().json.properties.firstname.value || null) } }];\n} else {\n  return [{ json: { output: String(\"Error! The CRM is unavailable at the moment. Please notify human@czm.ai, so that we don't lose this customer.\") } }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -755,28 +755,7 @@
       "name": "!email"
     }
   ],
-  "pinData": {
-    "start": [
-      {
-        "json": {
-          "Function": "createCustomer",
-          "Email": "t@tonyfelice.net",
-          "First_Name": "",
-          "Last_Name": "",
-          "Phone_Number": "",
-          "Summary": "User requested to speak with someone.",
-          "Budget": "",
-          "Job_Title": "",
-          "Company_Name": "",
-          "Website_URL": "",
-          "City": "",
-          "State_Region": "",
-          "Postal_Code": "",
-          "sessionId": "a5af2aa98a1342649f7511d2e366d217"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -803,6 +782,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-24T22:44:05.000Z",
-  "versionId": "228de962-2778-4a83-a7ec-ca08d936d77d"
+  "updatedAt": "2025-09-29T17:39:35.000Z",
+  "versionId": "a772c6f4-720b-4e0f-a0fb-095ddc0d25eb"
 }
