@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "model": {
       "ai_languageModel": [
@@ -1178,6 +1178,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-09-23T22:25:23.000Z",
+  "updatedAt": "2025-09-30T17:03:57.000Z",
   "versionId": "2d5e406d-ee8f-4fa6-bb17-a877812c32a2"
 }
