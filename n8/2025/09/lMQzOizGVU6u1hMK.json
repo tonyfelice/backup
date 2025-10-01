@@ -108,7 +108,7 @@
           "__rl": true,
           "value": "Twzj13uHohXuHW70",
           "mode": "list",
-          "cachedResultName": "CZM: CRM_manager 3.1"
+          "cachedResultName": "CZM: CRM_tool 3.1"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -695,31 +695,7 @@
       "name": "set"
     }
   ],
-  "pinData": {
-    "start": [
-      {
-        "json": {
-          "query": {
-            "Function": "resendLink",
-            "Email": "tf@xmgear.com",
-            "Summary": "summary",
-            "opportunityType": "Partner",
-            "Budget": "",
-            "First_Name": "",
-            "Last_Name": "",
-            "Phone_Number": "",
-            "Website_URL": "",
-            "Company_Name": "",
-            "Job_Title": "",
-            "City": "",
-            "State_Region": "",
-            "Postal_Code": "",
-            "sessionId": "7f8a056f-2ae1-46d9-a4b3-2121f071b2a4"
-          }
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -738,13 +714,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-21T23:30:26.930Z",
-      "updatedAt": "2025-08-21T23:30:26.930Z",
-      "id": "TC6GN8ukWr58QCW8",
-      "name": "dev"
+      "createdAt": "2025-08-17T23:59:40.815Z",
+      "updatedAt": "2025-08-17T23:59:40.815Z",
+      "id": "3xekQCysfg8WeVyP",
+      "name": "production"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-29T18:53:31.000Z",
-  "versionId": "d1d6ffab-729e-4a1c-a690-90b1abb4e3e5"
+  "updatedAt": "2025-09-30T17:05:58.000Z",
+  "versionId": "68bd80b2-048f-4dfd-b8cd-e3b94d2dd41c"
 }
