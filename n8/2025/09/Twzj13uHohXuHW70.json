@@ -181,7 +181,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "CZM: CRM_manager 3.1",
+  "name": "CZM: CRM_tool 3.1",
   "nodes": [
     {
       "parameters": {
@@ -782,6 +782,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-29T17:39:35.000Z",
-  "versionId": "a772c6f4-720b-4e0f-a0fb-095ddc0d25eb"
+  "updatedAt": "2025-09-30T17:05:11.000Z",
+  "versionId": "5312677f-3a42-4437-ae65-bd0b937c3dcd"
 }
