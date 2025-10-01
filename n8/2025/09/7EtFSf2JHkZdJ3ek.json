@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Convo Agent": {
       "main": [
@@ -1095,6 +1095,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-09-24T22:43:08.000Z",
+  "updatedAt": "2025-09-30T17:03:54.000Z",
   "versionId": "d262fa60-4fac-4bf9-b499-eeab656ed913"
 }
