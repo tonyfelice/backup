@@ -132,13 +132,7 @@
     },
     "email-tool": {
       "ai_tool": [
-        [
-          {
-            "node": "CRM-manager",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "web-browser": {
@@ -198,13 +192,7 @@
     },
     "CRM-tool": {
       "ai_tool": [
-        [
-          {
-            "node": "CRM-manager",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "bot session": {
@@ -229,28 +217,6 @@
         ]
       ]
     },
-    "CRM-manager": {
-      "ai_tool": [
-        [
-          {
-            "node": "Discovery",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "4.1 nano": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "CRM-manager",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Discovery": {
       "main": [
         [
@@ -270,6 +236,17 @@
       ]
     },
     "getHistory": {
+      "ai_tool": [
+        [
+          {
+            "node": "Discovery",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM-manager": {
       "ai_tool": [
         [
           {
@@ -697,8 +674,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        1552,
-        640
+        1408,
+        368
       ],
       "id": "66781176-d688-4b92-8b2e-13cfc622188b",
       "name": "memory",
@@ -812,8 +789,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        1776,
-        640
+        2032,
+        528
       ],
       "id": "d159b6d7-b837-4335-959c-148872698b00",
       "name": "email-tool"
@@ -1086,8 +1063,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        1664,
-        640
+        1920,
+        528
       ],
       "id": "2f9e02df-b5e1-4b84-b08e-78f2db1879a3",
       "name": "CRM-tool"
@@ -1147,48 +1124,6 @@
       ],
       "id": "72e3084a-8c8d-4509-bebc-35cfe094ba79",
       "name": "session"
-    },
-    {
-      "parameters": {
-        "toolDescription": "CRM-manager",
-        "text": "={\n  \"query\": {\n    \"Function\": \"{{ $fromAI('Function') }}\",\n    \"Email\": \"{{ $fromAI('Email') }}\",\n    \"Summary\": \"{{ $fromAI('Summary') }}\",\n    \"opportunityType\": \"{{ $fromAI('opportunityType') }}\",\n    \"Budget\": {{ $fromAI('Budget') }},\n    \"First_Name\": \"{{ $fromAI('First_Name') }}\",\n    \"Last_Name\": \"{{ $fromAI('Last_Name') }}\",\n    \"Phone_Number\": \"{{ $fromAI('Phone_Number') }}\",\n    \"Website_URL\": \"{{ $fromAI('Website_URL') }}\",\n    \"Company_Name\": \"{{ $fromAI('Company_Name') }}\",\n    \"Job_Title\": \"{{ $fromAI('Job_Title') }}\",\n    \"City\": \"{{ $fromAI('City') }}\",\n    \"State_Region\": \"{{ $fromAI('State_Region') }}\",\n    \"Postal_Code\": \"{{ $fromAI('Postal_Code') }}\"\n  }\n}",
-        "options": {
-          "systemMessage": "=# Contact Manager \n\n## Role\nYou are a workflow agent.\nYour job is to:\n1. Take inbound queries.\n2. Call the correct CRM-tool function.\n3. If successful, optionally call the email-tool, taking great care to use **the correct template**, depending on opportunityType.\n4. Return the final JSON response.\n\n---\n\n## INBOUND QUERY Format\n```json\n{\n  \"query\": {\n    \"Function\": \"(createCustomer|getCustomer|updateRecord|createProject|resendLink)\",\n    \"Email\": \"(user@email.com)\",\n    \"Summary\": \"(description of User's need, challenge, or inquiry)\",\n    \"opportunityType\": \"(Customer|Partner|Welcome|Subscriber)\",\n    \"Budget\": null,\n    \"First_Name\": \"\",\n    \"Last_Name\": \"\",\n    \"Message\": \"\",\n    \"Phone_Number\": \"\",\n    \"Website_URL\": \"\",\n    \"Company_Name\": \"\",\n    \"Job_Title\": \"\",\n    \"City\": \"\",\n    \"State_Region\": \"\",\n    \"Postal_Code\": \"\"\n  }\n}\n```\n\n---\n\n## Processing Flow\n\n### STEP 1 — CRM-Tool\n  - Always call CRM-tool using the INBOUND QUERY fields.\n  - If no Email or invalid Function, the CRM will fail.\n\n### STEP 2 — Decision Tree for Email-Tool\n\n  IF CRM-tool returns \"Success\":\n\n  - Case A: opportunityType = Customer\n    - IF Function != resendLink → Use Template #1 (Customer Email)\n    - IF Function == resendLink → Use Template #2 (resendLink Email)\n    * IMPORTANT - the templates for opportunityType = Customer contain a link to the next step. It is operationally CRITICAL that when given an opportunityType = Customer that we use Template #1 or Template #2.\n\n  - Case B: opportunityType = Partner\n    - ALWAYS → Use Template #3 (Partner Email)\n\n  - Case C: opportunityType = Subscriber\n    - IF isNew=true → Use Template #4 (Autoresponse New)\n    - IF isNew=false → Use Template #5 (Autoresponse Existing)\n\n  - Case D: Any other condition → Use Template #999 (Admin Email)\n\n  IF CRM-tool returns \"Error\":\n  - Use Template #999 (Admin Alert)\n  - Respond with CRM failure in final JSON.\n\n### STEP 3 — Final JSON Output\n  Always respond to INBOUND QUERY with valid JSON:\n```json\n{\n  \"result\": \"(string from CRM-tool)\",\n  \"vid\": \"(string from CRM-tool)\",\n  \"isNew\": (boolean from CRM-tool),\n  \"emailSent\": (true if email-tool returns labelIds[0]='SENT', else false),\n  \"emailType\": \"(Customer|Partner|Subscriber|Admin|None)\"\n}\n```\n\n\n---\n\n## Email Templates\n+ Replace or suppress values in {braces}\n+ When replacing values in the body, keep in mind you are speaking to the User, not reporting on their request.\n+ Logical placeholders such as {#if} and {/if} should be suppressed in the final tool call.\n  - EXAMPLE\n  - If the User's name is known (for example, let's use \"Fred\")\n    - ✅ Thanks for reaching out, Fred.\n    - ❌ Thanks for reaching out{#if firstname}, Fred{/if}.\n  - If the User's name is NOT known\n    - ✅ Thanks for reaching out.\n    - ❌ Thanks for reaching out{#if firstname}, {/if}.\n\n### Template #1 — Customer Email\n  ```json\n  {\n    \"query\": {\n      \"recipient\": \"{user@email.com}\",\n      \"subject\": \"Ready to take the next step?\",\n      \"headline\": \"\",\n      \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We're interested in {projectSummary}.<br><br>Next, we'll be gathering all of the details for your project, to assemble a contract and timeline. It shouldn't take too long, usually about a half hour.<br><br> Once you've got some quiet time, and you're in front of your computer, <a href='https://czm.ai/discovery?sid={{ $('session').first().json.sessionId }}&vid={vid}'>take the next step</a>.<br><br>Cheers,<br>T\"\n    }\n  }\n  ```\n\n### Template #2 — resendLink Email\n  ```json\n  {\n    \"query\": {\n      \"recipient\": \"{user@email.com}\",\n      \"subject\": \"Here's to the next step\",\n      \"headline\": \"\",\n      \"body\": \"Thanks for reaching out again{#if firstname}, {firstname}{/if}. We're excited to move forward!<br><br>Next, we'll be gathering all of the details for your project, to assemble a contract and timeline. It shouldn't take too long, usually about a half hour.<br><br> Once you've got some quiet time, and you're in front of your computer, <a href='https://czm.ai/discovery?sid={{ $('session').first().json.sessionId }}&vid={vid}'>take the next step</a>.<br><br>Cheers,<br>T\"\n    }\n  }\n  ```\n\n### Template #3 — Partner Email\n  ```json\n  {\n    \"query\": {\n      \"recipient\": \"{user@email.com}\",\n      \"subject\": \"I like your style\",\n      \"headline\": \"\",\n      \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. {projectSummary}.<br><br>We'll discuss with the team and get back to you very shortly.<br><br>Cheers,<br>T\"\n    }\n  }\n  ```\n\n### Template #4 — Autoresponse New\n  ```json\n  {\n    \"query\": {\n      \"recipient\": \"{user@email.com}\",\n      \"subject\": \"Nice to meet you\",\n      \"headline\": \"\",\n      \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. I look forward to connecting with you in person.<br><br>Cheers,<br>T\"\n    }\n  }\n  ```\n\n### Template #5 — Autoresponse Existing\n ```json\n  {\n    \"query\": {\n      \"recipient\": \"{user@email.com}\",\n      \"subject\": \"Message Received\",\n      \"headline\": \"\",\n      \"body\": \"Thanks for reaching out{#if firstname}, {firstname}{/if}. We'll get back to you as soon as possible.<br><br>Cheers,<br>T\"\n    }\n  }\n  ```\n\n### Template #999 — Admin Alert Email\n  ```json\n  {\n    \"query\": {\n      \"recipient\": \"human@czm.ai\",\n      \"subject\": \"{something_to_say}\",\n      \"headline\": \"\",\n      \"body\": \"{defined_by_model}\"\n    }\n  }\n  ```"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agentTool",
-      "typeVersion": 2.2,
-      "position": [
-        1520,
-        432
-      ],
-      "id": "be9967c6-2cc0-49e1-bd53-a3cd09bb6ab3",
-      "name": "CRM-manager"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "gpt-4.1-nano",
-          "mode": "list",
-          "cachedResultName": "gpt-4.1-nano"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        1408,
-        640
-      ],
-      "id": "d495e3e1-5749-4990-8e25-b0c614315c81",
-      "name": "4.1 nano",
-      "credentials": {
-        "openAiApi": {
-          "id": "X3Nhu6EWyz9LN2fj",
-          "name": "czm-openai"
-        }
-      }
     },
     {
       "parameters": {
@@ -1278,11 +1213,53 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        1408,
-        336
+        1536,
+        448
       ],
       "id": "639d3cb3-45c0-46fc-9ace-e1764fd94faf",
       "name": "getHistory"
+    },
+    {
+      "parameters": {
+        "description": "**`CRM-manager`**\n\n",
+        "workflowId": {
+          "__rl": true,
+          "value": "lMQzOizGVU6u1hMK",
+          "mode": "list",
+          "cachedResultName": "CRM_Manager 4.1"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "query": "={{ $fromAI('query') }}"
+          },
+          "matchingColumns": [
+            "query"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        1680,
+        496
+      ],
+      "id": "91d83440-cc78-400d-bb1e-def0cf17c33e",
+      "name": "CRM-manager"
     }
   ],
   "pinData": {},
@@ -1306,13 +1283,13 @@
   "staticData": null,
   "tags": [
     {
-      "createdAt": "2025-08-21T23:30:26.930Z",
-      "updatedAt": "2025-08-21T23:30:26.930Z",
-      "id": "TC6GN8ukWr58QCW8",
-      "name": "dev"
+      "createdAt": "2025-08-17T23:59:40.815Z",
+      "updatedAt": "2025-08-17T23:59:40.815Z",
+      "id": "3xekQCysfg8WeVyP",
+      "name": "production"
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-09-27T23:04:06.000Z",
-  "versionId": "c5e86be3-72a3-4773-ba01-b342c109d3ad"
+  "updatedAt": "2025-09-30T19:28:32.000Z",
+  "versionId": "848213bc-8be0-4e22-9e4a-4f4673eaa15c"
 }
