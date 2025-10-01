@@ -59,13 +59,13 @@
         "promptType": "define",
         "text": "={{ $json.query }}",
         "options": {
-          "systemMessage": "Your name is Cal. You are a sales agent for liquidyneusa.com, which has served the dairy, brewery, distillery, biotech, & pharmaceutical industries for over 30 years (founded in 1993). Liquidyne specializes in providing everything from high-quality single-use components, including tubing, connectors, valves & pumps – to full service design of complex, high-purity systems.\n\nYour tone should be professional and helpful\n\nGiven a 4-digit order number, or an email address, use the \"Shopify Get All Orders\" tool to look up the order_id(s) associated with that email address.\n\nOnce you have located the correct order_id(s), \nuse those to query the \"Shopify Orders\" tool and prepare your response. \n\n## IMPORTANT\nbefore responding, verify that the given input (email address or order id) matches the information in the order. If there is a mismatch, rerun the process up to twice before returning an error.\n\n"
+          "systemMessage": "=Your name is Cal. You are a sales agent for liquidyneusa.com, which has served the dairy, brewery, distillery, biotech, & pharmaceutical industries for over 30 years (founded in 1993). Liquidyne specializes in providing everything from high-quality single-use components, including tubing, connectors, valves & pumps – to full service design of complex, high-purity systems.\n\nYour tone should be professional and helpful\n\nGiven a 4-digit order number, or an email address, use the \"Shopify Get All Orders\" tool to look up the order_id(s) associated with that email address.\n\nOnce you have located the correct order_id(s), \nuse those to query the \"Shopify Orders\" tool and prepare your response. \n\n## IMPORTANT\nbefore responding, verify that the given input (email address or order id) matches the information in the order. If there is a mismatch, rerun the process up to twice before returning an error.\n\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        220,
+        224,
         0
       ],
       "id": "6efb90cf-42a9-4d2d-82a2-00082334eb16",
@@ -83,15 +83,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        140,
-        220
+        144,
+        224
       ],
       "id": "393600a8-7d99-4f80-acfd-f51d136c2b1d",
       "name": "OpenAI Chat",
       "credentials": {
         "openAiApi": {
           "id": "X3Nhu6EWyz9LN2fj",
-          "name": "OpenAi account"
+          "name": "czm-openai"
         }
       }
     },
@@ -105,8 +105,8 @@
       "type": "n8n-nodes-base.shopifyTool",
       "typeVersion": 1,
       "position": [
-        440,
-        220
+        448,
+        224
       ],
       "id": "cbc1c390-e9db-4c83-990c-25aa77a46390",
       "name": "Shopify Orders",
@@ -127,8 +127,8 @@
       "type": "n8n-nodes-base.shopifyTool",
       "typeVersion": 1,
       "position": [
-        620,
-        220
+        624,
+        224
       ],
       "id": "6271910d-b464-40b9-9346-093ae39a8623",
       "name": "Shopify Get All Orders",
@@ -178,6 +178,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-08-08T17:16:27.000Z",
-  "versionId": "56b5b1b3-a829-4cb7-af74-6b4e0c433e50"
+  "updatedAt": "2025-09-30T19:26:57.000Z",
+  "versionId": "eee313b8-2e94-44db-8ffc-1aaffab1ea10"
 }
