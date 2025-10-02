@@ -673,6 +673,10 @@
               {
                 "property": "chathistory",
                 "value": "={{ $json.history }}"
+              },
+              {
+                "property": "discoverylink",
+                "value": "=https://czm.ai/discovery/?sid={{ $('start').first().json.sessionId }}&vid={{ $('create').first().json.vid }}"
               }
             ]
           }
@@ -782,6 +786,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-09-30T17:05:11.000Z",
-  "versionId": "5312677f-3a42-4437-ae65-bd0b937c3dcd"
+  "updatedAt": "2025-10-01T23:12:12.000Z",
+  "versionId": "1fd555c8-9504-4ad5-9d20-c66231bad1c1"
 }
