@@ -888,7 +888,7 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "query": "={{ $fromAI('query') }}"
+            "query": "={{ JSON.parse($fromAI('query')) }}"
           },
           "matchingColumns": [
             "query"
@@ -919,7 +919,27 @@
       "name": "CRM-manager"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "incoming chat": [
+      {
+        "json": {
+          "action": "sendMessage",
+          "sessionId": "4fcffbe1-997b-4a27-96ed-843585edbe00",
+          "chatInput": "milo@nicehifi.com",
+          "metadata": {
+            "language": "en-US",
+            "referrer": "direct",
+            "timezone": "America/Denver",
+            "useragent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_6_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/140.0.7339.122 Mobile/15E148 Safari/604.1",
+            "vid": null,
+            "n8nchatui": {
+              "sessionKey": "1d0eea2e-8a60-4d39-8d20-2bff570abdee"
+            }
+          }
+        }
+      }
+    ]
+  },
   "repo_name": "backup",
   "repo_owner": "tonyfelice",
   "repo_path": "n8/",
@@ -947,6 +967,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-09-30T22:37:54.000Z",
-  "versionId": "3b623af4-a95e-4f44-a0d7-f4dcd1ee3425"
+  "updatedAt": "2025-10-01T22:56:55.000Z",
+  "versionId": "50111b0b-7ede-451e-a233-77f011ab83f2"
 }
