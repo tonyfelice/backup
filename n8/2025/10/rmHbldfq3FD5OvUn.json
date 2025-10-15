@@ -1,0 +1,109 @@
+{
+  "active": false,
+  "connections": {
+    "start": {
+      "main": [
+        [
+          {
+            "node": "set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set": {
+      "main": [
+        [
+          {
+            "node": "genImage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-14T19:56:58.108Z",
+  "id": "rmHbldfq3FD5OvUn",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7d9df7eb-5e14-4b49-8d89-c63a89aadbd7",
+      "name": "start"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-image",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-image (Nano Banana)"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "41da45de-f537-4db6-9738-757ed7e1c5de",
+      "name": "genImage",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "l2BRSEsuoKcYMydD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"aspectRatio\": \"16:9\"\n    ,\"style\": \"Abstract background, isometric rendering with neon accents\"\n    ,\"width\": \"1200px\"\n    ,\"background\": \"#00001b\"\n    ,\"color_0\": \"#ffffff\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "8bdf9fa2-7425-4c01-b7f5-f3e399ad1ca9",
+      "name": "set"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "backup",
+  "repo_owner": "tonyfelice",
+  "repo_path": "n8/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-14T19:56:58.113Z",
+      "updatedAt": "2025-10-14T19:56:58.113Z",
+      "role": "workflow:owner",
+      "workflowId": "rmHbldfq3FD5OvUn",
+      "projectId": "7oc82U5FbxHgMZLy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-14T19:56:58.000Z",
+  "versionId": "3c35c8d1-6ea9-4517-b415-70d09a473ef5"
+}
