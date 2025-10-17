@@ -1,6 +1,17 @@
 {
   "active": false,
   "connections": {
+    "set": {
+      "main": [
+        [
+          {
+            "node": "genImage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "start": {
       "main": [
         [
@@ -12,11 +23,54 @@
         ]
       ]
     },
-    "set": {
+    "genImage": {
       "main": [
         [
           {
-            "node": "genImage",
+            "node": "crop",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "original",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set1": {
+      "main": [
+        []
+      ]
+    },
+    "crop": {
+      "main": [
+        [
+          {
+            "node": "cropped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "original": {
+      "main": [
+        [
+          {
+            "node": "output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cropped": {
+      "main": [
+        [
+          {
+            "node": "output",
             "type": "main",
             "index": 0
           }
@@ -30,28 +84,18 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "My workflow 3",
+  "name": "CZM: image gen 1.0",
   "nodes": [
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        0,
-        0
-      ],
-      "id": "7d9df7eb-5e14-4b49-8d89-c63a89aadbd7",
-      "name": "start"
-    },
     {
       "parameters": {
         "resource": "image",
         "modelId": {
           "__rl": true,
-          "value": "models/gemini-2.5-flash-image",
+          "value": "models/gemini-2.5-flash-image-preview",
           "mode": "list",
-          "cachedResultName": "models/gemini-2.5-flash-image (Nano Banana)"
+          "cachedResultName": "models/gemini-2.5-flash-image-preview (Nano Banana)"
         },
+        "prompt": "=# GENERATE IMAGE\nGenerate a background image to serve as the basis for later iterating promotional assets. \nThe campaign will be titled: \"{{$('start').first().json.chatInput}}\". \n\n## Visual Style\n{{$('set').first().json.style}}\n\n## COLOR PALETTE\nBackground Color: {{$('set').first().json.background}}\nColor 1: {{$('set').first().json.color_1}}\nColor 2: {{$('set').first().json.color_2}}\nColor 3: {{$('set').first().json.color_3}}\nColor 4: {{$('set').first().json.color_4}}\nColor 5: {{$('set').first().json.color_5}}\n\n## **OUTPUT FORMAT**\nDeliver final image in {{ $('set').first().json.aspectRatio }} with no letterboxing.\nMaximum image height: 576px !important",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
@@ -64,15 +108,15 @@
       "name": "genImage",
       "credentials": {
         "googlePalmApi": {
-          "id": "l2BRSEsuoKcYMydD",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "JJDZcFNJZoxBKrmI",
+          "name": "Google Gemini(PaLM) Api account 2"
         }
       }
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "{\n    \"aspectRatio\": \"16:9\"\n    ,\"style\": \"Abstract background, isometric rendering with neon accents\"\n    ,\"width\": \"1200px\"\n    ,\"background\": \"#00001b\"\n    ,\"color_0\": \"#ffffff\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n}",
+        "jsonOutput": "={\n    \"style\": \"A 3D rendering of origami with glowing neon edges. Prioritize negative space. Composition biased toward the right, never centered. No words, letters, numbers, symbols, labels, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"16\"\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -83,6 +127,411 @@
       ],
       "id": "8bdf9fa2-7425-4c01-b7f5-f3e399ad1ca9",
       "name": "set"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "aa925d0b-694a-46db-8d37-a8041d036e42",
+      "name": "start",
+      "webhookId": "30432576-61c6-48d7-b289-e27acd5b186c"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A calming abstract isometric/3D illustration of ***very*** subtle translucent glowing elements with neon accents. Elements should be constrained to the right side of the image. Elements should be ethereal, almost ghostlike. No spheres, cylinders, or pyramids. Do not mix regular polygons with organics. Mimic 'ironbow' thermal imaging palette  (white hot/foreground, orange warm, purple cool/background).\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"16:9\"\n    ,\"background\": \"#00001b\"\n    ,\"color_0\": \"#ffffff\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        624
+      ],
+      "id": "5272df08-9553-44ad-a64b-36067f9daacd",
+      "name": "set1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A calming abstract isometric watermark constrained to the right half of the image\\nThe watermark should be ethereal, almost ghostlike (use the provided palette at no more than 10% opacity), comprised of ***very*** subtle translucent glowing polygons or lines with neon accents and specular highlights. \\nUse lines and polygons only. No spheres, cylinders, or pyramids. Do not incorporate organic or abstract shapes.\\nThe color palette is meant to mimic the 'ironbow' thermal imaging palette (white hot/foreground, orange warm, purple cool/background).\\nImage ***must*** be delivered in the format, and aspect ratio specified. Crop if necessary, do not use letterboxing to achieve the correct aspect ratio. \"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        800
+      ],
+      "id": "b958046a-bce3-41a5-ae6e-facb15fdd717",
+      "name": "set2"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"Create a very subtle thermal image. Over a dark background, use the color palette to mimic the 'ironbow' palette (white hot/foreground, orange warm, purple cool/background). Composition biased toward bottom right. No hands, brains, or organic shapes. Isometric view. Abstract. Low detail. \"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        976
+      ],
+      "id": "fa700209-472e-4002-ac58-54a40ce0db92",
+      "name": "set3"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A very subtle geometric pattern over a dark background, use the color palette to mimic the 'ironbow' palette (white hot/foreground, orange warm, purple cool/background). Composition biased toward bottom right. No words, letters, symbols, hands, brains, or organic shapes. No pyramids, spheres or cylinders. Isometric view. Abstract. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        1152
+      ],
+      "id": "6f1ac5b4-2a77-45c4-baa4-1479f3a5bb12",
+      "name": "set4"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A low-polygon 3D wireframe of terrain. dark background. use the color palette to mimic the 'ironbow' palette (white hot/foreground, orange warm, purple cool/background). Composition biased toward bottom right. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. Isometric view. Zoom in. Completely fill the frame.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        1312
+      ],
+      "id": "f17eb11f-5bdf-436c-ad16-adce8e68a16e",
+      "name": "set5"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A low-polygon 3D wireframe of terrain. dark background. Use the color palette to correspond with elevation (white peaks, orange hills, purple valleys and plains). Composition biased toward bottom right. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. Zoom in. Completely fill the frame.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"6\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        1472
+      ],
+      "id": "409c4a9c-10b5-40f1-91fa-5c9f0aa9e29d",
+      "name": "set6"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A glowing low-polygon 3D wireframe of eroded terrain over a dark background. Use the color palette to correspond with elevation (golden peaks, orange hills, purple valleys and plains). Composition biased toward bottom right. Never center the composition. Prioritize negative space. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"7\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        1472
+      ],
+      "id": "223dc5c3-2d16-4bd7-bae1-4aa17de06c5d",
+      "name": "set7"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { output: String($input.first().json.name + ` created.`) } }]; "
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        0
+      ],
+      "id": "438c672b-3aa1-4be3-a263-f5f693c8f50b",
+      "name": "output"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A glowing low-polygon 3D wireframe of eroded terrain. Dark background. Prioritize negative space. Use the color palette to correspond with elevation (golden peaks, orange hills, purple valleys and plains). Never center the composition. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. 80's style extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"8\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        1312
+      ],
+      "id": "13f91c54-09a3-42ad-b819-37902268e2ed",
+      "name": "set8"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-image",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-image (Nano Banana)"
+        },
+        "prompt": "=# CROP IMAGE\n## Source Image\n{{ $json.webViewLink }}\n\n## FORMAT\nCenter and crop source image to {{ $('set').first().json.aspectRatio }} with no letterboxing. ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        976,
+        -512
+      ],
+      "id": "2b9ac5ba-2241-4401-9927-e6a5b70ce051",
+      "name": "gem",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JJDZcFNJZoxBKrmI",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "crop",
+        "width": 1024,
+        "height": 576,
+        "positionY": 224,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        640,
+        176
+      ],
+      "id": "610a9aa8-2703-48fa-b98b-b6795deb4039",
+      "name": "crop"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A glowing low-polygon 3D wireframe of eroded terrain with gentle peaks. Dark background. Prioritize negative space. Use the color palette to correspond with elevation (golden peaks, orange hills, purple valleys and plains). Composition biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. 80's style extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"9\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        1152
+      ],
+      "id": "afaedafb-2159-4ae8-a8b2-31609ff42208",
+      "name": "set9"
+    },
+    {
+      "parameters": {
+        "name": "=set{{ $('set').item.json.gen }}-{{  Date.now() }}.png",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1Ywtr_CVxDCtgKpewDUS-rc_BSt-L_Ltf",
+          "mode": "list",
+          "cachedResultName": "image-gen-dump",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1Ywtr_CVxDCtgKpewDUS-rc_BSt-L_Ltf"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        864,
+        0
+      ],
+      "id": "b845da0e-2f5f-44fe-aa60-6a6b88b3413e",
+      "name": "original",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "=set{{ $('set').item.json.gen }}-{{  Date.now() }}-crop.png",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1Q5WYZvls7iRiqRwNn-JvH2dvQMpAU-dY",
+          "mode": "list",
+          "cachedResultName": "crops-16-9",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1Q5WYZvls7iRiqRwNn-JvH2dvQMpAU-dY"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        864,
+        176
+      ],
+      "id": "5d3318cd-45cf-4079-9138-148051f0a8a7",
+      "name": "cropped",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "hpyRggGv1xon9oys",
+          "name": "drive.t@czm"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"style\": \"A glowing low-polygon 3D wireframe of eroded terrain with gentle peaks. Dark background. High camera angle. Prioritize negative space. Use color to indicate elevation (golden peaks, orange hills, purple valleys and plains). Composition biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. 80's style neon. extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"10\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        992
+      ],
+      "id": "23c0d907-8a10-41ed-9779-002da111c3c2",
+      "name": "set10"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A glowing data plot of signals from a {{ ['radio pulsar', 'seismograph', 'ocean buoy'][Math.floor(Math.random() * 3)] }}. Dark background. {{ ['Low', 'Medium', 'High'][Math.floor(Math.random() * 3)] }} camera angle. Prioritize negative space. Use color to indicate elevation (golden peaks, orange hills, purple valleys and plains). Full bleed composition, biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. 80's style neon.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"11\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        832
+      ],
+      "id": "ea1754b9-d8d1-41e4-804c-53f36bf7a4fa",
+      "name": "set11"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A glowing low-polygon 3D wireframe of eroded terrain with gentle peaks. Dark background. {{ ['Low', 'Extremely high', 'High'][Math.floor(Math.random() * 3)] }} camera angle. Prioritize negative space. Use a color gradient to indicate elevation from the baseline plane (golden peaks, orange hills, purple valleys and plains). Composition biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. 80's style neon video game. Extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"12\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        672
+      ],
+      "id": "9902c482-43ba-4b88-b725-9f146e1c7da7",
+      "name": "set12"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A glowing 80's style neon video game scene. Isometric view. Dark background. {{ ['Low', 'Extremely high', 'High'][Math.floor(Math.random() * 3)] }} camera angle. Prioritize negative space. Use a color gradient to indicate elevation from the baseline plane (golden peaks, orange hills, purple valleys and plains). Composition biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. 80's style neon video game. Extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"13\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        496
+      ],
+      "id": "10b15db8-e1de-4f95-9820-8cb370f19364",
+      "name": "set13"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A 3D rendering of boxes in isometric view. No visible grid. Satin refelctive surfaces with glowing neon edges over dark background. Prioritize negative space. Composition biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. 80's style neon video game. Extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"14\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        336
+      ],
+      "id": "f711c772-2d76-4820-9380-6c91c80aca1a",
+      "name": "set14"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A 3D rendering of boxes in isometric view. No visible grid. Satin refelctive surfaces with glowing neon edges over dark background. Prioritize negative space. Composition biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. 80's style neon video game. Extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"14\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        480
+      ],
+      "id": "76f0f494-7fdc-4cc0-af78-b534c741bd9f",
+      "name": "boxes"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A glowing low-polygon 3D wireframe of eroded terrain with gentle peaks. Dark background. {{ ['Low', 'Extremely high', 'High'][Math.floor(Math.random() * 3)] }} camera angle. Prioritize negative space. Use a color gradient to indicate elevation from the baseline plane (golden peaks, orange hills, purple valleys and plains). Composition biased toward the right, never centered. No words, letters, symbols, hands, brains, or organic shapes. No spheres or cylinders. 80's style neon video game. Extremely low polygon count.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"12\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        656
+      ],
+      "id": "7a45baea-9fa8-4a5c-890c-820767b67f46",
+      "name": "terrain"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A glowing neon visualization of vector data. Prioritize negative space. Composition biased toward the right, never centered. No words, letters, numbers, symbols, labels, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"15\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        304
+      ],
+      "id": "277fad42-6844-41bf-aa74-4c85017db01c",
+      "name": "vectors"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A glowing neon visualization of vector data. Prioritize negative space. Composition biased toward the right, never centered. No words, letters, numbers, symbols, labels, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"15\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        192
+      ],
+      "id": "e1d751a2-639c-4629-8081-a0dc0112999d",
+      "name": "set15"
     }
   ],
   "pinData": {},
@@ -104,6 +553,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-14T19:56:58.000Z",
-  "versionId": "3c35c8d1-6ea9-4517-b415-70d09a473ef5"
+  "updatedAt": "2025-10-16T20:45:42.000Z",
+  "versionId": "4992a2a9-a846-40ab-8678-ac0aa9a20012"
 }
