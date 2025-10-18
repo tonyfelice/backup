@@ -95,7 +95,7 @@
           "mode": "list",
           "cachedResultName": "models/gemini-2.5-flash-image-preview (Nano Banana)"
         },
-        "prompt": "=# GENERATE IMAGE\nGenerate a background image to serve as the basis for later iterating promotional assets. \nThe campaign will be titled: \"{{$('start').first().json.chatInput}}\". \n\n## Visual Style\n{{$('set').first().json.style}}\n\n## COLOR PALETTE\nBackground Color: {{$('set').first().json.background}}\nColor 1: {{$('set').first().json.color_1}}\nColor 2: {{$('set').first().json.color_2}}\nColor 3: {{$('set').first().json.color_3}}\nColor 4: {{$('set').first().json.color_4}}\nColor 5: {{$('set').first().json.color_5}}\n\n## **OUTPUT FORMAT**\nDeliver final image in {{ $('set').first().json.aspectRatio }} with no letterboxing.\nMaximum image height: 576px !important",
+        "prompt": "=# GENERATE IMAGE\nGenerate a background image to serve as the basis for later iterating promotional assets. \nThe campaign will be titled: \"{{$('start').first().json.chatInput}}\". \n\n## Visual Style\n{{$('set').first().json.style}}\n\n## COLOR PALETTE\nBackground Color: {{$('set').first().json.background}}\nColor 1: {{$('set').first().json.color_1}}\nColor 2: {{$('set').first().json.color_2}}\nColor 3: {{$('set').first().json.color_3}}\nColor 4: {{$('set').first().json.color_4}}\nColor 5: {{$('set').first().json.color_5}}\n\n## OUTPUT FORMAT\n{{ $json.aspectRatio }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
@@ -116,7 +116,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n    \"style\": \"A 3D rendering of origami with glowing neon edges. Prioritize negative space. Composition biased toward the right, never centered. No words, letters, numbers, symbols, labels, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"16\"\n}",
+        "jsonOutput": "={\n    \"style\": \"A 3D rendering of abstract origami with glowing neon edges. 60% of the composition should be negative space. Composition biased toward the right edge, never centered. No words, letters, numbers, symbols, labels, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"16\"\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -151,8 +151,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        624
+        -32,
+        2096
       ],
       "id": "5272df08-9553-44ad-a64b-36067f9daacd",
       "name": "set1"
@@ -166,8 +166,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        800
+        -32,
+        2544
       ],
       "id": "b958046a-bce3-41a5-ae6e-facb15fdd717",
       "name": "set2"
@@ -181,8 +181,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        976
+        -32,
+        2992
       ],
       "id": "fa700209-472e-4002-ac58-54a40ce0db92",
       "name": "set3"
@@ -196,8 +196,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        1152
+        -32,
+        3440
       ],
       "id": "6f1ac5b4-2a77-45c4-baa4-1479f3a5bb12",
       "name": "set4"
@@ -211,8 +211,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        1312
+        -32,
+        3888
       ],
       "id": "f17eb11f-5bdf-436c-ad16-adce8e68a16e",
       "name": "set5"
@@ -226,8 +226,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        1472
+        -32,
+        4336
       ],
       "id": "409c4a9c-10b5-40f1-91fa-5c9f0aa9e29d",
       "name": "set6"
@@ -241,8 +241,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        1472
+        -32,
+        4560
       ],
       "id": "223dc5c3-2d16-4bd7-bae1-4aa17de06c5d",
       "name": "set7"
@@ -269,8 +269,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        1312
+        -32,
+        4112
       ],
       "id": "13f91c54-09a3-42ad-b819-37902268e2ed",
       "name": "set8"
@@ -328,8 +328,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        1152
+        -32,
+        3664
       ],
       "id": "afaedafb-2159-4ae8-a8b2-31609ff42208",
       "name": "set9"
@@ -407,8 +407,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        992
+        -32,
+        3216
       ],
       "id": "23c0d907-8a10-41ed-9779-002da111c3c2",
       "name": "set10"
@@ -422,8 +422,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        832
+        -32,
+        2768
       ],
       "id": "ea1754b9-d8d1-41e4-804c-53f36bf7a4fa",
       "name": "set11"
@@ -437,8 +437,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        672
+        -32,
+        2320
       ],
       "id": "9902c482-43ba-4b88-b725-9f146e1c7da7",
       "name": "set12"
@@ -452,8 +452,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        496
+        -32,
+        1872
       ],
       "id": "10b15db8-e1de-4f95-9820-8cb370f19364",
       "name": "set13"
@@ -467,8 +467,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        336
+        -32,
+        1424
       ],
       "id": "f711c772-2d76-4820-9380-6c91c80aca1a",
       "name": "set14"
@@ -482,8 +482,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1360,
-        480
+        1200,
+        672
       ],
       "id": "76f0f494-7fdc-4cc0-af78-b534c741bd9f",
       "name": "boxes"
@@ -497,8 +497,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1360,
-        656
+        1200,
+        848
       ],
       "id": "7a45baea-9fa8-4a5c-890c-820767b67f46",
       "name": "terrain"
@@ -512,8 +512,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1360,
-        304
+        1200,
+        496
       ],
       "id": "277fad42-6844-41bf-aa74-4c85017db01c",
       "name": "vectors"
@@ -527,11 +527,41 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        416,
-        192
+        -32,
+        1200
       ],
       "id": "e1d751a2-639c-4629-8081-a0dc0112999d",
       "name": "set15"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A 3D rendering of abstract origami with glowing neon edges. 60% of the composition should be negative space. Composition biased toward the right edge, never centered. No words, letters, numbers, symbols, labels, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"16\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -32,
+        1648
+      ],
+      "id": "192c4644-99c6-4aa3-9e7c-22d4e1ce6648",
+      "name": "set16"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n    \"style\": \"A 3D rendering of abstract origami with glowing neon edges. 60% of the composition should be negative space. Composition biased toward the right edge, never centered. No words, letters, numbers, symbols, labels, hands, brains, or organic shapes. No pyramids, spheres, or cylinders. Low detail.\"\n    ,\"width\": \"1200px\"\n    ,\"aspectRatio\": \"landscape format, 16:9 (HD widescreen)\"\n    ,\"background\": \"#00001b\"\n    ,\"color_1\": \"#f7941d\"\n    ,\"color_2\": \"#f15a29\"\n    ,\"color_3\": \"#ef4136\"\n    ,\"color_4\": \"#ec008c\"\n    ,\"color_5\": \"#c220ac\"\n    ,\"gen\": \"16\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1200,
+        336
+      ],
+      "id": "5eeb7551-6571-43ad-999f-2e19a9a4cf09",
+      "name": "origami"
     }
   ],
   "pinData": {},
@@ -553,6 +583,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-16T20:45:42.000Z",
-  "versionId": "4992a2a9-a846-40ab-8678-ac0aa9a20012"
+  "updatedAt": "2025-10-17T22:00:04.000Z",
+  "versionId": "611ada75-1ecd-4792-bb00-a9639daa3508"
 }
